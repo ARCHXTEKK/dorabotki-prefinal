@@ -1,0 +1,63 @@
+const lawsData = [
+    {
+        id: 1,
+        icon: 'constitution',
+        title: 'Конституция',
+        legalStrength: 5,
+        popularity: 100,
+        content: '',
+        sections: [
+            {
+                title: 'Раздел 1: Общие положения',
+                points: ['Пункт 1.1: Определение', 'Пункт 1.2: Основные принципы']
+            },
+            {
+                title: 'Раздел 2: Права и свободы человека',
+                points: ['Пункт 2.1: Права граждан', 'Пункт 2.2: Свободы']
+            }
+        ]
+    },    
+    { id: 2, icon: 'book', title: 'Гражданский кодекс', legalStrength: 3, popularity: 50}, 
+    { id: 3, icon: 'book', title: 'Налоговый кодекс', legalStrength: 3, popularity: 50}, 
+    { id: 4, icon: 'book', title: 'Трудовой кодекс', legalStrength: 3, popularity: 50 }, 
+    { id: 5, icon: 'book', title: 'Уголовный кодекс', legalStrength: 3, popularity: 50 },
+    { id: 6, icon: 'book', title: 'Кодекс об административных правонарушениях', legalStrength: 3, popularity: 50 }, 
+    { id: 7, icon: 'book', title: 'Гражданский процессуальный кодекс', legalStrength: 3, popularity: 50 }, 
+    { id: 8, icon: 'book', title: 'Уголовно-процессуальный кодекс', legalStrength: 3, popularity: 50 }, 
+    { id: 9, icon: 'book', title: 'Арбитражный процессуальный кодекс', legalStrength: 3, popularity: 50},
+    { id: 10, icon: 'book', title: 'Земельный кодекс', legalStrength: 3, popularity: 50 }, 
+    { id: 11, icon: 'book', title: 'Жилищный кодекс', legalStrength: 3, popularity: 50 }, 
+    { id: 12, icon: 'book', title: 'Семейный кодекс', legalStrength: 3, popularity: 50 }, 
+    { id: 13, icon: 'book', title: 'Бюджетный кодекс', legalStrength: 3, popularity: 50 },
+    { id: 14, icon: 'book', title: 'Градостроительный кодекс', legalStrength: 3, popularity: 50 }, 
+    { id: 15, icon: 'book', title: 'Таможенный кодекс Таможенного союза', legalStrength: 3, popularity: 50 }, 
+    { id: 16, icon: 'book', title: 'Кодекс административного судопроизводства', legalStrength: 3, popularity: 50 }, 
+    { id: 17, icon: 'book', title: 'Уголовно-исполнительный кодекс', legalStrength: 3, popularity: 50 },
+    { id: 18, icon: 'book', title: 'Лесной кодекс', legalStrength: 3, popularity: 50 }, 
+    { id: 19, icon: 'book', title: 'Воздушный кодекс', legalStrength: 3, popularity: 50 }, 
+    { id: 20, icon: 'book', title: 'Водный кодекс', legalStrength: 3, popularity: 50 }, 
+    { id: 21, icon: 'book', title: 'Кодекс торгового мореплавания', legalStrength: 3, popularity: 50 },
+    { id: 22, icon: 'book', title: 'Кодекс внутреннего водного транспорта', legalStrength: 3, popularity: 50 }, 
+    { id: 23, icon: 'file', title: 'Закон "О защите прав потребителей"', legalStrength: 2, popularity: 100 }, 
+    { id: 24, icon: 'file', title: 'Закон РФ "О приватизации жилищного фонда в Российской Федерации"', legalStrength: 2, popularity: 50}, 
+    { id: 25, icon: 'file', title: 'Закон РФ "Об авторском праве и смежных правах"' , legalStrength: 2, popularity: 100}, 
+    { id: 26, icon: 'file', title: 'ФЗ "О воинской обязанности и военной службе"', legalStrength: 1, popularity: 20}, 
+    { id: 27, icon: 'file', title: 'ФЗ "О войсках национальной гвардии Российской Федерации"', legalStrength: 1, popularity: 20 }, 
+    { id: 28, icon: 'file', title: 'ФЗ "О государственной регистрации юридических лиц и индивидуаль..."', legalStrength: 1, popularity: 20}, 
+    { id: 29, icon: 'file', title: 'ФЗ "О государственной регистрации недвижимости"', legalStrength: 1, popularity: 20 }, 
+    { id: 30, icon: 'file', title: 'ФЗ "О государственной регистрации транспортных средств"', legalStrength: 1, popularity: 20 }, 
+    { id: 31, icon: 'file', title: 'ФЗ "О государственном контроле (надзоре) и муниципальном контроле в Российск..."', legalStrength: 1, popularity: 20 }, 
+    { id: 32, icon: 'file', title: 'ФЗ "О нрсударственных пособиях гражданам, имеющих детей"', legalStrength: 1, popularity: 20 }, 
+    { id: 33, icon: 'file', title: 'ФЗ "О гражданстве Российской Федерации"', legalStrength: 1, popularity: 20 },
+    { id: 34, icon: 'file', title: 'ФЗ "О ежемесячных выплатах семьям, имеющих детей"', legalStrength: 1, popularity: 20 }, 
+    { id: 35, icon: 'file', title: 'ФЗ "О лицензировании отдельных видов деятельности"', legalStrength: 1, popularity: 20 }, 
+    { id: 36, icon: 'file', title: 'ФЗ "О несостоятельности (банкротстве)"', legalStrength: 1, popularity: 20 }, 
+    { id: 37, icon: 'file', title: 'ФЗ "О полиции"', legalStrength: 1, popularity: 20 }, 
+    { id: 38, icon: 'file', title: 'ФЗ "О правовом положении иностранных граждан в Российской Федерации"', legalStrength: 1, popularity: 20 }, 
+    { id: 39, icon: 'file', title: 'ФЗ "О развитии малого и среднего предпринимательства в Российск..."', legalStrength: 1, popularity: 20 }, 
+    { id: 40, icon: 'file', title: 'ФЗ "О контрактной системе в сфере закупок товаров, работ, услуг для обеспечения..."', legalStrength: 1, popularity: 20 }, 
+    { id: 41, icon: 'file', title: 'ФЗ "О стандартизации в Российской Федерации"', legalStrength: 1, popularity: 20 },
+    { id: 42, icon: 'file', title: 'ФЗ "О судебных приставах"', legalStrength: 1, popularity: 20 }, 
+];
+
+export default lawsData;
