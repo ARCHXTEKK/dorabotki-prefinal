@@ -388,31 +388,29 @@ const CaseList = ({
 
   return (
     <div className="case-list-wrapper">
-      <div className="case-list">
-        <List>
-          {casesForPage.map((caseData, index) => (
-            <Cell
-              key={index}
-              description={caseData.description}
-              className={`case-cell ${
-                index === casesForPage.length - 1 ? "no-border" : ""
-              }`}
-              style={{
-                borderBottom:
-                  index !== casesForPage.length - 1
-                    ? "2px solid #F5F5F5"
-                    : undefined,
-              }}
-              onClick={() => handleCaseClick(caseData)}
-            >
-              <div className="case-title">{caseData.section_title}</div>
-              <div className="case-description">
-                {caseData.section_description}
-              </div>
-            </Cell>
-          ))}
-        </List>
-      </div>
+      <List>
+        {casesForPage.map((caseData, index) => (
+          <Cell
+            key={index}
+            description={caseData.description}
+            className={`case-cell ${
+              index === casesForPage.length - 1 ? "no-border" : ""
+            }`}
+            style={{
+              borderBottom:
+                index !== casesForPage.length - 1
+                  ? "2px solid #F5F5F5"
+                  : undefined,
+            }}
+            onClick={() => handleCaseClick(caseData)}
+          >
+            <div className="case-title">{caseData.section_title}</div>
+            <div className="case-description">
+              {caseData.section_description}
+            </div>
+          </Cell>
+        ))}
+      </List>
     </div>
   );
 };
@@ -2450,146 +2448,148 @@ const App = () => {
   };
 
   const { viewWidth } = useAdaptivity();
-
+  /* 
+закомментировал AppRoot, View и Panel тупо потому что прошлый разраб использовал кастомную навигацию
+вместо VKUI навигации.
+в будущем думаю это изменится, поэтому решил пока не удалять.
+*/
   return (
     <ConfigProvider appearance="light">
       <AdaptivityProvider>
         {/* <AppRoot mode="embedded"> */}
-        <View activePanel="main">
-          <Panel id="main">
-            {!(activeSection === "WelcomePage") && (
-              <PanelHeader delimiter="auto">
-                <div className="header-center buttons-group">
-                  <div className="header-left">
-                    <img src={clearlogo} alt="Logo" className="logo" />
+        {/* <View activePanel="main"> */}
+        {/* <Panel id="main"> */}
+        <div className="app-wrapper">
+          {!(activeSection === "WelcomePage") && (
+            <PanelHeader delimiter="auto">
+              <div className="header-center buttons-group">
+                <div className="header-left">
+                  <img src={clearlogo} alt="Logo" className="logo" />
+                </div>
+                <div className="header-navigation button-wrapper">
+                  <div
+                    size="m"
+                    mode={
+                      activeSection === "Rubricator" ? "primary" : "secondary"
+                    }
+                    onClick={() => setActiveSection("Rubricator")}
+                    className={
+                      "left-button " +
+                      (activeSection === "Rubricator" ? "primary" : "secondary")
+                    }
+                  >
+                    Рубрикатор
                   </div>
-                  <div className="header-navigation button-wrapper">
-                    <div
-                      size="m"
-                      mode={
-                        activeSection === "Rubricator" ? "primary" : "secondary"
-                      }
-                      onClick={() => setActiveSection("Rubricator")}
-                      className={
-                        "left-button " +
-                        (activeSection === "Rubricator"
-                          ? "primary"
-                          : "secondary")
-                      }
-                    >
-                      Рубрикатор
-                    </div>
-                    <div
-                      size="m"
-                      mode={
-                        activeSection === "KeywordSearch"
-                          ? "primary"
-                          : "secondary"
-                      }
-                      onClick={() => setActiveSection("KeywordSearch")}
-                      className={
-                        "button-keyword " +
-                        (activeSection === "KeywordSearch"
-                          ? "primary"
-                          : "secondary")
-                      }
-                    >
-                      Поиск по ключевым словам
-                    </div>
-                    <div
-                      size="m"
-                      mode={
-                        activeSection === "LawSearch" ? "primary" : "secondary"
-                      }
-                      onClick={() => setActiveSection("LawSearch")}
-                      className={
-                        "button-lawsearch " +
-                        (activeSection === "LawSearch"
-                          ? "primary"
-                          : "secondary")
-                      }
-                    >
-                      Поиск по норме права
-                    </div>
-                    <div
-                      size="m"
-                      mode={
-                        activeSection === "AdvancedSearch"
-                          ? "primary"
-                          : "secondary"
-                      }
-                      onClick={() => setActiveSection("AdvancedSearch")}
-                      className={
-                        "right-button " +
-                        (activeSection === "AdvancedSearch"
-                          ? "primary"
-                          : "secondary")
-                      }
-                    >
-                      Расширенный поиск
-                    </div>
+                  <div
+                    size="m"
+                    mode={
+                      activeSection === "KeywordSearch"
+                        ? "primary"
+                        : "secondary"
+                    }
+                    onClick={() => setActiveSection("KeywordSearch")}
+                    className={
+                      "button-keyword " +
+                      (activeSection === "KeywordSearch"
+                        ? "primary"
+                        : "secondary")
+                    }
+                  >
+                    Поиск по ключевым словам
+                  </div>
+                  <div
+                    size="m"
+                    mode={
+                      activeSection === "LawSearch" ? "primary" : "secondary"
+                    }
+                    onClick={() => setActiveSection("LawSearch")}
+                    className={
+                      "button-lawsearch " +
+                      (activeSection === "LawSearch" ? "primary" : "secondary")
+                    }
+                  >
+                    Поиск по норме права
+                  </div>
+                  <div
+                    size="m"
+                    mode={
+                      activeSection === "AdvancedSearch"
+                        ? "primary"
+                        : "secondary"
+                    }
+                    onClick={() => setActiveSection("AdvancedSearch")}
+                    className={
+                      "right-button " +
+                      (activeSection === "AdvancedSearch"
+                        ? "primary"
+                        : "secondary")
+                    }
+                  >
+                    Расширенный поиск
                   </div>
                 </div>
-              </PanelHeader>
-            )}
-
-            {!(
-              activeSection === "LawSearch" ||
-              activeSection === "WelcomePage" ||
-              activeSection === "KeywordSearch" ||
-              activeSection === "LawPanel" ||
-              activeSection === "FindPage"
-            ) && (
-              <div>
-                <div className="header-with-pagination">
-                  <h2 className="rubricator-header">
-                    {sectionTitles[activeSection]}
-                  </h2>
-                  {activeSection === "Rubricator" &&
-                    selectedCategory !== null &&
-                    selectedCategory !== undefined && (
-                      <Pagination
-                        currentPage={currentPage}
-                        totalPages={totalPages}
-                        onPageChange={setCurrentPage}
-                      />
-                    )}
-                </div>
-                {activeSection === "AdvancedSearch" && (
-                  <div className="warning">
-                    <div className="warning-icon">
-                      <img src={warningicon} style={{ height: "15px" }} />
-                    </div>
-                    <div>
-                      Обратите внимание: вам необязательно заполнять все полня
-                      данной формы. Для начала поиска достаточно заполнения
-                      одного любого поля.
-                    </div>
-                  </div>
-                )}
               </div>
-            )}
-            <div
-              className={`main-content ${
-                activeSection === "Rubricator" ? "" : "full-width"
-              }`}
-            >
-              <div className="content-area">{renderActiveSection()}</div>
+            </PanelHeader>
+          )}
+
+          {!(
+            activeSection === "LawSearch" ||
+            activeSection === "WelcomePage" ||
+            activeSection === "KeywordSearch" ||
+            activeSection === "LawPanel" ||
+            activeSection === "FindPage"
+          ) && (
+            <div>
+              <div className="header-with-pagination">
+                <h2 className="rubricator-header">
+                  {sectionTitles[activeSection]}
+                </h2>
+                {activeSection === "Rubricator" &&
+                  selectedCategory !== null &&
+                  selectedCategory !== undefined && (
+                    <Pagination
+                      currentPage={currentPage}
+                      totalPages={totalPages}
+                      onPageChange={setCurrentPage}
+                    />
+                  )}
+              </div>
+              {activeSection === "AdvancedSearch" && (
+                <div className="warning">
+                  <div className="warning-icon">
+                    <img src={warningicon} style={{ height: "15px" }} />
+                  </div>
+                  <div>
+                    Обратите внимание: вам необязательно заполнять все полня
+                    данной формы. Для начала поиска достаточно заполнения одного
+                    любого поля.
+                  </div>
+                </div>
+              )}
             </div>
-            <footer className="app-footer">
-              <p>
-                © 2024,{" "}
-                <a
-                  href="https://vk.com/law365"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Мир юриспруденции
-                </a>
-              </p>
-            </footer>
-          </Panel>
-        </View>
+          )}
+          <div
+            className={`main-content ${
+              activeSection === "Rubricator" ? "" : "full-width"
+            }`}
+          >
+            <div className="content-area">{renderActiveSection()}</div>
+          </div>
+          <footer className="app-footer">
+            <p>
+              © 2024,{" "}
+              <a
+                href="https://vk.com/law365"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Мир юриспруденции
+              </a>
+            </p>
+          </footer>
+        </div>
+        {/* </Panel> */}
+        {/* </View> */}
         {/* </AppRoot> */}
       </AdaptivityProvider>
     </ConfigProvider>
