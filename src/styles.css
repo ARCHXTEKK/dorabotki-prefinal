@@ -415,6 +415,7 @@ Button {
   text-align: left;
   display: flex;
   align-items: flex-start;
+  font-family: "Open Sans", sans-serif;
 }
 .category-title {
   font-weight: 600;
@@ -423,7 +424,6 @@ Button {
 .subcategory-title {
   font-weight: normal;
   max-width: 210px;
-  font-family: Arial;
   min-width: 210px;
   width: auto;
 }

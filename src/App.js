@@ -153,6 +153,7 @@ const SidePanel = ({
   setShowSidePanel,
   setContent,
   searchContent,
+  filteredContent,
 }) => {
   const isMobile = useMediaQuery({ maxWidth: 768 });
 
@@ -173,17 +174,31 @@ const SidePanel = ({
   const [expandedCategories, setExpandedCategories] = useState({});
   const [selectedCategory, setSelectedCategory] = useState(null);
 
-  const filteredCategories = useMemo(
-    () =>
-      categories.filter(
-        (category) =>
-          category.name.toLowerCase().includes(searchContent.toLowerCase()) ||
-          category.subcategories.some((sub) =>
-            sub.name.toLowerCase().includes(searchContent.toLowerCase())
+  const filteredCategories = useMemo(() => {
+    let newCategories = categories.filter(
+      (category) =>
+        category.subcategories.some((subcategory) =>
+          filteredContent?.some(
+            (filteredCase) => filteredCase.category_url === subcategory.url
           )
-      ),
-    [searchContent, categories]
-  );
+        ) || category.name.toLowerCase().includes(searchContent.toLowerCase())
+    );
+
+    newCategories = newCategories?.map((newCategory) => {
+      return {
+        ...newCategory,
+        subcategories: newCategory.subcategories.filter(
+          (subcategory) =>
+            filteredContent?.some(
+              (filteredCase) => filteredCase.category_url === subcategory.url
+            ) ||
+            searchContent.toLowerCase() === "" ||
+            subcategory.name.toLowerCase().includes(searchContent.toLowerCase())
+        ),
+      };
+    });
+    return newCategories;
+  }, [searchContent, categories]);
 
   const handleCategoryClick = async (categoryTitle) => {
     if (
@@ -2356,7 +2371,6 @@ const App = () => {
       const response = await axios.get(
         `https://lawrs.ru:8000/api/court-cases/?category=${categoryTitle}&page_size=1000`
       );
-      console.log("fetched!");
 
       const data = response.data.results;
       setContent(data);
@@ -2373,10 +2387,10 @@ const App = () => {
   };
 
   const filterContent = (content) => {
+    console.log(content);
     if (searchContent === "") {
       return content;
     } else {
-      console.log(content);
       return content.filter(
         (item) =>
           item.section_title
@@ -2384,7 +2398,8 @@ const App = () => {
             .includes(searchContent.toLowerCase()) ||
           item.section_description
             .toLowerCase()
-            .includes(searchContent.toLowerCase())
+            .includes(searchContent.toLowerCase()) ||
+          item.
       );
     }
   };
@@ -2407,7 +2422,7 @@ const App = () => {
               setContent={setContent}
               searchContent={searchContent}
               setSearchContent={setSearchContent}
-              filterContent={filterContent}
+              filteredContent={filterContent(content)}
             />
             <RubricatorPanel
               content={content}
