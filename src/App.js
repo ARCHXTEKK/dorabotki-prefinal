@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useState, useMemo, useEffect, useRef } from "react";
 import {
   View,
@@ -2346,11 +2348,6 @@ const App = () => {
     };
   }, []);
 
-  const handleCategoryClick = (categoryTitle) => {
-    setSelectedCategory(categoryTitle);
-    fetchDataForCategory(categoryTitle);
-  };
-
   const fetchDataForCategory = async (categoryTitle) => {
     try {
       if (!categoryTitle) {
@@ -2359,6 +2356,8 @@ const App = () => {
       const response = await axios.get(
         `https://lawrs.ru:8000/api/court-cases/?category=${categoryTitle}&page_size=1000`
       );
+      console.log("fetched!");
+
       const data = response.data.results;
       setContent(data);
       setCurrentPage(1);
@@ -2368,10 +2367,16 @@ const App = () => {
     }
   };
 
+  const handleCategoryClick = (categoryTitle) => {
+    setSelectedCategory(categoryTitle);
+    fetchDataForCategory(categoryTitle);
+  };
+
   const filterContent = (content) => {
     if (searchContent === "") {
       return content;
     } else {
+      console.log(content);
       return content.filter(
         (item) =>
           item.section_title
@@ -2394,8 +2399,8 @@ const App = () => {
             <SidePanel
               selectedCategory={selectedCategory}
               onSelectCategory={handleCategoryClick}
-              searchQuery={searchQuery}
-              onSearch={setSearchQuery}
+              searchQuery={searchContent}
+              onSearch={onSearch}
               showSidePanel={showSidePanel}
               setShowSidePanel={setShowSidePanel}
               setCategoryInfo={setCategoryInfo}
@@ -2595,6 +2600,7 @@ const App = () => {
     </ConfigProvider>
   );
 };
+
 const headerNavigation = document.querySelectorAll(
   ".left-button, .button-keyword, .button-lawsearch, .right-button"
 );

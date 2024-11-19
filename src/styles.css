@@ -1803,6 +1803,7 @@ h3:hover {
   .subcategory-cell {
     padding: 0px;
   }
+
   .category-cell {
     margin-right: auto;
     width: 350px;
@@ -1867,4 +1868,8 @@ h3:hover {
   flex-direction: column;
 
   height: 100%;
+}
+
+.subcategory-cell.selected .subcategory-title {
+  cursor: default;
 }
