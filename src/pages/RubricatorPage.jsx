@@ -5,6 +5,7 @@ import { SidePanel } from "../components/Rubricator/SidePanel";
 import { CasesPanel } from "../components/Rubricator/CasesPanel";
 import { useRubricatorState } from "../hooks/useRubricatorState";
 import { useRouteNavigator } from "@vkontakte/vk-mini-apps-router";
+import Pagination from "./../ui/Pagination";
 
 export default function RubricatorPage() {
   const {
@@ -15,6 +16,8 @@ export default function RubricatorPage() {
     onCategorySelect,
     onSubcategorySelect,
     selectedCategory,
+    totalPages,
+    onPageChange,
   } = useRubricatorState();
 
   const routeNavigator = useRouteNavigator();
@@ -25,11 +28,24 @@ export default function RubricatorPage() {
     });
   };
 
+  const handleSearchSubmit = () => [
+    routeNavigator.push("/searchresults/", {
+      state: { caseText: searchContent, court: "", judge: "" },
+    }),
+  ];
+
   return (
     <div className="app-wrapper">
       <Header />
       <main className="page-content page-content--flex">
-        <h2 className="page-title">Рубрикатор судебной практики</h2>
+        <div className="row">
+          <h2 className="page-title">Рубрикатор судебной практики</h2>
+          <Pagination
+            initialPage={0}
+            onPageChange={onPageChange}
+            totalPages={totalPages}
+          />
+        </div>
         <div className="RubricatorPanel">
           <SidePanel
             onSearch={onSearch}
@@ -39,6 +55,7 @@ export default function RubricatorPage() {
             onSubcategorySelect={onSubcategorySelect}
             show={true}
             selectedCategory={selectedCategory}
+            handleSearchSubmit={handleSearchSubmit}
           />
           <CasesPanel handleCaseClick={handleCaseClick} cases={cases} />
         </div>

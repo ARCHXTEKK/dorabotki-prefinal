@@ -8,6 +8,11 @@ import { Cell, List } from "@vkontakte/vkui";
 export const CasesPanel = ({ cases, handleCaseClick }) => {
   return (
     <div className="case-list-wrapper">
+      {cases.length === 0 && (
+        <div className="cases-loading">
+          Подождите пожалуйста. Данные загружаются
+        </div>
+      )}
       <List>
         {cases.map((caseData, index) => (
           <Cell

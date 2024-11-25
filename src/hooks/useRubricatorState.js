@@ -12,9 +12,23 @@ export const useRubricatorState = () => {
 
   const { state, dispatch } = useStore();
 
+  const [totalPages, setTotalPages] = useState(0);
+  const [slicedContent, setSlicedContent] = useState([]);
+
+  const itemsByPage = 9;
+
+  const sliceContent = (content, page) => {
+    return content.slice(itemsByPage * page, itemsByPage * (page + 1));
+  };
+
+  const onPageChange = (page) => {
+    setSlicedContent(sliceContent(cases, page));
+  };
+
   const onSearch = (e) => {
     setSearchContent(e.target.value);
   };
+
   /**
    * @param {string} categoryName - название категории на которую кликнули, по ней осуществляется изменение отображаемого контента
    */
@@ -25,6 +39,8 @@ export const useRubricatorState = () => {
 
       setCases(newCases);
       setSelectedCategory(categoryName);
+      setTotalPages(Math.ceil(newCases.length / itemsByPage));
+      setSlicedContent(sliceContent(newCases, 0));
     }
   };
 
@@ -45,6 +61,9 @@ export const useRubricatorState = () => {
             x.subcategories.find((y) => y.subcategory === subcategoryName)
           )
         ) {
+          setCases([]);
+          setSlicedContent([]);
+          setSelectedCategory(subcategoryName);
           await axios
             .get("https://lawrs.ru:8000/api/court-cases/", {
               params: {
@@ -52,25 +71,30 @@ export const useRubricatorState = () => {
               },
             })
             .then((r) => {
-              setCases(r.data.results);
+              const newCases = r.data.results;
+
+              setCases(newCases);
               dispatch({
                 type: "court-cases-add",
                 payload: {
                   category: categoryName,
                   subcategory: subcategoryName,
-                  data: r.data.results,
+                  data: newCases,
                 },
               });
               setSelectedCategory(subcategoryName);
+              setTotalPages(Math.ceil(newCases.length / itemsByPage));
+              setSlicedContent(sliceContent(newCases, 0));
             });
         } else {
-          setCases(
-            state.casesByCategory
-              .find((x) => x.category === categoryName)
-              .subcategories.find((y) => y.subcategory === subcategoryName)
-              .cases
-          );
+          const newCases = state.casesByCategory
+            .find((x) => x.category === categoryName)
+            .subcategories.find((y) => y.subcategory === subcategoryName).cases;
+
+          setCases(newCases);
           setSelectedCategory(subcategoryName);
+          setTotalPages(Math.ceil(newCases.length / itemsByPage));
+          setSlicedContent(sliceContent(newCases, 0));
         }
       } catch (e) {
         console.log(
@@ -101,9 +125,11 @@ export const useRubricatorState = () => {
     searchContent,
     onSearch,
     categories,
-    cases,
+    cases: slicedContent,
     onCategorySelect,
     onSubcategorySelect,
     selectedCategory,
+    totalPages,
+    onPageChange,
   };
 };

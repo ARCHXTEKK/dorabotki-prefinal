@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="app-footer">
       <p>
-        © 2024,{" "}
+        © 2023-2024,{" "}
         <a
           href="https://vk.com/law365"
           target="_blank"

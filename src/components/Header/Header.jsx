@@ -6,7 +6,7 @@ import {
   useRouteNavigator,
 } from "@vkontakte/vk-mini-apps-router";
 
-export default function Header() {
+export default function Header({ forceActiveTab = null }) {
   const routeNavigator = useRouteNavigator();
   const activePanel = useGetPanelForView("default_view");
 
@@ -19,11 +19,17 @@ export default function Header() {
         <div className="header-navigation button-wrapper">
           <div
             size="m"
-            mode={activePanel === "rubricator-panel" ? "primary" : "secondary"}
+            mode={
+              activePanel === "rubricator-panel" || forceActiveTab === 0
+                ? "primary"
+                : "secondary"
+            }
             onClick={() => routeNavigator.push("/rubricator")}
             className={
               "left-button " +
-              (activePanel === "rubricator-panel" ? "primary" : "secondary")
+              (activePanel === "rubricator-panel" || forceActiveTab === 0
+                ? "primary"
+                : "secondary")
             }
           >
             Рубрикатор
@@ -31,23 +37,33 @@ export default function Header() {
           <div
             size="m"
             mode={
-              activePanel === "keyword-search-panel" ? "primary" : "secondary"
+              activePanel === "keyword-search-panel" || forceActiveTab === 1
+                ? "primary"
+                : "secondary"
             }
             onClick={() => routeNavigator.push("/keywordsearch")}
             className={
               "button-keyword " +
-              (activePanel === "keyword-search-panel" ? "primary" : "secondary")
+              (activePanel === "keyword-search-panel" || forceActiveTab === 1
+                ? "primary"
+                : "secondary")
             }
           >
             Поиск по ключевым словам
           </div>
           <div
             size="m"
-            mode={activePanel === "law-search-panel" ? "primary" : "secondary"}
+            mode={
+              activePanel === "law-search-panel" || forceActiveTab === 2
+                ? "primary"
+                : "secondary"
+            }
             onClick={() => routeNavigator.push("/lawsearch")}
             className={
               "button-lawsearch " +
-              (activePanel === "law-search-panel" ? "primary" : "secondary")
+              (activePanel === "law-search-panel" || forceActiveTab === 2
+                ? "primary"
+                : "secondary")
             }
           >
             Поиск по норме права
@@ -55,12 +71,14 @@ export default function Header() {
           <div
             size="m"
             mode={
-              activePanel === "advanced-search-panel" ? "primary" : "secondary"
+              activePanel === "advanced-search-panel" || forceActiveTab === 3
+                ? "primary"
+                : "secondary"
             }
             onClick={() => routeNavigator.push("/advancedsearch")}
             className={
               "right-button " +
-              (activePanel === "advanced-search-panel"
+              (activePanel === "advanced-search-panel" || forceActiveTab === 3
                 ? "primary"
                 : "secondary")
             }

@@ -30,7 +30,7 @@ export default function Pagination({
               onClick={() => handlePageClick(index)}
               aria-current={currentPage === index ? "page" : undefined}
             >
-              {index}
+              {index + 1}
             </button>
           );
         }
@@ -46,7 +46,7 @@ export default function Pagination({
               onClick={() => handlePageClick(index)}
               aria-current={currentPage === index ? "page" : undefined}
             >
-              {index}
+              {index + 1}
             </button>
           );
         }
@@ -66,7 +66,7 @@ export default function Pagination({
               onClick={() => handlePageClick(index)}
               aria-current={currentPage === index ? "page" : undefined}
             >
-              {index}
+              {index + 1}
             </button>
           );
         }
@@ -82,7 +82,7 @@ export default function Pagination({
               onClick={() => handlePageClick(index)}
               aria-current={currentPage === index ? "page" : undefined}
             >
-              {index}
+              {index + 1}
             </button>
           );
         }
@@ -96,7 +96,7 @@ export default function Pagination({
             onClick={() => handlePageClick(0)}
             aria-current={currentPage === 0 ? "page" : undefined}
           >
-            {0}
+            {1}
           </button>
         );
         buttons.push(<span key="gap-start2">...</span>);
@@ -111,7 +111,7 @@ export default function Pagination({
               onClick={() => handlePageClick(index)}
               aria-current={currentPage === index ? "page" : undefined}
             >
-              {index}
+              {index + 1}
             </button>
           );
         }
@@ -125,7 +125,7 @@ export default function Pagination({
             onClick={() => handlePageClick(totalPages)}
             aria-current={currentPage === totalPages ? "page" : undefined}
           >
-            {totalPages}
+            {totalPages + 1}
           </button>
         );
       }
@@ -140,7 +140,7 @@ export default function Pagination({
             onClick={() => handlePageClick(i)}
             aria-current={currentPage === i ? "page" : undefined}
           >
-            {i}
+            {i + 1}
           </button>
         );
       }

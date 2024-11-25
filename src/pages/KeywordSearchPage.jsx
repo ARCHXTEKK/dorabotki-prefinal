@@ -36,10 +36,7 @@ export default function KeywordSearchPage() {
           <div className="alphabet-page">
             <div className="alphabet-nav-wrapper">
               <div className="Keywordsearch-wrapper">
-                <Icon28SearchOutline
-                  className="search-icon"
-                  style={{ margin: "5px 0px 0px 2px" }}
-                />
+                <Icon28SearchOutline className="search-icon" />
                 <input
                   className="Keywordsearch-input"
                   type="text"
@@ -48,8 +45,7 @@ export default function KeywordSearchPage() {
                   onChange={onSearch}
                 />
                 <button
-                  className="Keywordsearch-find"
-                  size="m"
+                  className="uibtn keywordsearch-uibtn"
                   mode="secondary"
                   onClick={handleSubmit}
                   disabled={selectedGroup === 0}

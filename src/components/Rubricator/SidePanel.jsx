@@ -33,6 +33,7 @@ export const SidePanel = ({
   onSubcategorySelect,
   selectedCategory,
   show,
+  handleSearchSubmit,
 }) => {
   const icons = [
     folderIcon1,
@@ -45,7 +46,10 @@ export const SidePanel = ({
   return (
     <div className={`side-panel ${show ? "show" : "hide"}`}>
       <div className="search-bar" style={{ borderBottom: "1px solid #F5F5F5" }}>
-        <Icon28SearchOutline className="search-icon" />
+        <Icon28SearchOutline
+          className="search-icon"
+          onClick={handleSearchSubmit}
+        />
         <input
           type="text"
           placeholder="Введите название раздела..."

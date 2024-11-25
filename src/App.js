@@ -1,8 +1,16 @@
 import {
   useActiveVkuiLocation,
   useGetPanelForView,
+  useRouteNavigator,
 } from "@vkontakte/vk-mini-apps-router";
-import { Panel, Root, View } from "@vkontakte/vkui";
+import {
+  ModalCard,
+  ModalRoot,
+  Panel,
+  Root,
+  SplitLayout,
+  View,
+} from "@vkontakte/vkui";
 import React, { useEffect } from "react";
 import "./styles.css";
 import WelcomePage from "./pages/WelcomePage";
@@ -19,10 +27,10 @@ import { useStore } from "./hooks/useStore";
 import LetterSearchPage from "./pages/LetterSearchPage";
 
 export default function App() {
+  const { dispatch } = useStore();
+
   const activePanel = useGetPanelForView("default_view");
   const { view: activeView } = useActiveVkuiLocation();
-
-  const { dispatch } = useStore();
 
   useEffect(() => {
     try {

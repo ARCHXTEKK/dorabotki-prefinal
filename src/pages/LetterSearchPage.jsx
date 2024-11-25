@@ -8,6 +8,7 @@ import { useParams, useRouteNavigator } from "@vkontakte/vk-mini-apps-router";
 import { useLetterSearchState } from "../hooks/useLetterSearchState";
 import { groupedAlphabet } from "../lib/consts";
 import triangleIcon from "./../assets/triangleIcon";
+import Backtosearchicon from "../assets/Backtosearchicon";
 
 export default function LetterSearchPage() {
   const { letter } = useParams();
@@ -36,7 +37,7 @@ export default function LetterSearchPage() {
 
   return (
     <div className="app-wrapper">
-      <Header />
+      <Header forceActiveTab={1} />
       <main className="page-content">
         <div className="row">
           <h2 className="page-title">
@@ -60,12 +61,8 @@ export default function LetterSearchPage() {
         <div className="word-list">
           <div className="inAlphabet-nav">
             <div className="inAlphabet-buttons">
-              <button className="btn btn-active" onClick={handleBack}>
-                <img
-                  src={backtosearchicon}
-                  alt="search"
-                  style={{ height: "12px", padding: "2px 5px 0px 0px" }}
-                />
+              <button className="uibtn uibtn--icon left" onClick={handleBack}>
+                <Backtosearchicon className="uibtn__icon left" />
                 Вернуться к алфавиту
               </button>
               <button

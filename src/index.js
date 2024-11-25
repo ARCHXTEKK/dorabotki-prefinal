@@ -48,7 +48,7 @@ const router = createHashParamRouter([
     view: "default_view",
   },
   {
-    path: "/lawsearch/lawdetails",
+    path: "/lawsearch/lawdetails/:id",
     panel: "law-details-panel",
     view: "default_view",
   },
@@ -58,7 +58,7 @@ const router = createHashParamRouter([
     view: "default_view",
   },
   {
-    path: "/advancedsearch/searchresults",
+    path: "/searchresults",
     panel: "search-results-panel",
     view: "default_view",
   },

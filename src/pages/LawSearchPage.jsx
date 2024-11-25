@@ -16,6 +16,7 @@ import { useRouteNavigator } from "@vkontakte/vk-mini-apps-router";
 import constitution from "../assets/constitution.png";
 import fileicon from "../assets/fileicon.png";
 import bookicon from "../assets/bookicon.png";
+import ShowIcon from "./../assets/ShowIcon";
 
 export default function LawSearchPage() {
   const {
@@ -37,7 +38,9 @@ export default function LawSearchPage() {
   const routeNavigator = useRouteNavigator();
 
   const handleLawClick = (id) => {
-    routeNavigator.push("");
+    routeNavigator.push("/lawsearch/lawdetails/:id", {
+      id,
+    });
   };
 
   return (
@@ -60,14 +63,23 @@ export default function LawSearchPage() {
         </div>
         <div className="law-search-controls">
           <div className="law-search-buttons">
-            <div className="display-button" onClick={onDisplayOptionsClick}>
-              <img src={displayicon} alt="Отображение" />
-              <button className="law-search-button">Отображение</button>
-              <img
-                src={downicon}
-                alt="downicon"
-                style={{ height: "5px", marginTop: "5px" }}
-              />
+            <div className="display-button-details">
+              <button
+                onClick={onDisplayOptionsClick}
+                className="uibtn uibtn--outline uibtn--select"
+              >
+                Отображение
+                <ShowIcon className="uibtn__icon left show-icon " />
+                <img
+                  src={downicon}
+                  alt="downicon"
+                  className={
+                    "uibtn__select-icon" +
+                    (!showDisplayOptions ? " rotated" : "")
+                  }
+                  height={6}
+                />
+              </button>
               <div
                 className={
                   "options-container fade-top " +
@@ -112,14 +124,28 @@ export default function LawSearchPage() {
               </div>
             </div>
 
-            <div className="sort-button" onClick={onSortOptionsClick}>
-              <img src={sorticon} alt="Сортировка" />
-              <button className="law-search-button-right">Сортировать</button>
-              <img
-                src={downicon}
-                alt="downicon"
-                style={{ height: "5px", marginTop: "5px" }}
-              />
+            <div className="display-button-details">
+              <button
+                onClick={onSortOptionsClick}
+                className="uibtn uibtn--outline uibtn--select"
+              >
+                Сортировать
+                <img
+                  src={sorticon}
+                  alt="Сортировка"
+                  className="uibtn__icon left"
+                  height={10}
+                  width={19}
+                />
+                <img
+                  src={downicon}
+                  alt="downicon"
+                  className={
+                    "uibtn__select-icon" + (!showSortOptions ? " rotated" : "")
+                  }
+                  height={6}
+                />
+              </button>
               <div
                 className={
                   "options-container2 fade-top " +
@@ -150,8 +176,8 @@ export default function LawSearchPage() {
           />
         </div>
         <div className="law-search-list">
-          {content.map((law) => (
-            <div
+          {content?.map((law) => (
+            <button
               className="law-search-block"
               key={law.id}
               onClick={() => handleLawClick(law.id)}
@@ -192,7 +218,7 @@ export default function LawSearchPage() {
                 />
               )}
               {law.title}
-            </div>
+            </button>
           ))}
         </div>
       </main>

@@ -2,6 +2,9 @@ export const initState = {
   categories: [],
   casesByCategory: [],
   keywordsData: {},
+  lawsData: [],
+  judges: [],
+  courts: [],
 };
 
 export const reducer = (state, action) => {
@@ -11,6 +14,7 @@ export const reducer = (state, action) => {
         ...state,
         categories: action.payload,
       };
+
     case "court-cases-add":
       let newCases = state.casesByCategory;
       const { category, subcategory, data } = action.payload;
@@ -47,6 +51,18 @@ export const reducer = (state, action) => {
         ...state,
         keywordsData: action.payload,
       };
+
+    case "laws-set":
+      return {
+        ...state,
+        lawsData: action.payload,
+      };
+
+    case "judges-set":
+      return { ...state, judges: action.payload };
+
+    case "courts-set":
+      return { ...state, courts: action.payload };
 
     default:
       return state;

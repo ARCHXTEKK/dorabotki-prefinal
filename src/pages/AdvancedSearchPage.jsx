@@ -42,7 +42,6 @@ export default function AdvancedSearchPage() {
     setJudge,
     courts,
     judges,
-    disputants,
     disputant,
     setDisputant,
     handleClear,
@@ -55,7 +54,7 @@ export default function AdvancedSearchPage() {
 
   const handleSubmit = () => {
     routeNavigator.push(
-      "/advancedsearch/searchresults",
+      "/searchresults",
       {
         state: {
           selectedFilter,
@@ -83,6 +82,8 @@ export default function AdvancedSearchPage() {
           <div className="advanced-search-input-group">
             <div className="advancedsearch-date-wrapper">
               <div className="advancedsearch-date-left">
+                <div className="advanced-title">с</div>
+
                 <div
                   className="data-input-left"
                   style={{ border: "1px solid #f0f0f0" }}
@@ -221,13 +222,14 @@ export default function AdvancedSearchPage() {
                     <div className="advanced-title">Вид производства</div>
                     <div className="inputdropicon">
                       <select
+                        className="advanced-select"
                         style={{
                           display: "flex",
                           backgroundColor: "#fff",
-                          padding: "0px",
                           borderRadius: "5px",
                           border: "none",
                           color: "#5c5f6d",
+                          height: "33px",
                         }}
                         value={productionType}
                         onChange={onProductionTypeChange}
@@ -358,6 +360,7 @@ export default function AdvancedSearchPage() {
                   <div className="advanced-title">Суд</div>
                   <div className="inputdropicon">
                     <select
+                      className="advanced-select"
                       style={{
                         display: "flex",
                         backgroundColor: "#fff",
@@ -390,6 +393,7 @@ export default function AdvancedSearchPage() {
                   <div className="advanced-title">Судья</div>
                   <div className="inputdropicon">
                     <select
+                      className="advanced-select"
                       style={{
                         display: "flex",
                         backgroundColor: "#fff",
@@ -423,9 +427,13 @@ export default function AdvancedSearchPage() {
                 <div className="advanced-title">Участник спора</div>
                 <div
                   className="inputdropicon"
-                  style={{ display: "flex", alignItems: "center" }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    height: "38px",
+                  }}
                 >
-                  <select
+                  <input
                     style={{
                       backgroundColor: "#fff",
                       borderRadius: "5px",
@@ -433,76 +441,77 @@ export default function AdvancedSearchPage() {
                       width: "73%",
                       color: "#5c5f6d",
                     }}
+                    className="advanced-select"
                     value={disputant}
                     onChange={(e) => setDisputant(e.target.value)}
-                  >
-                    <option value=""></option>
-                    {disputants.map((item, index) => (
-                      <option key={index} value={item}>
-                        {item}
-                      </option>
-                    ))}
-                  </select>
-                  <select
-                    value={selectedRole}
-                    onChange={(e) => setSelectedRole(e.target.value)}
+                  ></input>
+                  <div
                     style={{
-                      border: "none",
-                      borderLeft: "1px solid #f0f0f0",
-                      height: "25px",
-                      appearance: "none",
-                      WebkitAppearance: "none",
-                      MozAppearance: "none",
-                      padding: "0px 5px",
-                      color: "#5c5f6d",
-                      width: "25%",
-                      minWidth: "120px",
+                      position: "relative",
+                      display: "flex",
+                      alignItems: "center",
                     }}
                   >
-                    {roles.map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                  <img
-                    src={downicon}
-                    style={{ height: "5px" }}
-                    alt="down icon"
-                  />
+                    <select
+                      value={selectedRole}
+                      className="advanced-select"
+                      onChange={(e) => setSelectedRole(e.target.value)}
+                      style={{
+                        border: "none",
+                        borderLeft: "1px solid #f0f0f0",
+                        height: "34px",
+                        appearance: "none",
+                        WebkitAppearance: "none",
+                        MozAppearance: "none",
+                        padding: "0px 5px",
+                        color: "#5c5f6d",
+                        width: "25%",
+                        minWidth: "120px",
+                      }}
+                    >
+                      {roles.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                    <img
+                      src={downicon}
+                      style={{
+                        height: "5px",
+                        position: "absolute",
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                      }}
+                      alt="down icon"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
           <div className="advanced-search-buttons">
-            <div onClick={handleSubmit} className="advanced-find-button">
+            <button onClick={handleSubmit} className="uibtn uibtn--icon left">
               <img
                 src={findicon}
-                style={{
-                  height: "15px",
-                  paddingTop: "7.5px",
-                  paddingBottom: "7.5px",
-                  paddingLeft: "10px",
-                }}
+                height={15}
+                className="uibtn__icon left"
+                style={{ left: "16px" }}
               />
-              <button size="l" className="advanced-search">
-                Найти
-              </button>
-            </div>
-            <div onClick={handleClear} className="advanced-clear-button">
+              Найти
+            </button>
+            <button
+              onClick={handleClear}
+              className="uibtn uibtn--outline uibtn--icon left"
+            >
               <img
                 src={clearicon}
-                style={{
-                  height: "15px",
-                  paddingTop: "7.5px",
-                  paddingBottom: "7.5px",
-                  paddingLeft: "10px",
-                }}
+                className="uibtn__icon left"
+                height={15}
+                style={{ left: "16px" }}
               />
-              <button size="l" className="advanced-clear">
-                Очистить все поля
-              </button>
-            </div>
+              Очистить все поля
+            </button>
           </div>
         </Group>
       </div>

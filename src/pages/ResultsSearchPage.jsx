@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
-import { useMetaParams } from "@vkontakte/vk-mini-apps-router";
+import { useMetaParams, useParams } from "@vkontakte/vk-mini-apps-router";
 import { useSearchResultsState } from "../hooks/useSearchResultsState";
 import Pagination from "../ui/Pagination";
 import { useRouteNavigator } from "@vkontakte/vk-mini-apps-router";
@@ -15,104 +15,126 @@ import fileicon3 from "../assets/fileicon3.png";
 import backtosearchicon from "../assets/backtosearchicon.png";
 
 import { List } from "@vkontakte/vkui";
+import Backtosearchicon from "../assets/Backtosearchicon";
+import ShowIcon from "./../assets/ShowIcon";
 
 const fileIcons = [fileicon3, fileicon2, fileicon1];
 
 export default function ResultsSearchPage() {
   const routeNavigator = useRouteNavigator();
   const filters = useMetaParams();
-  const { totalPages, onPageChange, currentItems } =
-    useSearchResultsState(filters);
+
+  const {
+    totalPages,
+    onPageChange,
+    currentItems,
+    showDisplayOptions,
+    onDisplayOptionsClick,
+    displayOptionsState,
+    onDisplayOptionToggle,
+    onClickOutside,
+  } = useSearchResultsState(filters);
 
   const handleBack = () => {
     routeNavigator.back();
   };
   const handleCaseClick = (id) => {
-    routeNavigator.push(
-      "",
-      {
-        id,
-      },
-      {
-        keepSearchParams: true,
-      }
-    );
+    routeNavigator.push("/rubricator/casedetails/:id", {
+      id: id,
+    });
   };
 
   return (
-    <div className="app-wrapper">
-      <Header />
+    <div className="app-wrapper" onClick={onClickOutside}>
+      <Header forceActiveTab={0} />
       <main className="page-content">
         <h2 className="page-title">Результаты поиска</h2>
-        <div className="FindPage-buttons" style={{ display: "flex" }}>
-          <div
-            className="backtosearch"
-            onClick={handleBack}
-            style={{
-              marginRight: "10px",
-              borderRadius: "5px",
-              color: "#fff",
-              padding: "0px 10px",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <img
-              src={backtosearchicon}
-              style={{ height: "15px", padding: "2px 5px 0px 0px" }}
-            />
-            Вернуться к поиску
+        <div className="row">
+          <div className="law-search-buttons results-page-buttons">
+            <div
+              className="uibtn uibtn--icon left casedetails-btn"
+              onClick={() => handleBack()}
+            >
+              <Backtosearchicon className="uibtn__icon left" />
+              Вернуться к списку
+            </div>
+
+            <div className="display-button-details">
+              <button
+                onClick={onDisplayOptionsClick}
+                className="uibtn uibtn--outline uibtn--select"
+              >
+                Отображение
+                <ShowIcon className="uibtn__icon left show-icon " />
+                <img
+                  src={downicon}
+                  alt="downicon"
+                  className={
+                    "uibtn__select-icon" +
+                    (!showDisplayOptions ? " rotated" : "")
+                  }
+                  height={6}
+                />
+              </button>
+              <div
+                className={
+                  "options-container fade-top " +
+                  (!showDisplayOptions && "hidden-animate-fade-top")
+                }
+              >
+                <ul>
+                  <li>
+                    <label className="toggle-switch">
+                      <input
+                        type="checkbox"
+                        checked={displayOptionsState[0]}
+                        onChange={() => onDisplayOptionToggle(0)}
+                      />
+                      <span className="switch" />
+                      <span style={{ width: "95px" }}>Конституция</span>
+                    </label>
+                  </li>
+                  <li>
+                    <label className="toggle-switch">
+                      <input
+                        type="checkbox"
+                        checked={displayOptionsState[1]}
+                        onChange={() => onDisplayOptionToggle(1)}
+                      />
+                      <span className="switch" />
+                      <span style={{ width: "95px" }}>Кодексы</span>
+                    </label>
+                  </li>
+                  <li>
+                    <label className="toggle-switch">
+                      <input
+                        type="checkbox"
+                        checked={displayOptionsState[2]}
+                        onChange={() => onDisplayOptionToggle(2)}
+                      />
+                      <span className="switch" />
+                      <span style={{ width: "95px" }}>Законы</span>
+                    </label>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
-          <div className="display-button">
-            <img
-              src={displayicon}
-              alt="Отображение"
-              style={{
-                height: "14px",
-                marginTop: "auto",
-                marginBottom: "auto",
-                marginLeft: "5px",
-              }}
-            />
-            <button className="law-search-button">Отображение</button>
-            <img
-              src={downicon}
-              alt="downicon"
-              style={{
-                height: "5px",
-                marginTop: "auto",
-                marginBottom: "auto",
-                paddingRight: "5px",
-              }}
-            />
-          </div>
-          <Pagination totalPages={totalPages} onPageChange={onPageChange} />
+          <Pagination
+            initialPage={0}
+            totalPages={totalPages}
+            onPageChange={onPageChange}
+          />
         </div>
 
         <div className="FindPage-results">
           <div className="FindPage-sort-buttons">
             <div className="empty-div"></div>
             <div className="sort-button-left">
-              <button
-                style={{
-                  color: "#5c5f6d",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                }}
-              >
-                Судебный акт
-              </button>
+              <button className="sort-button-sud-act">Судебный акт</button>
             </div>
             <div className="sort-button-right">
-              <button
-                style={{
-                  color: "#5c5f6d",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                }}
-              >
-                Суд
-              </button>
+              <button className="sort-button-sud-act">Суд</button>
             </div>
           </div>
           <List>

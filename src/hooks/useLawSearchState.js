@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import lawsData from "./../lib/lawsData";
 import axios from "axios";
+import { useStore } from "./useStore";
 
 export const useLawSearchState = () => {
   const [searchContent, setSearchContent] = useState("");
+
+  const { state, dispatch } = useStore();
 
   const [showDisplayOptions, setShowDisplayOptions] = useState(false);
   const [displayOptionsState, setDisplayOptionsState] = useState([
@@ -17,8 +19,8 @@ export const useLawSearchState = () => {
 
   const [currentPage, setCurrentPage] = useState(0);
 
-  const slicedContent = (content, page) => {
-    return content.slice(33 * page, 33 * (page + 1)).filter((x) => {
+  const slicedContent = (cont, page) => {
+    return cont.slice(33 * page, 33 * (page + 1)).filter((x) => {
       if (
         displayOptionsState[0] &&
         displayOptionsState[1] & displayOptionsState[2]
@@ -36,10 +38,32 @@ export const useLawSearchState = () => {
     });
   };
 
+  const filteredContent = (cont, searchQuery) => {
+    if (cont?.length > 0 && searchQuery?.length > 0) {
+      let newContent = [...cont];
+      newContent = newContent.filter((x) =>
+        x.child_list.some(
+          (y) =>
+            y.title.includes(searchQuery) ||
+            y?.child_list?.some((z) => z.title.includes(searchQuery))
+        )
+      );
+
+      return newContent;
+    } else {
+      console.log(cont);
+      return cont;
+    }
+  };
+
   // -------------------- Кнопочки и инпуты ----------------------------
 
   const onSearch = (e) => {
     setSearchContent(e.target.value);
+    setContent([
+      content[0],
+      slicedContent(filteredContent(content[0], e.target.value), currentPage),
+    ]);
   };
 
   const onDisplayOptionsClick = () => {
@@ -109,8 +133,8 @@ export const useLawSearchState = () => {
    * @description КОСТЫЛЬ!!!!! обязательно в дальнейшем исправить
    */
   const onClickOutside = (e) => {
-    const el1 = document.querySelector(".display-button");
-    const el2 = document.querySelector(".sort-button");
+    const el1 = document.querySelectorAll(".display-button-details")[0];
+    const el2 = document.querySelectorAll(".display-button-details")[1];
     const el3 = document.querySelector(".options-container");
     const el4 = document.querySelector(".options-container2");
     if (
@@ -131,6 +155,7 @@ export const useLawSearchState = () => {
   const totalPages = Math.ceil(content.length / 33);
   const onPageChange = (page) => {
     setContent([content[0], slicedContent(content[0], page)]);
+    setCurrentPage(page);
   };
 
   // -------------------------------------------------------------
@@ -138,15 +163,20 @@ export const useLawSearchState = () => {
   // --------------------------- Контент ------------------------
 
   useEffect(() => {
-    try {
-      axios
-        .post("https://lawrs.ru:8000/api/count_cases_add/document_list")
-        .then((r) => {
-          console.log(r.data);
-          setContent([r.data, slicedContent(r.data, currentPage)]);
-        });
-    } catch (e) {
-      console.error("Ошибка при получении данных useLawSearchState ", e);
+    if (state.lawsData.length === 0) {
+      try {
+        axios
+          .post("https://lawrs.ru:8000/api/count_cases_add/document_list")
+          .then((r) => {
+            setContent([r.data, slicedContent(r.data, currentPage)]);
+            dispatch({ type: "laws-set", payload: r.data });
+            console.log(r.data);
+          });
+      } catch (e) {
+        console.error("Ошибка при получении данных useLawSearchState ", e);
+      }
+    } else {
+      setContent([state.lawsData, slicedContent(state.lawsData, currentPage)]);
     }
   }, []);
 

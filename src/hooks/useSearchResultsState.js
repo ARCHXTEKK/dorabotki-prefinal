@@ -1,11 +1,40 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 
 export const useSearchResultsState = (filters) => {
   const [currentItems, setCurrentItems] = useState([[], []]);
 
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+
+  const [, forceUpdate] = useReducer((x) => x + 1, 0);
+  const [showDisplayOptions, setShowDisplayOptions] = useState(false);
+
+  const [displayOptionsState, setDisplayOptionsState] = useState([
+    true,
+    true,
+    true,
+  ]);
+
+  const onDisplayOptionToggle = (num) => {
+    let newOptions = displayOptionsState;
+    newOptions[num] = !newOptions[num];
+    setDisplayOptionsState(newOptions);
+    forceUpdate(0);
+  };
+
+  const onDisplayOptionsClick = () => {
+    setShowDisplayOptions((prev) => !prev);
+  };
+
+  const onClickOutside = (e) => {
+    const el1 = e.target.closest(".display-button-details");
+    const el3 = e.target.closest(".options-container");
+    if (!el1 && !el3) {
+      console.log("that must be false");
+      setShowDisplayOptions(false);
+    }
+  };
 
   const onPageChange = (page) => {
     setCurrentPage(page);
@@ -17,15 +46,6 @@ export const useSearchResultsState = (filters) => {
   };
 
   useEffect(() => {
-    // let data = {
-    //   "document_text": searchQuery,
-    //   "case_number": caseNumber,
-    //   "court": court,
-    //   "judge": judge,
-    //   "user": disputant,
-    //   "uid": uid,
-    //   "category": productionType,
-    // }
     try {
       axios
         .post("https://lawrs.ru:8000/api/count_cases_add/search", {
@@ -42,11 +62,16 @@ export const useSearchResultsState = (filters) => {
     } catch (e) {
       console.error("Ошибка при получении данных useSearchResultsState ", e);
     }
-  }, []);
+  }, [filters]);
 
   return {
     currentItems: currentItems[1],
     totalPages,
     onPageChange,
+    showDisplayOptions,
+    onDisplayOptionsClick,
+    displayOptionsState,
+    onDisplayOptionToggle,
+    onClickOutside,
   };
 };

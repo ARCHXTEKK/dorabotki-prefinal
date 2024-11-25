@@ -22,9 +22,14 @@
 @font-face {
   font-family: "Open Sans";
   font-style: italic;
-  font-weight: lighter;
-
+  font-weight: 300;
   src: url("./fonts/OpenSans-LightItalic.ttf");
+}
+
+@font-face {
+  font-family: "Open Sans";
+  font-weight: 300;
+  src: url("./fonts/OpenSans-Light.ttf");
 }
 
 body,
@@ -41,6 +46,12 @@ html {
   user-select: none;
 
   height: 100%;
+}
+
+* {
+  font-family: "Open Sans", serif;
+  margin: 0;
+  padding: 0;
 }
 
 #root {
@@ -113,7 +124,8 @@ html {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   background-color: #fff;
   height: 100%;
-  max-height: 510px;
+  max-height: 540px;
+  margin-top: 16px;
 }
 .RubricatorPanel section {
   width: 100%;
@@ -157,10 +169,11 @@ html {
 .case-list-wrapper {
   display: flex;
   flex-direction: column;
+  width: 100%;
 
   min-height: 465px;
   max-height: 100%;
-  overflow-y: scroll;
+  overflow-y: clip;
 
   padding-top: 5px;
 
@@ -194,9 +207,12 @@ html {
   padding: 8px;
   border: 0px;
   border-radius: 4px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
 }
 .Keywordsearch-input::placeholder {
-  font-size: 12px;
+  font-size: 14px;
 }
 Input:focus,
 Input:active .search-input:active,
@@ -224,6 +240,7 @@ Input:active .search-input:active,
 .alphabet-input::placeholder {
   color: #bfc0c1;
   font-family: "Open Sans", serif;
+  font-size: 14px;
 }
 
 .case-title {
@@ -236,20 +253,13 @@ Input:active .search-input:active,
 }
 .case-description,
 .advancedsearch-desc {
-  font-family: ExtraItalic;
-  font-size: 14px;
+  font-family: "Open Sans", serif;
+
+  font-size: 12px;
   margin-bottom: 8px;
   max-width: 600px;
   color: #9e9e9e;
   padding-left: 20px;
-}
-
-.category-cell .expand-icon {
-  margin-left: auto;
-  transition: transform 0.3s ease;
-}
-.category-cell.expanded .expand-icon {
-  transform: rotate(180deg);
 }
 
 Button {
@@ -335,7 +345,7 @@ Button {
 .category-cell,
 .subcategory-cell {
   padding: 5px;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.4;
   display: flex;
   justify-content: space-between;
@@ -466,7 +476,7 @@ Button {
 .app-footer {
   text-align: center;
   font-size: 14px;
-  font-family: "Regular";
+  font-family: "Open Sans", serif;
   height: max-content;
   margin-top: auto;
   margin-bottom: 4px;
@@ -474,6 +484,13 @@ Button {
   text-decoration: none;
   color: #5c5f6d;
   pointer-events: auto;
+  position: fixed;
+  bottom: 0;
+  z-index: 10;
+}
+
+.app-footer a {
+  color: #676a77;
 }
 
 a {
@@ -572,6 +589,7 @@ a {
   display: flex;
   margin: 10px 0px 25px;
   gap: 20px;
+  height: 36px;
 }
 
 .find-button,
@@ -611,7 +629,7 @@ a {
   transform: scale(1.2);
   padding: 5px 5px;
   border-radius: 5px;
-  font-size: 12px;
+  font-size: 14px;
   width: 50px;
 }
 .alphabet-nav-button {
@@ -630,7 +648,7 @@ a {
 .alphabet-group.active {
   background-color: #3871e0;
   color: white;
-  transform: scale(1.2);
+  transform: scale(1.25);
 }
 .alphabet-card-group {
   background-color: #3871e0;
@@ -638,22 +656,27 @@ a {
   transform: scale(1.2);
   padding: 5px 0px;
   border-radius: 5px;
-  font-size: 12px;
+  font-size: 14px;
   width: 50px;
 }
 .list-alphabet {
-  display: flex;
+  /* display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: start;
+  width: fit-content; */
   margin-left: auto;
   margin-right: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  width: fit-content;
 }
 
 .alphabet-category-cell {
   display: flex;
+  flex-direction: column;
   padding: 10px 0px;
-  display: inline-block;
-  height: 190px;
+  height: 175px;
   width: 220px;
   max-height: 190px;
   max-width: 220px;
@@ -700,7 +723,7 @@ a {
   padding: 7px;
   font-weight: 400;
   margin: 0px 0px 0px 0px;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .show-all-button:hover {
@@ -739,6 +762,8 @@ a {
   border-radius: 5px;
   margin: 0px auto 20px auto;
   border: 1px solid #f0f0f0;
+  align-items: center;
+  padding-right: 4px;
 }
 .alphabet-input-wrapper {
   display: flex;
@@ -767,7 +792,13 @@ a {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 
+  min-height: 300px;
   max-height: 495px;
+
+  background-color: #fff;
+
+  border-radius: 10px;
+  margin-top: 16px;
 }
 .Law-search-content-header {
   background-color: none;
@@ -788,17 +819,40 @@ a {
 }
 .law-search-block {
   display: flex;
-  padding: 0px 0px 0px 10px;
-  border-bottom: 1px solid #f0f0f0;
+  padding: 6px;
+  padding-left: 30px;
   height: 45px;
   align-items: center;
   gap: 8px;
+  background: transparent;
+  box-sizing: content-box;
+  color: #5c5f6d;
+  position: relative;
 }
-.law-search-block:last-child {
-  border-bottom: none;
+.law-search-block:first-child:after {
+  display: block;
+  content: "";
+  width: 300%;
+  height: 1px;
+  background-color: #f0f4f6;
+  position: absolute;
+  left: 0;
+  bottom: 0;
 }
+
+.law-search-block:nth-child(3n):after {
+  display: block;
+  content: "";
+  width: 300%;
+  height: 1px;
+  background-color: #f0f4f6;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
 .law-search-block span {
-  font-size: 12px;
+  font-size: 14px;
   padding-left: 10px;
   padding-bottom: 3px;
   color: #5c5f6d;
@@ -815,6 +869,7 @@ a {
 }
 .law-search-buttons {
   display: flex;
+  gap: 16px;
   margin-right: auto;
 }
 .law-search-button,
@@ -842,10 +897,6 @@ a {
 .display-button:hover {
   cursor: pointer;
 }
-.law-search-buttons img {
-  height: 13px;
-  padding: 8px 5px 0px 7px;
-}
 .law-search-container {
   padding: 0px 15px;
   display: flex;
@@ -854,21 +905,24 @@ a {
   display: flex;
   padding: 0px 0px 5px 0px;
   background-color: #f5f7f9;
+  margin-top: 16px;
 }
 .law-search-input-wrapper {
   display: flex;
+  align-items: center;
   background-color: #fff;
-  margin-top: 5px;
   border-radius: 5px;
   width: 35%;
   margin-left: auto;
 }
 .advanced-search-container {
-  margin: 15px;
-  padding-block: 15px;
+  margin-block: 15px;
+  padding: 4px 10px;
   background-color: #fff;
   border-radius: 10px;
   min-height: 375px;
+  max-height: 475px;
+  height: 100vh;
 }
 .advanced-search-container select {
   -webkit-appearance: none;
@@ -882,7 +936,7 @@ a {
 .advancedsearch-date-wrapper,
 .advanced-search4-input {
   display: flex;
-  padding: 8px 20px 10px;
+  padding: 6px 20px 8px;
   border-bottom: 1px solid #f0f0f0;
 }
 .advansedsearch1-wrapper input:focus,
@@ -901,11 +955,11 @@ a {
 }
 .advansedsearch1-block {
   border-bottom: 1px solid #f0f0f0;
-  padding-bottom: 10px;
+  padding-bottom: 4px;
 }
 .advansedsearch1-wrapper {
   border-bottom: none;
-  padding-bottom: 8px;
+  padding-bottom: 0;
 }
 .advancedsearch4-wrapper {
   border-bottom: none;
@@ -920,21 +974,23 @@ a {
   padding: 0px;
   margin: 15px 20px 20px 0px;
   width: 600px;
+  font-size: 14px;
 }
 .data-input-left,
 .data-input-right {
   border: 1px solid #f0f0f0;
-  margin-left: 10px;
   border-radius: 5px;
-  height: 25px;
-  padding-bottom: 5px;
+  position: relative;
   display: flex;
+  align-items: center;
+  margin-left: 10px;
+  font-size: 14px;
 }
 .data-input-left img,
 .data-input-right img {
   height: 16px;
-  padding-top: 7px;
-  padding-right: 10px;
+  position: absolute;
+  right: 8px;
 }
 .advancedsearch-date-wrapper .advanced-title {
   font-weight: 400;
@@ -1018,54 +1074,58 @@ a {
   font-weight: 600;
   margin-bottom: 10px;
   text-align: start;
-  font-size: 15px;
+  font-size: 14px;
 }
 .advanced-search-buttons {
   display: flex;
-  padding-top: 10px;
-  padding-left: 15px;
+  margin-right: 15px;
+  gap: 19px;
 }
+.advanced-search-buttons > button {
+  width: 240px;
+}
+.advanced-search-buttons > div img {
+  position: absolute;
+  left: 12px;
+}
+
 .advanced-find-button {
-  display: flex;
   background-color: #3871e0;
-  color: #fff;
-  width: 200px;
-  height: 30px;
   margin-right: 20px;
-  border-radius: 6px;
 }
+
+.advanced-find-button:hover {
+  background-color: #5b8beb;
+}
+
 .advanced-clear-button {
-  display: flex;
   border: 1px solid #3871e0;
-  color: #3871e0;
   background-color: #fff;
-  width: 200px;
-  height: 30px;
-  border-radius: 6px;
+  color: #3871e0;
+}
+
+.advanced-clear-button:hover {
+  background-color: #5b8beb;
+  border-color: #5b8beb;
+  color: #fff;
+}
+
+.advanced-clear-button:hover img {
+  filter: grayscale(100%) brightness(0) invert(100%);
 }
 
 .advanced-clear {
-  background-color: #fff;
-  color: #3871e0;
-  width: 100%;
-  padding-right: 25px;
-  height: 30px;
-  margin-top: auto;
-  margin-bottom: auto;
-  font-weight: 100;
-  border-radius: 0px 5px 5px 0px;
+  color: inherit;
 }
+
+.advanced-clear:hover {
+  background-color: transparent;
+}
+
 .advanced-search {
-  background-color: #3871e0;
   color: #fff;
-  width: 100%;
-  height: 30px;
-  padding: 0px 10px 0px 0px;
-  font-weight: 100;
-  border-radius: 5px;
-  margin-top: auto;
-  margin-bottom: auto;
 }
+
 .advansedsearch1-wrapper input,
 .advancedsearch2-wrapper input {
   width: 100%;
@@ -1078,7 +1138,6 @@ a {
 }
 .word-list {
   margin: 0px 15px;
-  height: calc(100dvh - 90px);
 }
 .word-list .vkuiList {
   display: flex;
@@ -1143,14 +1202,6 @@ a {
 .options-container2 img {
   transition: background-color 0.3s ease;
 }
-.advanced-find-button:hover > * {
-  transition: background-color 0.3s ease;
-  background-color: #4159e1;
-  border-radius: 5px;
-}
-.advanced-find-button:hover {
-  background-color: #3871e0;
-}
 .toggle-switch {
   display: flex;
   align-items: center;
@@ -1205,17 +1256,21 @@ input:checked + .switch {
   padding-top: 6px;
 }
 .inputdropicon {
-  display: flex;
   border: 1px solid #f0f0f0;
   border-radius: 5px;
-  height: 25px;
   max-width: 395px;
+  position: relative;
+  width: 100%;
 }
 .inputdropicon select {
-  width: calc(100% - 12px);
+  width: 100%;
+  height: 38px;
 }
 .inputdropicon img {
-  padding: 0px 5px 0px 0px;
+  position: absolute;
+  right: 8px;
+  top: 0;
+  bottom: 0;
 }
 .inputdropicon input:focus {
   border: none;
@@ -1335,28 +1390,15 @@ select:active {
 .selectedLaw-content {
   background-color: #fff;
   height: 495px;
-  padding: 10px;
+  padding: 10px 20px;
   overflow-y: auto;
-}
-.selectedLaw-content h2 {
-  padding: 0px 0px 10px 25px;
-}
-.law-detail h2,
-.law-detail p,
-.law-detail h3,
-.law-detail ul {
-  margin: 0px;
+
+  border-radius: 6px;
+  margin-top: 16px;
 }
 
 .law-detail li {
   list-style-type: none;
-}
-
-.expand-icon {
-  color: #3871e0;
-  font-size: 20px;
-  padding-right: 10px;
-  font-weight: 800;
 }
 
 .law-detail li:hover,
@@ -1364,7 +1406,7 @@ h3:hover {
   color: #3871e0;
 }
 .LawPanel {
-  margin: 0px 15px;
+  margin-top: 10px;
 }
 .LawPanel .rubricator-header {
   margin: 12px 0px;
@@ -1374,6 +1416,8 @@ h3:hover {
   border-radius: 15px;
   height: auto;
   min-height: 460px;
+  max-height: 510px;
+  overflow-y: scroll;
 }
 .LawPanel-buttons {
   display: flex;
@@ -1383,22 +1427,26 @@ h3:hover {
 }
 .LawPanel-buttons-right {
   margin-left: auto;
+  gap: 16px;
+}
+
+.LawPanel-buttons-right .uibtn__icon.left {
+  left: 16px;
 }
 .law-panel-content-top {
   width: 100%;
-  height: 26px;
   border-bottom: 1px solid #f0f0f0;
   color: #717171;
-  font-size: 13px;
+  font-size: 14px;
   text-align: center;
-  font-weight: 600;
-  padding: 5px 0px;
+  line-height: 1;
+  padding: 8px 0px;
 }
 .law-panel-content-text {
   margin: 0px 50px;
 }
 .law-panel-content-text h1 {
-  margin: 15px 0px 0px;
+  margin: 10px 0px 0px;
   text-align: center;
 }
 .text-right {
@@ -1457,6 +1505,11 @@ h3:hover {
   background-color: #fff;
   border-radius: 10px;
   width: 100%;
+  margin-top: 16px;
+  min-height: 460px;
+  height: 100%;
+  max-height: 495px;
+  overflow-y: auto;
 }
 .FindPage-results button {
   background-color: #fff;
@@ -1476,16 +1529,14 @@ h3:hover {
 .FindPage-item-container:nth-child(-n + 3) {
   border-bottom: 1px solid #f0f0f0;
 }
-.FindPage-results {
-  height: calc(100dvh - 200px);
-  min-height: 545px;
-}
 .FindPage-item {
   display: flex;
-  height: 105px;
+  height: 80px;
   width: 100%;
   box-sizing: border-box;
   color: #5c5f6d;
+  text-overflow: ellipsis;
+  overflow: clip;
 }
 .FindPage-item:hover {
   background-color: #f0f0f0;
@@ -1503,13 +1554,14 @@ h3:hover {
 }
 .FindPage-item-text-desc {
   text-overflow: ellipsis;
-  overflow: hidden;
-  height: 91px;
+  overflow: clip;
 }
 .FindPage-item-court {
-  font-weight: bold;
   margin-left: 10px;
   flex: 0 0 26%;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
 }
 
 .empty-div {
@@ -1579,7 +1631,7 @@ h3:hover {
     width: 25%;
     border: none;
     height: 50px;
-    font-size: 12px;
+    font-size: 14px;
     text-wrap: wrap;
   }
 
@@ -1605,7 +1657,7 @@ h3:hover {
   }
   .Keywordsearch-find {
     padding: 0px 10px;
-    font-size: 12px;
+    font-size: 14px;
     text-transform: uppercase;
   }
   .Keywordsearch-wrapper {
@@ -1629,10 +1681,7 @@ h3:hover {
     height: 26px;
     margin-top: 2px;
   }
-  .advanced-search-container {
-    height: 95%;
-  }
-  .advansedsearch1-wrapper,
+  .advancedsearch1-wrapper,
   .advancedsearch2-wrapper,
   .advancedsearch3-wrapper,
   .advancedsearch4-wrapper,
@@ -1648,10 +1697,7 @@ h3:hover {
   .advancedsearch3-left {
     margin-bottom: 10px;
   }
-  .data-input-left,
-  .data-input-right {
-    margin-left: 0px;
-  }
+
   .advancedsearch-date-wrapper .advanced-title {
     min-width: 20px;
   }
@@ -1678,15 +1724,10 @@ h3:hover {
   .radio-switch input {
     margin-top: 0px;
   }
-  .advanced-search-buttons {
-    margin-bottom: 10px;
-  }
   .advanced-clear-button {
     width: 34px;
   }
-  .advanced-search-buttons {
-    margin-right: 15px;
-  }
+
   .advanced-clear-button {
     margin-left: auto;
   }
@@ -1705,10 +1746,7 @@ h3:hover {
   .advancedsearch4-wrapper {
     width: 100%;
   }
-  .advancedsearch-desc {
-    padding: 0px 15px;
-    font-size: 12px;
-  }
+
   .warning-icon {
     margin: auto 10px auto 0px;
   }
@@ -1765,10 +1803,7 @@ h3:hover {
     margin: 0px 5px 10px;
   }
   .inAlphabet-buttons {
-    font-size: 12px;
-  }
-  .RubricatorPanel {
-    display: block;
+    font-size: 14px;
   }
   .category-cell,
   .subcategory-cell {
@@ -1860,7 +1895,7 @@ h3:hover {
 .page-title {
   font-size: 24px;
   color: #5c5f6d;
-  font-weight: lighter;
+  font-weight: 400;
 }
 
 .btn {
@@ -1872,11 +1907,14 @@ h3:hover {
 }
 
 .Keywordsearch-input {
-  display: flex;
   background-color: #fff;
-  padding: 5px;
+  padding: 8px;
   height: 25px;
   width: 100%;
+  font-family: "Open Sans", serif;
+}
+.Keywordsearch-input::placeholder {
+  font-family: "Open Sans", serif;
 }
 
 .row {
@@ -1899,12 +1937,12 @@ h3:hover {
 }
 
 .letter-search__letter {
-  font-size: 16px;
+  font-size: 14px;
   color: #3871e0;
   background-color: #fff;
   font-family: "Open Sans", serif;
-  font-weight: 600;
-  padding: 12px 24px;
+  font-weight: 400;
+  padding: 10px 18px;
   border-radius: 8px;
   border: 2px solid #3871e0;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -1929,8 +1967,9 @@ h3:hover {
 .letter-search__word-text {
   color: #676a77;
   background-color: #fff;
-  font-size: 16px;
+  font-size: 14px;
   text-transform: capitalize;
+  font-family: "Open Sans", serif;
 }
 
 .word-list-block {
@@ -1940,18 +1979,18 @@ h3:hover {
   justify-content: center;
   color: #5c5f6d;
   margin-bottom: 10px;
-  font-weight: 600;
-  min-width: 80px;
-  padding: 14px 54px 14px 14px;
+  font-weight: 400;
+  min-width: 60px;
+  padding: 8px 40px 8px 12px;
   position: relative;
 }
 
 .btn-2 {
   background-color: #3871e0;
   color: #fff;
-  font-size: 20px;
-  font-weight: 600;
-  width: 40px;
+  font-size: 18px;
+  font-weight: 400;
+  width: 32px;
   position: absolute;
   right: 0;
   top: 0;
@@ -1977,10 +2016,10 @@ h3:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 400;
   font-family: "Open Sans", serif;
-  padding: 12px 32px;
+  padding: 8px 18px 8px 32px;
   position: relative;
 }
 
@@ -1989,4 +2028,242 @@ h3:hover {
 
   left: 12px;
   display: block;
+}
+
+.advanced-select {
+  font-family: "Open Sans", serif;
+}
+
+.advanced-search-container input,
+select {
+  padding: 4px 12px !important;
+  max-width: 370px !important;
+}
+
+.uibtn {
+  font-size: 14px;
+  font-family: "Open Sans", serif;
+  color: #fff;
+  background-color: #3871e0;
+
+  border: 1px solid #3871e0;
+  border-radius: 6px;
+
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 12px;
+
+  transition: background-color 0.3s ease, color 0.1s ease, border 0.3s ease;
+  cursor: pointer;
+  box-sizing: content-box;
+}
+
+.uibtn .uibtn__icon {
+  /* filter: grayscale(100%) brightness(0) invert(100%); */
+
+  transition: filter 0.3s ease;
+
+  height: 12px;
+  width: 14px;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.uibtn:hover {
+  background-color: #5b8beb;
+  border-color: #5b8beb;
+}
+
+.uibtn--outline {
+  color: #3871e0;
+  background-color: #fff;
+  border: 1px solid #3871e0;
+}
+
+.uibtn--outline .uibtn__icon {
+  filter: grayscale(100%) brightness(0) invert(39%) sepia(66%) saturate(621%)
+    hue-rotate(180deg) brightness(98%) contrast(100%);
+}
+
+.uibtn--outline:hover {
+  background-color: #3871e0;
+  color: #fff;
+}
+
+.uibtn--outline:hover .uibtn__icon {
+  filter: grayscale(100%) brightness(0) invert(100%);
+}
+
+.uibtn--icon.left {
+  padding: 6px 12px 6px 32px;
+}
+
+.uibtn--icon.right {
+  padding: 6px 32px 6px 12px;
+}
+
+.uibtn__icon.left {
+  position: absolute;
+  left: 10px;
+}
+
+.uibtn__icon.right {
+  position: absolute;
+  right: 10px;
+}
+
+.uibtn--select {
+  padding: 6px 28px 6px 36px;
+}
+
+.uibtn--select:hover .uibtn__select-icon {
+  filter: grayscale(100%) brightness(0) invert(100%);
+}
+
+.uibtn__select-icon {
+  position: absolute;
+  right: 10px;
+  transform: rotateZ(0deg);
+  transform-origin: center;
+  transition: transform 0.2s ease;
+}
+
+.keywordsearch-uibtn {
+  width: 80px;
+  justify-content: center;
+}
+
+.advancedsearch-desc {
+  font-style: italic;
+}
+
+.law-details-btn-back {
+  width: 200px;
+}
+
+.law-details-btn-back .uibtn__icon.left {
+  left: 16px;
+}
+
+.display-button-details {
+  position: relative;
+}
+
+.cases-loading {
+  width: 100%;
+  text-align: center;
+  margin-block: auto;
+}
+
+.results-page-buttons {
+  margin-top: 16px;
+}
+
+.sort-button-sud-act {
+}
+
+.FindPage-item-text-title {
+  font-size: 14px;
+}
+
+.FindPage-item-text-desc {
+  font-size: 12px;
+  font-style: italic;
+}
+
+.modal-wrapper {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+}
+.modal-content {
+  position: relative;
+  z-index: 101;
+  margin-top: 40px;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  max-height: 400px;
+  width: 50%;
+}
+
+.vkuiModalDismissButton {
+  position: absolute;
+  inset: 0;
+}
+
+.rotated {
+  transform: rotateZ(-90deg);
+}
+
+.expand-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 16px;
+  height: 16px;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.expand-icon > * {
+  width: 16px;
+  height: 16px;
+}
+
+.law-section {
+  display: flex;
+  font-size: 18px;
+  font-weight: 600;
+  align-items: center;
+  gap: 10px;
+}
+
+.law-chapters {
+  font-size: 16px;
+  font-weight: 600;
+  margin-left: 48px;
+}
+
+.selectedLaw__title {
+  margin-bottom: 10px;
+}
+
+.center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.casedetails-btn.left {
+  width: 140px;
+  box-sizing: content-box;
+  padding-right: 24px;
+}
+
+.casedetails-btn .uibtn__icon {
+  left: 14px;
+}
+
+.display-btn-law-search .uibtn__icon {
+  width: 19px;
+  height: 10px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.show-icon {
+  height: 10px !important;
+  width: 19px !important;
 }
