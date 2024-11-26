@@ -94,33 +94,35 @@ export default function KeywordSearchPage() {
             <div className="list-alphabet">
               {groupedAlphabet[selectedGroup].map((letter, index) => {
                 return (
-                  <Div key={index} className="alphabet-category-cell">
-                    <div className="card-header">
-                      <span className="card-title">{letter}</span>
-                      <button
-                        size="s"
-                        mode="secondary"
-                        onClick={() => handleShowAllWordsByLetter(letter)}
-                        className="show-all-button"
-                      >
-                        Показать полностью
-                      </button>
-                    </div>
-                    {dataByLetter[letter] &&
-                      dataByLetter[letter].map((word, idx) => (
-                        <Cell
-                          onClick={() => handleSubmit(word)}
-                          style={{
-                            color: "#818181",
-                            fontSize: "13px",
-                            fontWeight: "400",
-                          }}
-                          key={idx}
+                  dataByLetter[letter]?.length > 0 && (
+                    <Div key={index} className="alphabet-category-cell">
+                      <div className="card-header">
+                        <span className="card-title">{letter}</span>
+                        <button
+                          size="s"
+                          mode="secondary"
+                          onClick={() => handleShowAllWordsByLetter(letter)}
+                          className="show-all-button"
                         >
-                          {word}
-                        </Cell>
-                      ))}
-                  </Div>
+                          Показать полностью
+                        </button>
+                      </div>
+                      {dataByLetter[letter] &&
+                        dataByLetter[letter].map((word, idx) => (
+                          <Cell
+                            onClick={() => handleSubmit(word)}
+                            style={{
+                              color: "#818181",
+                              fontSize: "13px",
+                              fontWeight: "400",
+                            }}
+                            key={idx}
+                          >
+                            {word}
+                          </Cell>
+                        ))}
+                    </Div>
+                  )
                 );
               })}
             </div>

@@ -65,6 +65,16 @@ export const useAdvancedSearchState = () => {
     setUid("");
   };
 
+  // const [selectState, setSelectState] = useState([false, false, false, false]);
+
+  // const onSelect = (ind) => {
+  //   let newState = [...selectState];
+
+  //   newState[ind] = !newState[ind];
+
+  //   setSelectState(newState);
+  // };
+
   // Фетч данных
   useEffect(() => {
     if (state.judges.length === 0) {
@@ -109,6 +119,8 @@ export const useAdvancedSearchState = () => {
   }, []);
 
   return {
+    // selectState,
+    // onSelect,
     selectedFilter,
     caseText,
     onCaseTextChange,

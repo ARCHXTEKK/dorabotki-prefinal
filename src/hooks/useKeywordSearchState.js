@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { useStore } from "./useStore";
 
 export const useKeywordSearchState = () => {
@@ -17,6 +17,20 @@ export const useKeywordSearchState = () => {
 
   const onSearch = (e) => {
     setSearchValue(e.target.value);
+  };
+
+  const filteredData = (data, searchQuery) => {
+    let newData = {};
+
+    for (let letter in data) {
+      newData[letter] = data[letter].filter(
+        (y) =>
+          y.toLowerCase().startsWith(searchQuery.toLowerCase()) ||
+          searchQuery === ""
+      );
+    }
+
+    return newData;
   };
 
   const handleSubmit = () => {
@@ -61,6 +75,6 @@ export const useKeywordSearchState = () => {
     handleNextGroup,
     handlePrevGroup,
     onGroupSelect,
-    dataByLetter,
+    dataByLetter: filteredData(dataByLetter, searchValue),
   };
 };

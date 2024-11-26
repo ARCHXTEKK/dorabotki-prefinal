@@ -162,7 +162,7 @@ html {
   margin: 0px 10px;
 }
 
-.vkuiCell.case-cell + .vkuiCell.case-cell {
+.case-cell + .case-cell {
   border-bottom: 2px solid rgb(245, 245, 245);
 }
 
@@ -2266,4 +2266,8 @@ select {
 .show-icon {
   height: 10px !important;
   width: 19px !important;
+}
+
+select:focus .uibtn__select-icon {
+  transform: rotateZ(90deg);
 }

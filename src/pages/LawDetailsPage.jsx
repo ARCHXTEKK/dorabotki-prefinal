@@ -100,9 +100,8 @@ export default function LawDetailsPage() {
                     src={downicon}
                     alt="downicon"
                     className={
-                      "uibtn__select-icon" + showDisplayOptions
-                        ? " rotated"
-                        : ""
+                      "uibtn__select-icon" +
+                      (!showDisplayOptions ? " rotated" : "")
                     }
                     height={6}
                   />
