@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
-import backtosearchicon from "../assets/backtosearchicon.png";
-import aiicon from "../assets/aiicon.png";
 import saveicon from "../assets/saveicon.png";
 import { useParams, useRouteNavigator } from "@vkontakte/vk-mini-apps-router";
 
@@ -11,6 +9,8 @@ import parse from "html-react-parser";
 import Backtosearchicon from "../assets/Backtosearchicon";
 import AImodal from "../modals/AImodal";
 import axios from "axios";
+import IconAI from "../assets/iconAI";
+import SaveIcon from "./../assets/saveIcon";
 
 export default function CaseDetailsPage() {
   const routeNavigator = useRouteNavigator();
@@ -51,7 +51,9 @@ export default function CaseDetailsPage() {
       <div className="app-wrapper">
         <Header forceActiveTab={0} />
         <main className="page-content">
-          <h2 className="page-title">Просмотр судебного акта</h2>
+          <h2 className="page-title case-details-page-title">
+            Просмотр судебного акта
+          </h2>
           <div className="LawPanel">
             <div className="LawPanel-buttons">
               <div className="LawPanel-buttons-left">
@@ -60,7 +62,7 @@ export default function CaseDetailsPage() {
                   onClick={() => handleBack()}
                 >
                   <Backtosearchicon className="uibtn__icon left" />
-                  Вернуться к поиску
+                  <div className="mobile-sm-hidden">Вернуться к поиску</div>
                 </div>
               </div>
               <div className="LawPanel-buttons-right">
@@ -68,25 +70,15 @@ export default function CaseDetailsPage() {
                   className="uibtn uibtn--outline uibtn--icon left  casedetails-btn"
                   onClick={() => handleAi()}
                 >
-                  <img
-                    src={aiicon}
-                    alt="summary"
-                    className="uibtn__icon left"
-                    height={15}
-                  />
-                  Краткий пересказ
+                  <IconAI className="uibtn__icon left AI-icon" />
+                  <div className="mobile-sm-hidden">Краткий пересказ</div>
                 </button>
                 <a
                   className="uibtn uibtn--outline uibtn--icon left  casedetails-btn"
                   href={caseData?.url?.replace("doc/", "doc/save/")}
                 >
-                  <img
-                    src={saveicon}
-                    alt="save"
-                    className="uibtn__icon left"
-                    height={15}
-                  />
-                  Скачать документ
+                  <SaveIcon className="uibtn__icon left Save-icon" />
+                  <div className="mobile-sm-hidden">Скачать документ</div>
                 </a>
               </div>
             </div>

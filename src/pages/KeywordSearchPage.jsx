@@ -16,7 +16,6 @@ export default function KeywordSearchPage() {
     selectedGroup,
     onGroupSelect,
     dataByLetter,
-    handleSubmit,
   } = useKeywordSearchState();
 
   const handleShowAllWordsByLetter = (letter) => {
@@ -27,32 +26,41 @@ export default function KeywordSearchPage() {
 
   const routeNavigator = useRouteNavigator();
 
+  const handleSubmit = (word) => {
+    routeNavigator.push("/searchresults", {
+      state: {
+        caseText: word,
+      },
+    });
+  };
+
   return (
     <div className="app-wrapper">
       <Header />
       <main className="page-content">
-        <h2 className="page-title">Поиск по ключевому слову</h2>
+        <div className="mobile-column">
+          <h2 className="page-title">Поиск по ключевому слову</h2>
+          <div className="Keywordsearch-wrapper">
+            <Icon28SearchOutline className="search-icon" />
+            <input
+              className="Keywordsearch-input"
+              type="text"
+              placeholder="Введите ключевое слово, фразу или номер дела"
+              value={searchValue}
+              onChange={onSearch}
+            />
+            <button
+              className="uibtn keywordsearch-uibtn"
+              mode="secondary"
+              onClick={() => handleSubmit(searchValue)}
+            >
+              Найти
+            </button>
+          </div>
+        </div>
         <Group>
           <div className="alphabet-page">
             <div className="alphabet-nav-wrapper">
-              <div className="Keywordsearch-wrapper">
-                <Icon28SearchOutline className="search-icon" />
-                <input
-                  className="Keywordsearch-input"
-                  type="text"
-                  placeholder="Введите ключевое слово, фразу или номер дела"
-                  value={searchValue}
-                  onChange={onSearch}
-                />
-                <button
-                  className="uibtn keywordsearch-uibtn"
-                  mode="secondary"
-                  onClick={handleSubmit}
-                  disabled={selectedGroup === 0}
-                >
-                  Найти
-                </button>
-              </div>
               <div className="alphabet-nav">
                 <button
                   className="alphabet-nav-button"

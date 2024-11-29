@@ -47,7 +47,7 @@ export default function LawSearchPage() {
     <div className="app-wrapper" onClick={onClickOutside}>
       <Header />
       <main className="page-content">
-        <div className="row">
+        <div className="row mobile-column">
           <h2 className="page-title">Поиск по норме права</h2>
 
           <div className="law-search-input-wrapper">
@@ -68,7 +68,7 @@ export default function LawSearchPage() {
                 onClick={onDisplayOptionsClick}
                 className="uibtn uibtn--outline uibtn--select"
               >
-                Отображение
+                <div className="uibtn__text">Отображение</div>
                 <ShowIcon className="uibtn__icon left show-icon " />
                 <img
                   src={downicon}
@@ -129,7 +129,7 @@ export default function LawSearchPage() {
                 onClick={onSortOptionsClick}
                 className="uibtn uibtn--outline uibtn--select"
               >
-                Сортировать
+                <div className="uibtn__text">Сортировать</div>
                 <img
                   src={sorticon}
                   alt="Сортировка"
@@ -175,51 +175,53 @@ export default function LawSearchPage() {
             onPageChange={onPageChange}
           />
         </div>
-        <div className="law-search-list">
-          {content?.map((law) => (
-            <button
-              className="law-search-block"
-              key={law.id}
-              onClick={() => handleLawClick(law.id)}
-            >
-              {law.icon === "constitution" ? (
-                <img
-                  src={constitution}
-                  alt="Конституция"
-                  className="law-search-block__img"
-                  style={{
-                    height: "16px",
-                    width: "16px",
-                    marginBottom: "auto",
-                    marginTop: "auto",
-                  }}
-                />
-              ) : law.icon === "book" ? (
-                <img
-                  src={bookicon}
-                  alt="book"
-                  className="law-search-block__img"
-                  style={{
-                    height: "16px",
-                    marginBottom: "auto",
-                    marginTop: "auto",
-                  }}
-                />
-              ) : (
-                <img
-                  src={fileicon}
-                  alt="file"
-                  className="law-search-block__img"
-                  style={{
-                    height: "16px",
-                    marginBottom: "auto",
-                    marginTop: "auto",
-                  }}
-                />
-              )}
-              {law.title}
-            </button>
-          ))}
+        <div className="law-search-wrapper">
+          <div className="law-search-list">
+            {content?.map((law) => (
+              <button
+                className="law-search-block"
+                key={law.id}
+                onClick={() => handleLawClick(law.id)}
+              >
+                {law.icon === "constitution" ? (
+                  <img
+                    src={constitution}
+                    alt="Конституция"
+                    className="law-search-block__img"
+                    style={{
+                      height: "16px",
+                      width: "16px",
+                      marginBottom: "auto",
+                      marginTop: "auto",
+                    }}
+                  />
+                ) : law.icon === "book" ? (
+                  <img
+                    src={bookicon}
+                    alt="book"
+                    className="law-search-block__img"
+                    style={{
+                      height: "16px",
+                      marginBottom: "auto",
+                      marginTop: "auto",
+                    }}
+                  />
+                ) : (
+                  <img
+                    src={fileicon}
+                    alt="file"
+                    className="law-search-block__img"
+                    style={{
+                      height: "16px",
+                      marginBottom: "auto",
+                      marginTop: "auto",
+                    }}
+                  />
+                )}
+                {law.title}
+              </button>
+            ))}
+          </div>
         </div>
       </main>
       <Footer />

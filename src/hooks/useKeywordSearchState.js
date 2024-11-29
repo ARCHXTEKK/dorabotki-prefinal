@@ -33,13 +33,6 @@ export const useKeywordSearchState = () => {
     return newData;
   };
 
-  const handleSubmit = () => {
-    // передать значение searchValue
-    axios.post("").then((resp) => {
-      setDataByLetter(resp); // изменить так чтобы получать категории
-    });
-  };
-
   const handlePrevGroup = () => {
     setSelectedGroup((prev) => prev - 1);
   };
@@ -70,11 +63,11 @@ export const useKeywordSearchState = () => {
   return {
     searchValue,
     onSearch,
-    handleSubmit,
     selectedGroup,
     handleNextGroup,
     handlePrevGroup,
     onGroupSelect,
-    dataByLetter: filteredData(dataByLetter, searchValue),
+    // dataByLetter: filteredData(dataByLetter, searchValue),
+    dataByLetter,
   };
 };

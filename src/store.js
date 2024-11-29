@@ -5,6 +5,7 @@ export const initState = {
   lawsData: [],
   judges: [],
   courts: [],
+  productionTypes: [],
 };
 
 export const reducer = (state, action) => {
@@ -63,6 +64,9 @@ export const reducer = (state, action) => {
 
     case "courts-set":
       return { ...state, courts: action.payload };
+
+    case "production-types-set":
+      return { ...state, productionTypes: action.payload };
 
     default:
       return state;

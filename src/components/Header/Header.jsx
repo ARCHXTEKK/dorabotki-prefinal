@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { PanelHeader } from "@vkontakte/vkui";
 import clearlogo from "../../assets/clearlogo.png";
 import {
   useGetPanelForView,
   useRouteNavigator,
 } from "@vkontakte/vk-mini-apps-router";
+import BurgerIcon from "../../assets/burgerIcon";
 
 export default function Header({ forceActiveTab = null }) {
   const routeNavigator = useRouteNavigator();
   const activePanel = useGetPanelForView("default_view");
+
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <PanelHeader delimiter="auto">
@@ -16,7 +19,12 @@ export default function Header({ forceActiveTab = null }) {
         <div className="header-left">
           <img src={clearlogo} alt="Logo" className="logo" />
         </div>
-        <div className="header-navigation button-wrapper">
+        <div
+          className={
+            "header-navigation button-wrapper " +
+            (mobileMenuOpen ? "active" : "")
+          }
+        >
           <div
             size="m"
             mode={
@@ -26,7 +34,7 @@ export default function Header({ forceActiveTab = null }) {
             }
             onClick={() => routeNavigator.push("/rubricator")}
             className={
-              "left-button " +
+              "header-button " +
               (activePanel === "rubricator-panel" || forceActiveTab === 0
                 ? "primary"
                 : "secondary")
@@ -43,7 +51,7 @@ export default function Header({ forceActiveTab = null }) {
             }
             onClick={() => routeNavigator.push("/keywordsearch")}
             className={
-              "button-keyword " +
+              "header-button " +
               (activePanel === "keyword-search-panel" || forceActiveTab === 1
                 ? "primary"
                 : "secondary")
@@ -60,7 +68,7 @@ export default function Header({ forceActiveTab = null }) {
             }
             onClick={() => routeNavigator.push("/lawsearch")}
             className={
-              "button-lawsearch " +
+              "header-button " +
               (activePanel === "law-search-panel" || forceActiveTab === 2
                 ? "primary"
                 : "secondary")
@@ -77,7 +85,7 @@ export default function Header({ forceActiveTab = null }) {
             }
             onClick={() => routeNavigator.push("/advancedsearch")}
             className={
-              "right-button " +
+              "header-button " +
               (activePanel === "advanced-search-panel" || forceActiveTab === 3
                 ? "primary"
                 : "secondary")
@@ -86,6 +94,12 @@ export default function Header({ forceActiveTab = null }) {
             Расширенный поиск
           </div>
         </div>
+        <button
+          className="mobile-burger"
+          onClick={() => setMobileMenuOpen((prev) => !prev)}
+        >
+          <BurgerIcon />
+        </button>
       </div>
     </PanelHeader>
   );

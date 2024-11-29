@@ -3,13 +3,19 @@ import { createRoot } from "react-dom/client";
 import bridge from "@vkontakte/vk-bridge";
 import App from "./App";
 import "./styles.css";
-import { AdaptivityProvider, AppRoot, ConfigProvider } from "@vkontakte/vkui";
+import {
+  AdaptivityProvider,
+  AppRoot,
+  ConfigProvider,
+  usePlatform,
+} from "@vkontakte/vkui";
 
 import {
   createHashParamRouter,
   RouterProvider,
 } from "@vkontakte/vk-mini-apps-router";
 import { StoreProvider } from "./hooks/useStore";
+import { useInsets } from "@vkontakte/vk-bridge-react";
 
 // Инициализация VK Bridge
 bridge.send("VKWebAppInit");
@@ -64,16 +70,23 @@ const router = createHashParamRouter([
   },
 ]);
 
-root.render(
-  <ConfigProvider appearance="light">
-    <AdaptivityProvider>
-      <AppRoot mode="embedded">
-        <RouterProvider router={router}>
-          <StoreProvider>
-            <App />
-          </StoreProvider>
-        </RouterProvider>
-      </AppRoot>
-    </AdaptivityProvider>
-  </ConfigProvider>
-);
+const Root = () => {
+  const vkBridgeInsets = useInsets();
+  const platform = usePlatform();
+
+  return (
+    <ConfigProvider appearance="light" platform={platform}>
+      <AdaptivityProvider>
+        <AppRoot mode="full" safeAreaInsets={vkBridgeInsets}>
+          <RouterProvider router={router}>
+            <StoreProvider>
+              <App />
+            </StoreProvider>
+          </RouterProvider>
+        </AppRoot>
+      </AdaptivityProvider>
+    </ConfigProvider>
+  );
+};
+
+root.render(<Root />);

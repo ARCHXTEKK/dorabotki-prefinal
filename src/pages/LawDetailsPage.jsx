@@ -83,7 +83,7 @@ export default function LawDetailsPage() {
           <div className="law-search-controls">
             <div className="law-search-buttons">
               <div
-                className="uibtn uibtn--icon left casedetails-btn"
+                className="uibtn uibtn--icon left lawdetails-btn"
                 onClick={() => handleBack()}
               >
                 <Backtosearchicon className="uibtn__icon left" />
@@ -158,33 +158,36 @@ export default function LawDetailsPage() {
               {selectedLaw?.child_list
                 ?.filter((section) => filterSection(section, searchContent))
                 ?.map((section, index) => (
-                  <div key={index} className="section">
+                  <div key={index} className="lawsection">
                     <h3
-                      className="law-section"
+                      className={"law-section"}
                       onClick={() => toggleSection(index)}
                     >
                       {expandedSections.includes(index) ? (
-                        <div className="expand-icon">
+                        <div className="expand-icon ">
                           <Expandicon />
                         </div>
                       ) : (
-                        <div className="expand-icon">
-                          <Expandicon rotated={true} />
+                        <div className="expand-icon rotated">
+                          <Expandicon />
                         </div>
                       )}
                       {section.title}
                     </h3>
-                    {expandedSections.includes(index) && (
-                      <ul className="law-chapters">
-                        {section.child_list
-                          .filter((chapter) =>
-                            filterPoint(chapter, searchContent)
-                          )
-                          .map((chapter, chapterIndex) => (
-                            <li key={chapterIndex}>{chapter.title}</li>
-                          ))}
-                      </ul>
-                    )}
+                    <ul
+                      className={
+                        "law-chapters " +
+                        (expandedSections.includes(index) && "active")
+                      }
+                    >
+                      {section.child_list
+                        .filter((chapter) =>
+                          filterPoint(chapter, searchContent)
+                        )
+                        .map((chapter, chapterIndex) => (
+                          <li key={chapterIndex}>{chapter.title}</li>
+                        ))}
+                    </ul>
                   </div>
                 ))}
             </div>

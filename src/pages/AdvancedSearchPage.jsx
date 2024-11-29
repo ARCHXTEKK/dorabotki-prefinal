@@ -48,6 +48,14 @@ export default function AdvancedSearchPage() {
     selectedRole,
     roles,
     setSelectedRole,
+    selectState,
+    setSelectState,
+    selectState2,
+    setSelectState2,
+    selectState3,
+    setSelectState3,
+    selectState4,
+    setSelectState4,
   } = useAdvancedSearchState();
 
   const routeNavigator = useRouteNavigator();
@@ -233,6 +241,8 @@ export default function AdvancedSearchPage() {
                         }}
                         value={productionType}
                         onChange={onProductionTypeChange}
+                        onFocus={() => setSelectState(true)}
+                        onBlur={() => setSelectState(false)}
                       >
                         {productionTypes.map((item, index) => (
                           <option key={index} value={index}>
@@ -243,11 +253,11 @@ export default function AdvancedSearchPage() {
                       <img
                         src={downicon}
                         alt=""
-                        style={{
-                          height: "5px",
-                          marginTop: "auto",
-                          marginBottom: "auto",
-                        }}
+                        height={6}
+                        className={
+                          "uibtn__select-icon" +
+                          (!selectState ? " rotated" : "")
+                        }
                       />
                     </div>
                   </div>
@@ -371,6 +381,8 @@ export default function AdvancedSearchPage() {
                       }}
                       value={court}
                       onChange={(e) => setCourt(e.target.value)}
+                      onFocus={() => setSelectState2(true)}
+                      onBlur={() => setSelectState2(false)}
                     >
                       {courts.map((item, index) => (
                         <option key={index} value={item}>
@@ -381,11 +393,10 @@ export default function AdvancedSearchPage() {
                     <img
                       src={downicon}
                       alt=""
-                      style={{
-                        height: "5px",
-                        marginTop: "auto",
-                        marginBottom: "auto",
-                      }}
+                      height={6}
+                      className={
+                        "uibtn__select-icon" + (!selectState2 ? " rotated" : "")
+                      }
                     />
                   </div>
                 </div>
@@ -404,6 +415,8 @@ export default function AdvancedSearchPage() {
                       }}
                       value={judge}
                       onChange={(e) => setJudge(e.target.value)}
+                      onFocus={() => setSelectState3(true)}
+                      onBlur={() => setSelectState3(false)}
                     >
                       {judges.map((item, index) => (
                         <option key={index} value={item}>
@@ -414,11 +427,10 @@ export default function AdvancedSearchPage() {
                     <img
                       src={downicon}
                       alt=""
-                      style={{
-                        height: "5px",
-                        marginTop: "auto",
-                        marginBottom: "auto",
-                      }}
+                      height={6}
+                      className={
+                        "uibtn__select-icon" + (!selectState3 ? " rotated" : "")
+                      }
                     />
                   </div>
                 </div>
@@ -468,6 +480,8 @@ export default function AdvancedSearchPage() {
                         width: "25%",
                         minWidth: "120px",
                       }}
+                      onFocus={() => setSelectState4(true)}
+                      onBlur={() => setSelectState4(false)}
                     >
                       {roles.map((option) => (
                         <option key={option} value={option}>
@@ -477,41 +491,29 @@ export default function AdvancedSearchPage() {
                     </select>
                     <img
                       src={downicon}
-                      style={{
-                        height: "5px",
-                        position: "absolute",
-                        top: "50%",
-                        transform: "translateY(-50%)",
-                      }}
+                      height={6}
+                      className={
+                        "uibtn__select-icon" + (!selectState4 ? " rotated" : "")
+                      }
                       alt="down icon"
                     />
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="advanced-search-buttons">
-            <button onClick={handleSubmit} className="uibtn uibtn--icon left">
-              <img
-                src={findicon}
-                height={15}
-                className="uibtn__icon left"
-                style={{ left: "16px" }}
-              />
-              Найти
-            </button>
-            <button
-              onClick={handleClear}
-              className="uibtn uibtn--outline uibtn--icon left"
-            >
-              <img
-                src={clearicon}
-                className="uibtn__icon left"
-                height={15}
-                style={{ left: "16px" }}
-              />
-              Очистить все поля
-            </button>
+            <div className="advanced-search-buttons">
+              <button onClick={handleSubmit} className="uibtn uibtn--icon left">
+                <img src={findicon} height={15} className="uibtn__icon left" />
+                Найти
+              </button>
+              <button
+                onClick={handleClear}
+                className="uibtn uibtn--outline uibtn--icon left"
+              >
+                <img src={clearicon} className="uibtn__icon left" height={15} />
+                Очистить все поля
+              </button>
+            </div>
           </div>
         </Group>
       </div>

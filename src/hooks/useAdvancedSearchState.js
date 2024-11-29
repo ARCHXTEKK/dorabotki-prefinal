@@ -3,7 +3,7 @@ import { useStore } from "./useStore";
 import axios from "axios";
 
 const filters = ["date-range", "exact-date", "earlier-than", "later-than"];
-const roles = ["Участник", "Истец", "Ответчик"];
+const roles = ["", "Истец", "Ответчик"];
 
 export const useAdvancedSearchState = () => {
   const { state, dispatch } = useStore();
@@ -29,6 +29,11 @@ export const useAdvancedSearchState = () => {
   const [disputant, setDisputant] = useState("");
 
   const [selectedRole, setSelectedRole] = useState(roles[0]);
+
+  const [selectState, setSelectState] = useState(false);
+  const [selectState2, setSelectState2] = useState(false);
+  const [selectState3, setSelectState3] = useState(false);
+  const [selectState4, setSelectState4] = useState(false);
 
   const onCaseTextChange = (e) => {
     setCaseText(e.target.value);
@@ -78,49 +83,75 @@ export const useAdvancedSearchState = () => {
   // Фетч данных
   useEffect(() => {
     if (state.judges.length === 0) {
-      try {
-        axios
-          .post("https://lawrs.ru:8000/api/count_cases_add/search", {
-            list_judge: true,
-          })
-          .then((r) => {
-            dispatch({
-              type: "judges-set",
-              payload: ["", ...r.data.map((x) => x.judge)],
-            });
-            setJudges(["", ...r.data.map((x) => x.judge)]);
+      axios
+        .post("https://lawrs.ru:8000/api/count_cases_add/search", {
+          list_judge: true,
+        })
+        .then((r) => {
+          dispatch({
+            type: "judges-set",
+            payload: ["", ...r.data.map((x) => x.judge)],
           });
-      } catch (e) {
-        console.log("Ошибка при получении данных useAdvancedSearchState ", e);
-      }
+          setJudges(["", ...r.data.map((x) => x.judge)]);
+        })
+        .catch((e) => {
+          console.log("Ошибка при получении данных useAdvancedSearchState ", e);
+        });
     } else {
       setJudges(state.judges);
     }
 
     if (state.courts.length === 0) {
-      try {
-        axios
-          .post("https://lawrs.ru:8000/api/count_cases_add/search", {
-            list_court: true,
-          })
-          .then((r) => {
-            dispatch({
-              type: "courts-set",
-              payload: ["", ...r.data.map((x) => x.court)],
-            });
-            setCourts(["", ...r.data.map((x) => x.court)]);
+      axios
+        .post("https://lawrs.ru:8000/api/count_cases_add/search", {
+          list_court: true,
+        })
+        .then((r) => {
+          dispatch({
+            type: "courts-set",
+            payload: ["", ...r.data.map((x) => x.court)],
           });
-      } catch (e) {
-        console.log("Ошибка при получении данных useAdvancedSearchState ", e);
-      }
+          setCourts(["", ...r.data.map((x) => x.court)]);
+        })
+        .catch((e) => {
+          console.log("Ошибка при получении данных useAdvancedSearchState ", e);
+        });
     } else {
       setCourts(state.courts);
+    }
+
+    if (productionTypes.length < 2) {
+      axios
+        .get(`https://lawrs.ru:8000/api/categories/?page=1`)
+        .then((response) => {
+          let res = [];
+
+          response.data.results.forEach((el) => {
+            res.push(el.name);
+            el.subcategories.forEach((el_2) => {
+              res.push(el_2.name);
+            });
+          });
+          dispatch({ type: "production-types-set", payload: ["", ...res] });
+          setProductionTypes(["", ...res]);
+        })
+        .catch((e) => {
+          console.log("Ошибка при получении данных useAdvancedSearchState ", e);
+        });
+    } else {
+      setProductionTypes(state.productionTypes);
     }
   }, []);
 
   return {
-    // selectState,
-    // onSelect,
+    selectState,
+    setSelectState,
+    selectState2,
+    setSelectState2,
+    selectState3,
+    setSelectState3,
+    selectState4,
+    setSelectState4,
     selectedFilter,
     caseText,
     onCaseTextChange,
