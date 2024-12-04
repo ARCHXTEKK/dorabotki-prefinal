@@ -2,19 +2,25 @@ import React, { useEffect, useState } from "react";
 
 import sadcat from "../assets/sad-cat.png";
 import clearlogo from "../assets/clearlogo.png";
-import { Button, Div } from "@vkontakte/vkui";
+import { Div } from "@vkontakte/vkui";
 import { useRouteNavigator } from "@vkontakte/vk-mini-apps-router";
 import axios from "axios";
 import bridge from "@vkontakte/vk-bridge";
+import { useStore } from "../hooks/useStore";
 
 export default function WelcomePage() {
   const routeNavigator = useRouteNavigator();
 
+  const { state, dispatch } = useStore();
+
   const handlePass = () => {
+    dispatch({ type: "set-pass" });
     routeNavigator.replace("/rubricator");
   };
 
-  const [pass, setPass] = useState(false);
+  const pass = state.pass;
+
+  const [username, setUsername] = useState("Имя пользователя");
 
   useEffect(() => {
     if (pass) {
@@ -28,16 +34,19 @@ export default function WelcomePage() {
           .then((r2) => {
             if (r2.results) {
               handlePass();
-            } else {
-              setPass(false);
             }
           })
           .catch((e) => {
             console.log(e);
-            setPass(false);
           });
       });
     }
+  }, []);
+
+  useEffect(() => {
+    bridge.send("VKWebAppGetUserInfo").then((r) => {
+      setUsername(r.first_name);
+    });
   }, []);
 
   return !pass ? (
@@ -49,7 +58,7 @@ export default function WelcomePage() {
             <img src={sadcat} className="logo-cat" />
             <div className="welcome-title">
               <h2>
-                Здравствуйте, <span id="user-name">Имя пользователя</span>!
+                Здравствуйте, <span id="user-name">{username}</span>!
               </h2>
               <h2>К сожалению у Вас нет доступа к данному приложению.</h2>
             </div>

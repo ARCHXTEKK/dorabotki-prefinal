@@ -17,6 +17,7 @@ import constitution from "../assets/constitution.png";
 import fileicon from "../assets/fileicon.png";
 import bookicon from "../assets/bookicon.png";
 import ShowIcon from "./../assets/ShowIcon";
+import PreLoader from "../ui/PreLoader";
 
 export default function LawSearchPage() {
   const {
@@ -47,7 +48,7 @@ export default function LawSearchPage() {
     <div className="app-wrapper" onClick={onClickOutside}>
       <Header />
       <main className="page-content">
-        <div className="row mobile-column">
+        <div className="row mobile-column mobile-center">
           <h2 className="page-title">Поиск по норме права</h2>
 
           <div className="law-search-input-wrapper">
@@ -66,10 +67,11 @@ export default function LawSearchPage() {
             <div className="display-button-details">
               <button
                 onClick={onDisplayOptionsClick}
-                className="uibtn uibtn--outline uibtn--select"
+                className="uibtn uibtn--icon uibtn--outline uibtn--select"
               >
-                <div className="uibtn__text">Отображение</div>
                 <ShowIcon className="uibtn__icon left show-icon " />
+
+                <div className="uibtn__text">Отображение</div>
                 <img
                   src={downicon}
                   alt="downicon"
@@ -127,9 +129,8 @@ export default function LawSearchPage() {
             <div className="display-button-details">
               <button
                 onClick={onSortOptionsClick}
-                className="uibtn uibtn--outline uibtn--select"
+                className="uibtn uibtn--icon uibtn--outline uibtn--select"
               >
-                <div className="uibtn__text">Сортировать</div>
                 <img
                   src={sorticon}
                   alt="Сортировка"
@@ -137,6 +138,9 @@ export default function LawSearchPage() {
                   height={10}
                   width={19}
                 />
+
+                <div className="uibtn__text">Сортировать</div>
+
                 <img
                   src={downicon}
                   alt="downicon"
@@ -176,52 +180,58 @@ export default function LawSearchPage() {
           />
         </div>
         <div className="law-search-wrapper">
-          <div className="law-search-list">
-            {content?.map((law) => (
-              <button
-                className="law-search-block"
-                key={law.id}
-                onClick={() => handleLawClick(law.id)}
-              >
-                {law.icon === "constitution" ? (
-                  <img
-                    src={constitution}
-                    alt="Конституция"
-                    className="law-search-block__img"
-                    style={{
-                      height: "16px",
-                      width: "16px",
-                      marginBottom: "auto",
-                      marginTop: "auto",
-                    }}
-                  />
-                ) : law.icon === "book" ? (
-                  <img
-                    src={bookicon}
-                    alt="book"
-                    className="law-search-block__img"
-                    style={{
-                      height: "16px",
-                      marginBottom: "auto",
-                      marginTop: "auto",
-                    }}
-                  />
-                ) : (
-                  <img
-                    src={fileicon}
-                    alt="file"
-                    className="law-search-block__img"
-                    style={{
-                      height: "16px",
-                      marginBottom: "auto",
-                      marginTop: "auto",
-                    }}
-                  />
-                )}
-                {law.title}
-              </button>
-            ))}
-          </div>
+          {content.length > 0 ? (
+            <div className="law-search-list">
+              {content.map((law) => (
+                <button
+                  className="law-search-block"
+                  key={law.id}
+                  onClick={() => handleLawClick(law.id)}
+                >
+                  {law.icon === "constitution" ? (
+                    <img
+                      src={constitution}
+                      alt="Конституция"
+                      className="law-search-block__img"
+                      style={{
+                        height: "16px",
+                        width: "16px",
+                        marginBottom: "auto",
+                        marginTop: "auto",
+                      }}
+                    />
+                  ) : law.icon === "book" ? (
+                    <img
+                      src={bookicon}
+                      alt="book"
+                      className="law-search-block__img"
+                      style={{
+                        height: "16px",
+                        marginBottom: "auto",
+                        marginTop: "auto",
+                      }}
+                    />
+                  ) : (
+                    <img
+                      src={fileicon}
+                      alt="file"
+                      className="law-search-block__img"
+                      style={{
+                        height: "16px",
+                        marginBottom: "auto",
+                        marginTop: "auto",
+                      }}
+                    />
+                  )}
+                  {law.title}
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div style={{ width: "100%", paddingTop: "10%" }}>
+              <PreLoader />
+            </div>
+          )}
         </div>
       </main>
       <Footer />

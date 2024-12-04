@@ -1,9 +1,7 @@
-import React, { useReducer, useState } from "react";
+import React, { useState } from "react";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
-import backtosearchicon from "../assets/backtosearchicon.png";
 import { useParams, useRouteNavigator } from "@vkontakte/vk-mini-apps-router";
-import displayicon from "../assets/displayicon.png";
 import downicon from "../assets/downicon.png";
 import { useLawDetailsState } from "../hooks/useLawDetailsState";
 import { Icon28SearchOutline } from "@vkontakte/icons";
@@ -92,10 +90,10 @@ export default function LawDetailsPage() {
               <div className="display-button-details">
                 <button
                   onClick={onDisplayOptionsClick}
-                  className="uibtn uibtn--outline uibtn--select"
+                  className="uibtn uibtn--icon uibtn--outline uibtn--select"
                 >
-                  Отображение
                   <ShowIcon className="uibtn__icon left show-icon " />
+                  Отображение
                   <img
                     src={downicon}
                     alt="downicon"
@@ -177,7 +175,7 @@ export default function LawDetailsPage() {
                     <ul
                       className={
                         "law-chapters " +
-                        (expandedSections.includes(index) && "active")
+                        (expandedSections.includes(index) ? "active " : "")
                       }
                     >
                       {section.child_list

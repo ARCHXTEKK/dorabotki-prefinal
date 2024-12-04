@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
 import { Group } from "@vkontakte/vkui";
@@ -6,13 +6,14 @@ import { useAdvancedSearchState } from "../hooks/useAdvancedSearchState";
 import downicon from "../assets/downicon.png";
 import dataicon from "../assets/dataicon.png";
 import DatePicker, { registerLocale } from "react-datepicker";
-import findicon from "../assets/findicon.png";
-import clearicon from "../assets/clearicon.png";
 
 import "react-datepicker/dist/react-datepicker.css";
 
 import { ru } from "date-fns/locale/ru";
 import { useRouteNavigator } from "@vkontakte/vk-mini-apps-router";
+import WarningIcon from "../assets/WarningIcon";
+import SearchIcon from "../assets/searchIcon";
+import ClearIcon from "../assets/ClearIcon";
 
 registerLocale("ru", ru);
 
@@ -201,7 +202,16 @@ export default function AdvancedSearchPage() {
     <div className="app-wrapper">
       <Header />
       <div className="page-content">
-        <div className="page-title">Расширенный поиск</div>
+        <div className="row mobile-center">
+          <div className="page-title">Расширенный поиск</div>
+        </div>
+        <div className="warning">
+          <WarningIcon className="warning-icon" />
+          <div>
+            Обратите внимание: вам необязательно заполнять все поля данной
+            формы. Для начала поиска достаточно заполнения одного любого поля.
+          </div>
+        </div>
         <Group>
           <div className="advanced-search-container">
             <div className="advanced-search-input-group">
@@ -503,14 +513,14 @@ export default function AdvancedSearchPage() {
             </div>
             <div className="advanced-search-buttons">
               <button onClick={handleSubmit} className="uibtn uibtn--icon left">
-                <img src={findicon} height={15} className="uibtn__icon left" />
+                <SearchIcon className="uibtn__icon left search-icon" />
                 Найти
               </button>
               <button
                 onClick={handleClear}
                 className="uibtn uibtn--outline uibtn--icon left"
               >
-                <img src={clearicon} className="uibtn__icon left" height={15} />
+                <ClearIcon className="uibtn__icon left clear-icon" />
                 Очистить все поля
               </button>
             </div>

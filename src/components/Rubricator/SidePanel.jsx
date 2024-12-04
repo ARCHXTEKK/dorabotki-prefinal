@@ -33,7 +33,7 @@ export const SidePanel = ({
   onSubcategorySelect,
   selectedCategory,
   show,
-  handleSearchSubmit,
+  filteredCategories,
 }) => {
   const icons = [
     folderIcon1,
@@ -45,23 +45,30 @@ export const SidePanel = ({
 
   return (
     <div className={`side-panel ${show ? "show" : "hide"}`}>
-      <div className="search-bar" style={{ borderBottom: "1px solid #F5F5F5" }}>
-        <Icon28SearchOutline
-          className="search-icon"
-          onClick={handleSearchSubmit}
-        />
+      <form
+        className="search-bar"
+        style={{ borderBottom: "1px solid #F5F5F5" }}
+      >
+        <Icon28SearchOutline className="search-icon" />
         <input
           type="text"
           placeholder="Введите название раздела..."
           value={searchContent}
-          onChange={onSearch}
+          onInput={onSearch}
           className="search-input"
         />
-      </div>
+      </form>
 
       <List>
-        {categories.map((category, index) => (
-          <div key={category.id}>
+        {categories?.map((category, index) => (
+          <div
+            key={category.id}
+            className={
+              filteredCategories.some((x) => x.name === category.name)
+                ? ""
+                : "hidden"
+            }
+          >
             <Cell
               className={`category-cell ${
                 selectedCategory === category.name ? "selected" : ""
@@ -77,14 +84,19 @@ export const SidePanel = ({
                 {category.name}
               </div>
             </Cell>
-
             <List className="subcategory-list">
-              {category.subcategories.map((sub, index) => (
+              {category?.subcategories?.map((sub, index) => (
                 <Cell
                   key={sub.id}
-                  className={`subcategory-cell ${
-                    selectedCategory === sub.name ? "selected" : ""
-                  }`}
+                  className={
+                    "subcategory-cell " +
+                    (selectedCategory === sub.name ? "selected " : "") +
+                    (filteredCategories.some((x) =>
+                      x.subcategories.some((y) => y.name === sub.name)
+                    )
+                      ? ""
+                      : "hidden ")
+                  }
                   onClick={() => onSubcategorySelect(category.name, sub.name)}
                 >
                   <div className="subcategory-title">

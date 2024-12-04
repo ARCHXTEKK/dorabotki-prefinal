@@ -16,6 +16,7 @@ import {
 } from "@vkontakte/vk-mini-apps-router";
 import { StoreProvider } from "./hooks/useStore";
 import { useInsets } from "@vkontakte/vk-bridge-react";
+import PassContextProvider from "./passContext";
 
 // Инициализация VK Bridge
 bridge.send("VKWebAppInit");
@@ -80,7 +81,9 @@ const Root = () => {
         <AppRoot mode="full" safeAreaInsets={vkBridgeInsets}>
           <RouterProvider router={router}>
             <StoreProvider>
-              <App />
+              <PassContextProvider>
+                <App />
+              </PassContextProvider>
             </StoreProvider>
           </RouterProvider>
         </AppRoot>

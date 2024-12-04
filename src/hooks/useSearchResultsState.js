@@ -43,23 +43,23 @@ export const useSearchResultsState = (filters) => {
   const slicedContent = (content, page) => {
     return content.slice(4 * page, 4 * (page + 1));
   };
-  console.log(filters);
 
   useEffect(() => {
+    setTotalPages(0);
+    setCurrentPage(0);
+    forceUpdate();
     if (filters) {
       setCurrentItems([[], []]);
       axios
         .post("https://lawrs.ru:8000/api/count_cases_add/search", {
-          params: {
-            document_text: filters.caseText,
-            court: filters.court,
-            judge: filters.judge,
-            production_type: filters.production_type,
-            disputant: filters.disputant,
-          },
+          document_text: filters.caseText ? filters.caseText : "",
+          // court: filters.court ? filters.court : "",
+          // judge: filters.judge ? filters.judge : "",
+          // production_type: filters.production_type ? filters.judge : "",
+          // disputant: filters.disputant ? filters.disputant : "",
         })
         .then((r) => {
-          setTotalPages(Math.ceil(r?.data.length / 4));
+          setTotalPages(Math.ceil(r.data.length / 4));
           setCurrentItems([r.data, slicedContent(r.data, currentPage)]);
         })
         .catch((e) => {

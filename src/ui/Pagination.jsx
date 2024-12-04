@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Pagination({
   initialPage = 0,
@@ -13,6 +13,10 @@ export default function Pagination({
       onPageChange(page);
     }
   };
+
+  useEffect(() => {
+    setCurrentPage(initialPage);
+  }, [totalPages]);
 
   const renderPageButtons = () => {
     let buttons = [];
@@ -35,7 +39,7 @@ export default function Pagination({
           );
         }
         buttons.push(<span key="gap-start0">...</span>);
-        for (let i = totalPages - 2; i <= totalPages; i++) {
+        for (let i = totalPages - 3; i < totalPages; i++) {
           const index = i;
           buttons.push(
             <button
@@ -71,7 +75,7 @@ export default function Pagination({
           );
         }
         buttons.push(<span key="gap-start1">...</span>);
-        for (let i = totalPages - 2; i <= totalPages; i++) {
+        for (let i = totalPages - 3; i < totalPages; i++) {
           const index = i;
           buttons.push(
             <button
@@ -125,7 +129,7 @@ export default function Pagination({
             onClick={() => handlePageClick(totalPages)}
             aria-current={currentPage === totalPages ? "page" : undefined}
           >
-            {totalPages + 1}
+            {totalPages}
           </button>
         );
       }

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function searchIcon() {
+export default function SearchIcon({ className }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -9,6 +9,7 @@ export default function searchIcon() {
       height="42px"
       viewBox="0 0 43 42"
       preserveAspectRatio="none"
+      className={className}
     >
       <image
         x="0px"

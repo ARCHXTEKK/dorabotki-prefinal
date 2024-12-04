@@ -1,4 +1,5 @@
 import { Cell, List } from "@vkontakte/vkui";
+import PreLoader from "../../ui/PreLoader";
 
 /**
  * @description Компонент отображения. Получает на вход массив кейсов и просто выводит его.
@@ -8,11 +9,7 @@ import { Cell, List } from "@vkontakte/vkui";
 export const CasesPanel = ({ cases, handleCaseClick }) => {
   return (
     <div className="case-list-wrapper">
-      {cases.length === 0 && (
-        <div className="cases-loading">
-          Подождите пожалуйста. Данные загружаются
-        </div>
-      )}
+      {cases.length === 0 && <PreLoader />}
       <List>
         {cases.map((caseData, index) => (
           <Cell

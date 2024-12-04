@@ -1,22 +1,21 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
-import { useMetaParams, useParams } from "@vkontakte/vk-mini-apps-router";
+import { useMetaParams } from "@vkontakte/vk-mini-apps-router";
 import { useSearchResultsState } from "../hooks/useSearchResultsState";
 import Pagination from "../ui/Pagination";
 import { useRouteNavigator } from "@vkontakte/vk-mini-apps-router";
 
-import displayicon from "../assets/displayicon.png";
 import downicon from "../assets/downicon.png";
 
 import fileicon1 from "../assets/fileicon1.png";
 import fileicon2 from "../assets/fileicon2.png";
 import fileicon3 from "../assets/fileicon3.png";
-import backtosearchicon from "../assets/backtosearchicon.png";
 
 import { List } from "@vkontakte/vkui";
 import Backtosearchicon from "../assets/Backtosearchicon";
 import ShowIcon from "./../assets/ShowIcon";
+import PreLoader from "./../ui/PreLoader";
 
 const fileIcons = [fileicon3, fileicon2, fileicon1];
 
@@ -48,8 +47,14 @@ export default function ResultsSearchPage() {
     <div className="app-wrapper" onClick={onClickOutside}>
       <Header forceActiveTab={0} />
       <main className="page-content">
-        <h2 className="page-title">Результаты поиска</h2>
-        <div className="row">
+        <h2 className="page-title results-title">Результаты поиска</h2>
+
+        <div className="row mobile-column results-row mobile-center">
+          <Pagination
+            initialPage={0}
+            totalPages={totalPages}
+            onPageChange={onPageChange}
+          />
           <div className="law-search-buttons results-page-buttons">
             <div
               className="uibtn uibtn--icon left casedetails-btn"
@@ -62,10 +67,10 @@ export default function ResultsSearchPage() {
             <div className="display-button-details">
               <button
                 onClick={onDisplayOptionsClick}
-                className="uibtn uibtn--outline uibtn--select"
+                className="uibtn uibtn--icon uibtn--outline uibtn--select"
               >
-                Отображение
                 <ShowIcon className="uibtn__icon left show-icon " />
+                Отображение
                 <img
                   src={downicon}
                   alt="downicon"
@@ -120,11 +125,6 @@ export default function ResultsSearchPage() {
               </div>
             </div>
           </div>
-          <Pagination
-            initialPage={0}
-            totalPages={totalPages}
-            onPageChange={onPageChange}
-          />
         </div>
 
         <div className="FindPage-results">
@@ -137,32 +137,40 @@ export default function ResultsSearchPage() {
               <button className="sort-button-sud-act">Суд</button>
             </div>
           </div>
-          <List>
-            {currentItems.map((res, index) => (
-              <div
-                key={res.id}
-                className="FindPage-item-container"
-                onClick={() => handleCaseClick(res.id)}
-              >
-                <div className="FindPage-item">
-                  <div className="FindPage-item-icon">
-                    <img
-                      src={fileIcons[index % fileIcons.length]}
-                      alt={`icon-${index % fileIcons.length}`}
-                      style={{ height: "20px", padding: "2px 5px 0px 0px" }}
-                    />
-                  </div>
-                  <div className="FindPage-item-text">
-                    <div className="FindPage-item-text-title">{res.title}</div>
-                    <div className="FindPage-item-text-desc">
-                      {res.document_text}
+          {currentItems.length > 0 ? (
+            <List>
+              {currentItems.map((res, index) => (
+                <div
+                  key={res.id}
+                  className="FindPage-item-container"
+                  onClick={() => handleCaseClick(res.id)}
+                >
+                  <div className="FindPage-item">
+                    <div className="FindPage-item-icon">
+                      <img
+                        src={fileIcons[index % fileIcons.length]}
+                        alt={`icon-${index % fileIcons.length}`}
+                        style={{ height: "20px" }}
+                      />
                     </div>
+                    <div className="FindPage-item-text">
+                      <div className="FindPage-item-text-title">
+                        {res.title}
+                      </div>
+                      <div className="FindPage-item-text-desc">
+                        {res.document_text}
+                      </div>
+                    </div>
+                    <div className="FindPage-item-court">{res.court}</div>
                   </div>
-                  <div className="FindPage-item-court">{res.court}</div>
                 </div>
-              </div>
-            ))}
-          </List>
+              ))}
+            </List>
+          ) : (
+            <div className="center" style={{ marginBottom: "100px" }}>
+              <PreLoader />
+            </div>
+          )}
         </div>
       </main>
       <Footer />

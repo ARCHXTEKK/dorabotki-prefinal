@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
 import { SidePanel } from "../components/Rubricator/SidePanel";
@@ -18,27 +18,24 @@ export default function RubricatorPage() {
     selectedCategory,
     totalPages,
     onPageChange,
+    filteredCategories,
   } = useRubricatorState();
 
   const routeNavigator = useRouteNavigator();
 
   const handleCaseClick = (caseData) => {
-    routeNavigator.push("/rubricator/casedetails/:id", {
-      id: caseData.id,
+    routeNavigator.push("/searchresults/", {
+      state: {
+        caseText: caseData.section_title,
+      },
     });
   };
-
-  const handleSearchSubmit = () => [
-    routeNavigator.push("/searchresults/", {
-      state: { caseText: searchContent, court: "", judge: "" },
-    }),
-  ];
 
   return (
     <div className="app-wrapper">
       <Header />
       <main className="page-content page-content--flex">
-        <div className="row">
+        <div className="row tablet-jcsb mobile-center">
           <h2 className="page-title">Рубрикатор судебной практики</h2>
           <Pagination
             initialPage={0}
@@ -55,7 +52,7 @@ export default function RubricatorPage() {
             onSubcategorySelect={onSubcategorySelect}
             show={true}
             selectedCategory={selectedCategory}
-            handleSearchSubmit={handleSearchSubmit}
+            filteredCategories={filteredCategories}
           />
           <CasesPanel handleCaseClick={handleCaseClick} cases={cases} />
         </div>

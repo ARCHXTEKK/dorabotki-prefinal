@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
-import saveicon from "../assets/saveicon.png";
 import { useParams, useRouteNavigator } from "@vkontakte/vk-mini-apps-router";
 
 import { useCaseDetailsState } from "../hooks/useCaseDetailsState";
@@ -22,10 +21,13 @@ export default function CaseDetailsPage() {
   const [showModal, setShowModal] = useState(false);
   const [text, setText] = useState(" ");
 
+  const { id } = useParams();
+  console.log(id);
+
   const handleAi = () => {
     setShowModal(true);
     axios
-      .post("https://lawrs.ru:8000/api/count_cases_add/text_add/" + id)
+      .post(`https://lawrs.ru:8000/api/count_cases_add/text_add/${id}`)
       .then((r) => {
         setText(r.data.text);
       })
@@ -33,8 +35,6 @@ export default function CaseDetailsPage() {
         console.error(e);
       });
   };
-
-  const { id } = useParams();
 
   const { caseData } = useCaseDetailsState(id);
 
@@ -62,7 +62,7 @@ export default function CaseDetailsPage() {
                   onClick={() => handleBack()}
                 >
                   <Backtosearchicon className="uibtn__icon left" />
-                  <div className="mobile-sm-hidden">Вернуться к поиску</div>
+                  <div>Вернуться к поиску</div>
                 </div>
               </div>
               <div className="LawPanel-buttons-right">
@@ -83,9 +83,6 @@ export default function CaseDetailsPage() {
               </div>
             </div>
             <div className="law-panel-content">
-              <div className="law-panel-content-top">
-                {caseData.section_title}
-              </div>
               <div className="law-panel-content-text">
                 <h1>{caseData.court}</h1>
                 <h1>

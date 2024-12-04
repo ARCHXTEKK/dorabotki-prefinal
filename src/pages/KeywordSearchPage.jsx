@@ -35,9 +35,9 @@ export default function KeywordSearchPage() {
   };
 
   return (
-    <div className="app-wrapper">
+    <div className="app-wrapper keyword-search-page-wrapper">
       <Header />
-      <main className="page-content">
+      <main className="page-content keyword-search-page-content">
         <div className="mobile-column">
           <h2 className="page-title">Поиск по ключевому слову</h2>
           <div className="Keywordsearch-wrapper">
@@ -58,84 +58,81 @@ export default function KeywordSearchPage() {
             </button>
           </div>
         </div>
-        <Group>
-          <div className="alphabet-page">
-            <div className="alphabet-nav-wrapper">
-              <div className="alphabet-nav">
-                <button
-                  className="alphabet-nav-button"
+        <div className="alphabet-nav-wrapper">
+          <div className="alphabet-nav">
+            <button
+              className="alphabet-nav-button"
+              size="m"
+              mode="secondary"
+              onClick={handlePrevGroup}
+              disabled={selectedGroup === 0}
+            >
+              Назад
+            </button>
+            <div className="alphabet-groups">
+              {groupedAlphabet.map((group, index) => (
+                <Button
+                  key={index}
                   size="m"
                   mode="secondary"
-                  onClick={handlePrevGroup}
-                  disabled={selectedGroup === 0}
+                  onClick={() => onGroupSelect(index)}
+                  className={
+                    selectedGroup === index
+                      ? "alphabet-group active"
+                      : "alphabet-group"
+                  }
                 >
-                  Назад
-                </button>
-                <div className="alphabet-groups">
-                  {groupedAlphabet.map((group, index) => (
-                    <Button
-                      key={index}
-                      size="m"
-                      mode="secondary"
-                      onClick={() => onGroupSelect(index)}
-                      className={
-                        selectedGroup === index
-                          ? "alphabet-group active"
-                          : "alphabet-group"
-                      }
-                    >
-                      {group.join("")}
-                    </Button>
-                  ))}
-                </div>
-                <button
-                  className="alphabet-nav-button"
-                  size="m"
-                  mode="secondary"
-                  onClick={handleNextGroup}
-                  disabled={selectedGroup === groupedAlphabet.length - 1}
-                >
-                  Вперед
-                </button>
-              </div>
+                  {group.join("")}
+                </Button>
+              ))}
             </div>
-            <div className="list-alphabet">
-              {groupedAlphabet[selectedGroup].map((letter, index) => {
-                return (
-                  dataByLetter[letter]?.length > 0 && (
-                    <Div key={index} className="alphabet-category-cell">
-                      <div className="card-header">
-                        <span className="card-title">{letter}</span>
-                        <button
-                          size="s"
-                          mode="secondary"
-                          onClick={() => handleShowAllWordsByLetter(letter)}
-                          className="show-all-button"
-                        >
-                          Показать полностью
-                        </button>
-                      </div>
-                      {dataByLetter[letter] &&
-                        dataByLetter[letter].map((word, idx) => (
-                          <Cell
-                            onClick={() => handleSubmit(word)}
-                            style={{
-                              color: "#818181",
-                              fontSize: "13px",
-                              fontWeight: "400",
-                            }}
-                            key={idx}
-                          >
-                            {word}
-                          </Cell>
-                        ))}
-                    </Div>
-                  )
-                );
-              })}
-            </div>
+            <button
+              className="alphabet-nav-button"
+              size="m"
+              mode="secondary"
+              onClick={handleNextGroup}
+              disabled={selectedGroup === groupedAlphabet.length - 1}
+            >
+              Вперед
+            </button>
           </div>
-        </Group>
+        </div>
+
+        <div className="list-alphabet">
+          {groupedAlphabet[selectedGroup].map((letter, index) => {
+            return (
+              dataByLetter[letter]?.length > 0 && (
+                <Div key={index} className="alphabet-category-cell">
+                  <div className="card-header">
+                    <span className="card-title">{letter}</span>
+                    <button
+                      size="s"
+                      mode="secondary"
+                      onClick={() => handleShowAllWordsByLetter(letter)}
+                      className="show-all-button"
+                    >
+                      Показать полностью
+                    </button>
+                  </div>
+                  {dataByLetter[letter] &&
+                    dataByLetter[letter].slice(0, 5).map((word, idx) => (
+                      <Cell
+                        onClick={() => handleSubmit(word)}
+                        style={{
+                          color: "#818181",
+                          fontSize: "13px",
+                          fontWeight: "400",
+                        }}
+                        key={idx}
+                      >
+                        {word}
+                      </Cell>
+                    ))}
+                </Div>
+              )
+            );
+          })}
+        </div>
       </main>
       <Footer />
     </div>

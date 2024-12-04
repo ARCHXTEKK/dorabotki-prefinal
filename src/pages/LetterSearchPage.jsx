@@ -1,9 +1,8 @@
 import React from "react";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
-import { Cell, List } from "@vkontakte/vkui";
+import { List } from "@vkontakte/vkui";
 import { Icon28SearchOutline } from "@vkontakte/icons";
-import backtosearchicon from "../assets/backtosearchicon.png";
 import { useParams, useRouteNavigator } from "@vkontakte/vk-mini-apps-router";
 import { useLetterSearchState } from "../hooks/useLetterSearchState";
 import { groupedAlphabet } from "../lib/consts";
@@ -41,7 +40,7 @@ export default function LetterSearchPage() {
       <main className="page-content">
         <div className="row">
           <h2 className="page-title">
-            Поиск по ключевым словам (буква {letter})
+            Поиск по ключевым словам (буква&#160;{letter})
           </h2>
           <div className="alphabet-input-wrapper">
             <Icon28SearchOutline
@@ -81,7 +80,7 @@ export default function LetterSearchPage() {
               </button>
             </div>
           </div>
-          <List gap="20px">
+          <List className="lettersearch-list" gap={""}>
             {data?.map((word, index) => (
               <div className="word-list-block" key={index}>
                 <button
