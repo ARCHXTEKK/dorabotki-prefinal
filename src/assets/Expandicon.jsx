@@ -11,7 +11,7 @@ export default function Expandicon({ rotated = false, className = "" }) {
       preserveAspectRatio="none"
       className={className + (rotated ? " rotated" : "")}
     >
-      <path
+      {/* <path
         fillRule="evenodd"
         stroke="rgb(213, 213, 213)"
         strokeWidth="1px"
@@ -20,7 +20,7 @@ export default function Expandicon({ rotated = false, className = "" }) {
         opacity="0.2"
         fill="rgb(213, 213, 213)"
         d="M23.500,1.500 C35.650,1.500 45.500,11.350 45.500,23.500 C45.500,35.650 35.650,45.500 23.500,45.500 C11.350,45.500 1.500,35.650 1.500,23.500 C1.500,11.350 11.350,1.500 23.500,1.500 Z"
-      />
+      /> */}
       <image
         x="9.5px"
         y="17.5px"

@@ -1,5 +1,6 @@
 import { Cell, List } from "@vkontakte/vkui";
 import PreLoader from "../../ui/PreLoader";
+import { useState } from "react";
 
 /**
  * @description Компонент отображения. Получает на вход массив кейсов и просто выводит его.

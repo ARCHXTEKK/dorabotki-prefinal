@@ -9,6 +9,8 @@ import folderIcon5 from "../../assets/dir3.png";
 import criminalIcon from "../../assets/directory.png";
 
 import { List, Cell } from "@vkontakte/vkui";
+import { useState } from "react";
+import Expandicon from "../../assets/Expandicon";
 /**
 
  * @description Компонент отображения. Получает на вход готовый массив категорий, по которому уже выполнен поиск и фильтрация
@@ -43,8 +45,18 @@ export const SidePanel = ({
     folderIcon5,
   ];
 
+  const [expanded, setExpanded] = useState(true);
+
+  const handleExpand = () => {
+    setExpanded((prev) => !prev);
+  };
+
   return (
-    <div className={`side-panel ${show ? "show" : "hide"}`}>
+    <div
+      className={`side-panel ${show ? "show" : "hide"} ${
+        expanded && "expanded"
+      }`}
+    >
       <form
         className="search-bar"
         style={{ borderBottom: "1px solid #F5F5F5" }}
@@ -72,7 +84,13 @@ export const SidePanel = ({
             <Cell
               className={`category-cell ${
                 selectedCategory === category.name ? "selected" : ""
-              } ${index === 0 ? "disabled" : ""}`}
+              } ${index === 0 ? "disabled" : ""}
+              ${
+                category.subcategories.some((x) => x.name === selectedCategory)
+                  ? "expanded-visible"
+                  : ""
+              } 
+              `}
               onClick={() => onCategorySelect(category.name)}
             >
               <div className="category-title">
@@ -113,6 +131,16 @@ export const SidePanel = ({
           </div>
         ))}
       </List>
+
+      <button
+        className="expand-btn sidepanel-expand-btn"
+        onClick={handleExpand}
+      >
+        <Expandicon
+          rotated={!expanded}
+          className="expand-icon expand-icon-big"
+        />
+      </button>
     </div>
   );
 };

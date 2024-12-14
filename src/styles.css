@@ -131,7 +131,6 @@ html {
   /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
   background-color: #fff;
   height: 100%;
-  max-height: 540px;
   margin-top: 16px;
 }
 .RubricatorPanel section {
@@ -149,9 +148,11 @@ html {
   overflow-y: auto;
   overflow: hidden;
   border-right: 1px solid rgb(245, 245, 245);
-  height: 100%;
   box-shadow: -4px 2px 5px #0000000c;
   border-radius: 10px 0px 0px 10px;
+
+  display: flex;
+  flex-direction: column;
 }
 .side-panel .search-bar {
   display: flex;
@@ -372,6 +373,7 @@ Button {
   color: #5c5f6d;
   box-sizing: border-box;
 }
+
 .category-cell {
   padding-top: 10px;
   padding-bottom: 10px;
@@ -460,6 +462,8 @@ Button {
 }
 .pagination-wrapper span {
   background-color: #fff;
+  padding: 1px 0;
+  box-sizing: content-box;
 }
 .keyword-search-controls {
   display: flex;
@@ -537,8 +541,7 @@ a {
   font-size: 13px;
   justify-content: center;
   display: flex;
-  align-items: bottom;
-  padding: 5px 8px 0px 8px;
+  padding: 3px 8px;
 }
 .case-description {
   word-break: break-word;
@@ -557,13 +560,6 @@ a {
   background-color: #fff;
   cursor: default;
   pointer-events: none;
-}
-
-@media (max-width: 1000px) {
-  .header-navigation {
-    padding-right: 0;
-    position: relative;
-  }
 }
 
 .keyword-search-controls {
@@ -665,6 +661,12 @@ a {
   grid-template-rows: repeat(2, 1fr);
   width: fit-content;
   margin-block: auto;
+  padding-top: 4px;
+  gap: 16px;
+}
+
+.mobile-sm-show {
+  display: none;
 }
 
 .alphabet-category-cell {
@@ -679,11 +681,6 @@ a {
   background-color: #fff;
   overflow: hidden;
   flex: 1 0 33.33%;
-  margin: 0px 10px 20px 10px;
-}
-
-.alphabet-category-cell:nth-last-child(-n + 3) {
-  margin-bottom: 0px;
 }
 .alphabet-category-cell .vkuiCell {
   border-bottom: 1px solid #f5f5f5;
@@ -764,7 +761,6 @@ a {
 .alphabet-input-wrapper {
   display: flex;
   align-items: center;
-  margin: 15px 0px 5px;
   margin-left: auto;
   background-color: #fff;
   width: 35%;
@@ -786,6 +782,7 @@ a {
 }
 .law-search-wrapper {
   min-height: 300px;
+  flex-grow: 1;
   background-color: #fff;
   border-radius: 10px;
   margin-top: 16px;
@@ -818,8 +815,7 @@ a {
 }
 .law-search-block {
   display: flex;
-  padding: 6px;
-  padding-inline: 15px;
+  padding: 12px 15px;
   height: 45px;
   align-items: center;
   gap: 8px;
@@ -827,7 +823,7 @@ a {
   box-sizing: content-box;
   color: #5c5f6d;
   position: relative;
-  width: 210px;
+  flex: 1;
 }
 .law-search-block:first-child:after {
   display: block;
@@ -868,7 +864,7 @@ a {
   margin-bottom: auto;
 }
 .law-search-buttons {
-  margin-top: 8px;
+  /* margin-top: 8px; */
   display: flex;
   gap: 16px;
 }
@@ -924,14 +920,11 @@ a {
   max-height: 475px;
   position: relative;
   border: 1px solid #eaeff2;
-  margin-bottom: 64px;
 }
 .advanced-search-buttons {
   display: flex;
   gap: 19px;
-  position: absolute;
-  bottom: -48px;
-  left: 0;
+  margin-block: 16px 32px;
 }
 .advanced-search-container select {
   -webkit-appearance: none;
@@ -1144,6 +1137,10 @@ a {
   border: none;
   box-shadow: none;
 }
+.word-list {
+  margin-top: 16px;
+}
+
 .word-list .vkuiList {
   display: flex;
   min-width: 100%;
@@ -1496,6 +1493,10 @@ h3:hover {
   text-align: justify;
 }
 
+.law-search-block__img {
+  height: 16px;
+}
+
 .LawPanel-buttons-right {
   display: flex;
 }
@@ -1543,6 +1544,7 @@ h3:hover {
   margin-top: 16px;
   min-height: 460px;
   overflow: clip;
+  position: relative;
 }
 .FindPage-results button {
   background-color: #fff;
@@ -1622,308 +1624,11 @@ h3:hover {
   grid-column: 8 / 11;
 }
 
-@media (max-width: 768px) {
-  .sort-button-right {
-    margin-left: 4px;
-  }
-  /* .page-title {
-    text-align: center;
-    width: 100%;
-  } */
-
-  .header-with-pagination {
-    flex-direction: column;
-    margin: 10px 15px 10px 15px;
-    justify-content: center;
-    height: auto;
-  }
-
-  .pagination {
-    margin: 0px auto;
-    padding: 10px 0px;
-  }
-
-  .alphabet-page .alphabet-category-cell {
-    flex-direction: column;
-    max-width: 47vw;
-    width: 47vw;
-  }
-
-  .rubricator-header {
-    text-align: center;
-    font-size: 22px;
-  }
-
-  .header-left {
-    padding-left: 0px;
-    justify-content: center;
-    background-color: #f5f7f9;
-    height: auto;
-  }
-
-  .logo {
-    height: 36px;
-  }
-
-  .header-navigation {
-    min-width: 100%;
-    padding: 0px;
-    margin: 0px;
-    height: 50px;
-  }
-
-  .header-center {
-    width: 100%;
-    display: block;
-    height: auto;
-  }
-
-  .header-navigation button {
-    padding: 0px;
-    border-radius: 0px;
-    margin: 0px 0px;
-    flex-basis: 100%;
-    width: 25%;
-    border: none;
-    height: 50px;
-    font-size: 14px;
-    text-wrap: wrap;
-  }
-
-  .buttons-group {
-    width: 100%;
-  }
-
-  .rubricator-header {
-    margin: 0px auto 0px auto;
-    justify-content: center;
-    padding: 0px;
-  }
-  .Keywordsearch-header {
-    justify-content: center;
-    margin: 10px auto 10px auto;
-    width: 350px;
-    text-align: center;
-  }
-  .keywordsearch-title {
-    margin: 0px;
-    padding-top: 0px;
-    font-size: 22px;
-  }
-  .Keywordsearch-find {
-    padding: 0px 10px;
-    font-size: 14px;
-    text-transform: uppercase;
-  }
-  .Keywordsearch-wrapper {
-    min-width: 300px;
-  }
-  .law-search-header {
-    display: block;
-    padding: 0px 0px 10px 0px;
-    margin-top: 10px;
-  }
-  .law-search-input-wrapper {
-    min-width: 300px;
-    width: 74%;
-    border: 1px solid #f0f0f0;
-    margin-left: 0;
-  }
-  .alphabet-nav-wrapper {
-    margin-top: 0px;
-  }
-  .law-search-buttons button {
-    height: 26px;
-    margin-top: 2px;
-  }
-  .advancedsearch1-wrapper,
-  .advancedsearch2-wrapper,
-  .advancedsearch3-wrapper,
-  .advancedsearch4-wrapper,
-  .advanced-search4-input {
-    display: block;
-  }
-  .advansedsearch1-wrapper input,
-  .advancedsearch2-wrapper input {
-    width: 100%;
-  }
-  .advansedsearch1-left,
-  .advancedsearch2-left,
-  .advancedsearch3-left {
-    margin-bottom: 10px;
-  }
-
-  .advancedsearch-date-wrapper {
-    min-width: 20px;
-  }
-  .advancedsearchdata-top {
-    display: block;
-  }
-  .advanced-date-picker {
-    width: 90px;
-  }
-  .advanced-title-switches {
-    margin: 5px 0px 0px 15px;
-    display: flex;
-    flex-wrap: wrap;
-    font-size: 14px;
-  }
-  .advanced-title-switches > * {
-    flex: 1 0 50%;
-    box-sizing: border-box;
-  }
-  .radio-switch {
-    padding: 5px 0px;
-    margin: 0px;
-  }
-  .radio-switch input {
-    margin-top: 0px;
-  }
-  .advanced-clear-button {
-    width: 34px;
-  }
-
-  .advanced-clear-button {
-    margin-left: auto;
-  }
-  .advanced-clear {
-    display: none;
-  }
-  .advancedsearch4-wrapper {
-    width: 100%;
-  }
-  .advansedsearch1-left,
-  .advansedsearch1-right,
-  .advancedsearch2-left,
-  .advancedsearch2-right,
-  .advancedsearch3-left,
-  .advancedsearch3-right,
-  .advancedsearch4-wrapper {
-    width: 100%;
-  }
-
-  .law-search-button-right,
-  .law-search-button {
-    display: none;
-  }
-  .sort-button,
-  .display-button {
-    width: 55px;
-    margin-right: 5px;
-  }
-  .sort-button img {
-    padding: 8px 9px 0px 9px;
-  }
-  .law-search-controls .pagination {
-    padding-top: 5px;
-    margin: 0px;
-  }
-  .Keywordsearch-wrapper {
-    width: 90%;
-  }
-  .options-container2 {
-    left: 0px;
-  }
-  .alphabet-nav-button {
-    padding: 0px 5px;
-    font-size: 10px;
-  }
-  .alphabet-groups button {
-    margin: 0px 3px;
-    font-size: 10px;
-    border-radius: 3px;
-    padding: 0px 3px;
-  }
-  .alphabet-nav {
-    width: auto;
-    max-width: 360px;
-  }
-  .vkuiTappable__stateLayer {
-    display: none;
-  }
-  .alphabet-header {
-    display: block;
-  }
-  .card-title {
-    min-width: 22px;
-  }
-  .alphabet-input-wrapper {
-    width: 100%;
-    margin: 0;
-    box-sizing: border-box;
-    margin-top: 8px;
-  }
-  .alphabet-category-cell {
-    margin: 0px 5px 10px;
-  }
-  .inAlphabet-buttons {
-    font-size: 14px;
-  }
-  .category-cell,
-  .subcategory-cell {
-    padding: 0px;
-  }
-
-  .category-cell {
-    padding-top: 2px;
-    padding-bottom: 2px;
-    margin: 5px 0px 0px;
-    box-sizing: border-box;
-    justify-content: start;
-    padding-inline: 0;
-  }
-  .subcategory-list {
-    margin-left: 15px;
-  }
-  .subcategory-title {
-    max-width: 340px;
-    width: 340px;
-    padding-top: 6px;
-    margin: 0px;
-  }
-  .subcategory-cell,
-  .subcategory-cell.selected {
-    width: 100%;
-    max-width: 100%;
-  }
-  .subcategory-icon,
-  .category-icon {
-    margin-top: 0px;
-    margin-right: 5px;
-    padding-left: 3px;
-  }
-
-  .case-list-wrapper {
-    border-radius: 0px 0px 10px 10px;
-    height: 100%;
-    width: auto;
-    min-height: auto;
-  }
-  .law-search-list {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    width: 100%;
-    overflow: hidden;
-  }
-  .law-search-wrapper {
-    min-width: 90%;
-    display: flex;
-    justify-content: start;
-    align-items: start;
-  }
-  .law-search-content .vkuiTappable {
-    box-sizing: content-box;
-  }
-  .side-panel.hide {
-    display: none;
-  }
-}
-
 .app-wrapper {
   display: flex;
   flex-direction: column;
 
-  height: 100vh;
+  min-height: 100vh;
   margin-top: env(safe-area-inset-top, 10px);
   position: relative;
 }
@@ -2004,7 +1709,7 @@ h3:hover {
   font-weight: 400;
   padding: 10px 18px;
   border-radius: 8px;
-  border: 2px solid #3871e0;
+  border: 1px solid #3871e0;
   transition: background-color 0.3s ease, color 0.3s ease;
   display: flex;
   align-items: center;
@@ -2120,9 +1825,12 @@ select {
 }
 
 .uibtn .uibtn__icon {
-  /* filter: grayscale(100%) brightness(0) invert(100%); */
+  filter: grayscale(100%) brightness(0) invert(100%);
 
   transition: filter 0.3s ease;
+
+  background-color: #fff;
+  background-clip: text;
 
   height: 12px;
   width: 14px;
@@ -2221,6 +1929,7 @@ select {
 .FindPage-item-text-title {
   font-size: 14px;
   word-break: keep-all;
+  height: 100%;
 }
 
 .FindPage-item-text-desc {
@@ -2229,14 +1938,49 @@ select {
   word-break: keep-all;
 }
 
+.results-title {
+  margin-bottom: 16px;
+}
+
+.law-text {
+  text-align: left;
+  max-height: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 186px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+@keyframes modalDissappear {
+  from {
+    z-index: 100;
+  }
+  to {
+    z-index: -1;
+  }
+}
+
 .modal-wrapper {
   position: absolute;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.3);
-  z-index: 100;
+  z-index: -1;
   display: flex;
   justify-content: center;
+  background-color: #00000000;
+
+  transition: background-color 0.3s ease;
+
+  animation: modalDissappear 0.3s step-end 1 forwards;
 }
+
+.modal-wrapper.active {
+  z-index: 100;
+  background-color: #000000d0;
+  animation: none;
+}
+
 .modal-content {
   position: relative;
   z-index: 101;
@@ -2244,14 +1988,32 @@ select {
   background-color: #fff;
   border-radius: 10px;
   padding: 20px;
-  min-height: 300px;
+  min-height: 350px;
   height: fit-content;
-  width: 50%;
+  width: 75%;
+  max-width: 500px;
+
+  transform: translateY(-150%);
+  transition: transform 0.3s ease;
+}
+
+.modal-content.active {
+  transform: translateY(0);
 }
 
 .vkuiModalDismissButton {
   position: absolute;
   inset: 0;
+}
+
+.expand-btn {
+  background: #fff;
+  display: none;
+}
+
+.sidepanel-expand-btn {
+  margin-inline: auto;
+  margin-top: 8px;
 }
 
 .expand-icon {
@@ -2265,6 +2027,11 @@ select {
 
   transition: transform 0.3s ease;
   transform: rotateZ(0deg);
+}
+
+.expand-icon-big {
+  width: 24px;
+  height: 24px;
 }
 .rotated {
   transform: rotateZ(-90deg);
@@ -2338,7 +2105,6 @@ select {
 }
 
 .casedetails-btn.left {
-  box-sizing: content-box;
   padding-right: 24px;
 }
 
@@ -2392,11 +2158,28 @@ select:focus .uibtn__select-icon {
 
 .mobile-burger {
   display: none;
+  overflow: visible;
 }
 
 .mobile-burger > * {
   width: 25px;
   height: 18px;
+}
+
+.mobile-burger > svg > * {
+  transition: transform 0.3s ease;
+}
+
+.mobile-burger.active > svg > *:nth-child(1) {
+  transform: rotate(45deg) translateY(-5px);
+}
+.mobile-burger.active > svg > *:nth-child(3) {
+  transform: rotate(-45deg) translateX(13px);
+  transform-origin: 50% 100%;
+}
+
+.mobile-burger.active > svg > *:nth-child(2) {
+  display: none;
 }
 
 .advanced-search-buttons .uibtn__icon {
@@ -2418,7 +2201,370 @@ select:focus .uibtn__select-icon {
   display: none;
 }
 
+.uibtn__icon.AI-icon {
+  height: 18px;
+  width: 18px;
+  bottom: 8px;
+}
+
+.uibtn__icon.Save-icon {
+  height: 14px;
+  width: 14px;
+  bottom: 8px;
+}
+
+.case-details-page-title {
+  font-size: 18px;
+}
+
+.uibtn__icon.search-icon {
+  height: 14px;
+  width: 14px;
+}
+
+.uibtn__icon.clear-icon {
+  width: 14px;
+  height: 14px;
+}
+
+@media (max-width: 1000px) {
+  .header-navigation {
+    padding-right: 0;
+    position: relative;
+  }
+}
+
 @media (max-width: 768px) {
+  .subcategory-cell,
+  .category-cell {
+    display: none;
+  }
+
+  .category-cell.expanded-visible {
+    display: flex;
+  }
+
+  .expanded .subcategory-cell,
+  .expanded .category-cell {
+    display: flex;
+  }
+
+  .subcategory-cell.selected,
+  .category-cell.selected {
+    display: flex;
+  }
+
+  .FindPage-item-text {
+    padding-right: 8px;
+  }
+  .FindPage-item {
+    grid-template-rows: 90px;
+  }
+  .sort-button-right {
+    margin-left: 4px;
+  }
+  /* .page-title {
+    text-align: center;
+    width: 100%;
+  } */
+
+  .header-with-pagination {
+    flex-direction: column;
+    margin: 10px 15px 10px 15px;
+    justify-content: center;
+    height: auto;
+  }
+
+  .pagination {
+    margin: 0px auto;
+    padding: 10px 0px;
+  }
+
+  .alphabet-page .alphabet-category-cell {
+    flex-direction: column;
+    max-width: 47vw;
+    width: 47vw;
+  }
+
+  .rubricator-header {
+    text-align: center;
+    font-size: 22px;
+  }
+
+  .header-left {
+    padding-left: 0px;
+    justify-content: center;
+    background-color: #f5f7f9;
+    height: auto;
+  }
+
+  .logo {
+    height: 36px;
+  }
+
+  .header-navigation {
+    min-width: 100%;
+    padding: 0px;
+    margin: 0px;
+    height: 50px;
+  }
+
+  .header-center {
+    width: 100%;
+    display: block;
+    height: auto;
+  }
+
+  .header-navigation button {
+    padding: 0px;
+    border-radius: 0px;
+    margin: 0px 0px;
+    flex-basis: 100%;
+    width: 25%;
+    border: none;
+    height: 50px;
+    font-size: 14px;
+    text-wrap: wrap;
+  }
+
+  .buttons-group {
+    width: 100%;
+  }
+
+  .rubricator-header {
+    margin: 0px auto 0px auto;
+    justify-content: center;
+    padding: 0px;
+  }
+  .Keywordsearch-header {
+    justify-content: center;
+    margin: 10px auto 10px auto;
+    width: 350px;
+    text-align: center;
+  }
+  .keywordsearch-title {
+    margin: 0px;
+    padding-top: 0px;
+    font-size: 22px;
+  }
+  .Keywordsearch-find {
+    padding: 0px 10px;
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+  .Keywordsearch-wrapper {
+    min-width: 300px;
+  }
+  .law-search-header {
+    display: block;
+    padding: 0px 0px 10px 0px;
+    margin-top: 10px;
+  }
+  .law-search-input-wrapper {
+    min-width: 300px;
+    width: 74%;
+    border: 1px solid #f0f0f0;
+    margin-left: 0;
+  }
+  .alphabet-nav-wrapper {
+    margin-top: 0px;
+  }
+  .law-search-buttons button {
+    height: 26px;
+  }
+  .advancedsearch1-wrapper,
+  .advancedsearch2-wrapper,
+  .advancedsearch3-wrapper,
+  .advancedsearch4-wrapper,
+  .advanced-search4-input {
+    display: block;
+  }
+  .advansedsearch1-wrapper input,
+  .advancedsearch2-wrapper input {
+    width: 100%;
+  }
+  .advansedsearch1-left,
+  .advancedsearch2-left,
+  .advancedsearch3-left {
+    margin-bottom: 10px;
+  }
+
+  .advancedsearch-date-wrapper {
+    min-width: 20px;
+  }
+  .advancedsearchdata-top {
+    display: block;
+  }
+  .advanced-date-picker {
+    width: 90px;
+  }
+  .advanced-title-switches {
+    margin: 5px 0px 0px 15px;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 14px;
+  }
+  .advanced-title-switches > * {
+    flex: 1 0 50%;
+    box-sizing: border-box;
+  }
+  .radio-switch {
+    padding: 5px 0px;
+    margin: 0px;
+  }
+  .radio-switch input {
+    margin-top: 0px;
+  }
+  .advanced-clear-button {
+    width: 34px;
+  }
+
+  .advanced-clear-button {
+    margin-left: auto;
+  }
+  .advanced-clear {
+    display: none;
+  }
+  .advancedsearch4-wrapper {
+    width: 100%;
+  }
+  .advansedsearch1-left,
+  .advansedsearch1-right,
+  .advancedsearch2-left,
+  .advancedsearch2-right,
+  .advancedsearch3-left,
+  .advancedsearch3-right,
+  .advancedsearch4-wrapper {
+    width: 100%;
+  }
+
+  .law-search-button-right,
+  .law-search-button {
+    display: none;
+  }
+  .sort-button,
+  .display-button {
+    width: 55px;
+    margin-right: 5px;
+  }
+  .sort-button img {
+    padding: 8px 9px 0px 9px;
+  }
+  .law-search-controls {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+  .law-search-controls .pagination {
+    padding-top: 5px;
+    margin: 0px;
+  }
+  .Keywordsearch-wrapper {
+    width: 90%;
+  }
+  .options-container2 {
+    left: 0px;
+  }
+  .alphabet-nav-button {
+    padding: 0px 5px;
+    font-size: 10px;
+  }
+  .alphabet-groups button {
+    margin: 0px 3px;
+    font-size: 10px;
+    border-radius: 3px;
+    padding: 0px 3px;
+  }
+  .alphabet-nav {
+    width: auto;
+    max-width: 360px;
+  }
+  .vkuiTappable__stateLayer {
+    display: none;
+  }
+  .alphabet-header {
+    display: block;
+  }
+  .card-title {
+    min-width: 22px;
+  }
+  .alphabet-input-wrapper {
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  .alphabet-category-cell {
+    margin: 0;
+  }
+  .inAlphabet-buttons {
+    font-size: 14px;
+  }
+  .category-cell,
+  .subcategory-cell {
+    padding: 0px;
+  }
+
+  .category-cell {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin: 5px 0px 0px;
+    box-sizing: border-box;
+    justify-content: start;
+    padding-inline: 0;
+  }
+  .subcategory-list {
+    margin-left: 15px;
+  }
+  .subcategory-title {
+    max-width: 340px;
+    width: 340px;
+    padding-top: 6px;
+    margin: 0px;
+  }
+  .subcategory-cell,
+  .subcategory-cell.selected {
+    width: 100%;
+    max-width: 100%;
+  }
+  .subcategory-icon,
+  .category-icon {
+    margin-top: 0px;
+    margin-right: 5px;
+    padding-left: 3px;
+  }
+
+  .case-list-wrapper {
+    border-radius: 0px 0px 10px 10px;
+    height: 100%;
+    width: auto;
+    min-height: auto;
+  }
+  .law-search-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    overflow: hidden;
+  }
+  .law-search-wrapper {
+    min-width: 90%;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+  }
+  .law-search-content .vkuiTappable {
+    box-sizing: content-box;
+  }
+  .side-panel.hide {
+    display: none;
+  }
+  .FindPage-item-text {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    padding-left: 8px;
+    height: 100%;
+  }
+
   .tablet-jcsb {
     justify-content: space-between;
   }
@@ -2440,7 +2586,9 @@ select:focus .uibtn__select-icon {
   }
   .FindPage-item-court {
     font-size: 16px;
-    margin-left: 8px;
+    margin-left: 4px;
+    height: 100%;
+    align-items: start;
   }
   .FindPage-item {
     justify-content: space-between;
@@ -2455,7 +2603,7 @@ select:focus .uibtn__select-icon {
   .side-panel {
     width: auto;
     border-bottom: 1px #f0f4f6 solid;
-    padding-bottom: 20px;
+    padding-bottom: 12px;
     height: fit-content;
     flex: 1;
     overflow: visible;
@@ -2513,7 +2661,6 @@ select:focus .uibtn__select-icon {
   .mobile-burger {
     display: block;
     margin-left: auto;
-    margin-right: 50px;
     background: transparent;
     z-index: 10;
     position: absolute;
@@ -2541,6 +2688,30 @@ select:focus .uibtn__select-icon {
 
     transform: translateY(-120%);
     transition: transform 0.3s ease;
+  }
+
+  .header-center .outside-content {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+
+    bottom: 0;
+    top: 0;
+    right: 0;
+    left: 0;
+
+    transition: background-color 0.3s ease;
+
+    background-color: #00000000;
+  }
+
+  .header-center.active .outside-content {
+    z-index: 10;
+
+    background-color: #000000d0;
   }
 
   .header-navigation.active {
@@ -2606,7 +2777,8 @@ select:focus .uibtn__select-icon {
     max-width: none;
     width: fit-content;
     text-wrap: nowrap;
-    padding: 8px;
+    padding: 8px 16px 8px 12px;
+    gap: 6px;
   }
   .advanced-search-buttons .uibtn__icon {
     left: 10px;
@@ -2630,7 +2802,7 @@ select:focus .uibtn__select-icon {
     flex-wrap: wrap;
     height: auto;
     gap: 8px;
-    justify-content: center;
+    justify-content: start;
   }
   .inAlphabet-buttons button {
     height: 36px !important;
@@ -2654,12 +2826,61 @@ select:focus .uibtn__select-icon {
   .LawPanel-buttons-right {
     width: 100%;
   }
+  .casedetails-btn {
+    width: 100%;
+    box-sizing: border-box;
+  }
   .results-title {
     text-align: center;
+  }
+  .FindPage-sort-buttons {
+    padding: 10px;
+  }
+  .expand-btn {
+    display: block;
   }
 }
 
 @media (max-width: 536px) {
+  .LawPanel-buttons-left,
+  .LawPanel-buttons-right {
+    display: flex;
+    flex: 1;
+  }
+  .casedetails-btn.left {
+    flex: 1;
+    box-sizing: content-box;
+  }
+  .law-search-buttons {
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    margin-top: 8px;
+  }
+  .results-page-buttons {
+    margin-top: 0;
+  }
+  .law-search-buttons > * {
+    display: flex;
+    flex: 1;
+    height: 100%;
+  }
+
+  .law-search-buttons .options-container2,
+  .law-search-buttons .options-container {
+    right: 0;
+    left: -20px;
+  }
+
+  .law-search-buttons .uibtn {
+    flex: 1;
+  }
+  .sort-button-left {
+    margin-left: 8px;
+  }
+  .FindPage-item-text {
+    justify-content: center;
+  }
   .keyword-search-page-wrapper .app-footer p {
     padding-top: 10px;
   }
@@ -2710,10 +2931,13 @@ select:focus .uibtn__select-icon {
   .FindPage-item-court {
     font-size: 14px;
     margin-left: 4px;
+    display: block;
+    word-wrap: break-word;
   }
   .FindPage-item-text-title {
     font-size: 13px;
     font-weight: 600;
+    word-wrap: break-word;
   }
   .FindPage-results {
     max-height: none;
@@ -2732,20 +2956,22 @@ select:focus .uibtn__select-icon {
   }
 
   .law-search-block {
-    padding-left: 25vw;
+    /* padding-left: 20vw; */
+    gap: 16px;
   }
 
   .inAlphabet-buttons button {
     width: 100%;
     max-width: 100%;
   }
-  .alphabet-page .alphabet-category-cell {
-    max-width: 80vw;
-    width: 80vw;
+  .keyword-search-page-content .alphabet-category-cell {
+    width: 100%;
+    max-width: 100%;
   }
   .page-content > .row {
     flex-direction: column;
     align-items: start;
+    gap: 8px;
   }
   .law-panel-content-text {
     margin: 0 8px;
@@ -2758,16 +2984,13 @@ select:focus .uibtn__select-icon {
     text-overflow: ellipsis;
   }
   .law-search-buttons .uibtn--select {
-    font-size: 0;
     position: relative;
     display: flex;
     justify-content: center;
-    padding-inline: 0;
-    padding-block: 6px;
-    width: 56px;
 
     margin-top: 0;
   }
+
   .law-search-controls {
     flex-direction: column-reverse;
     align-items: center;
@@ -2781,8 +3004,10 @@ select:focus .uibtn__select-icon {
   }
   .list-alphabet {
     grid-template-columns: 1fr;
-    gap: 8px;
+    gap: 12px;
     grid-template-rows: auto;
+    margin-top: 16px;
+    width: 80%;
   }
   .law-search-list {
     grid-template-columns: 1fr;
@@ -2830,6 +3055,9 @@ select:focus .uibtn__select-icon {
   .mobile-sm-hidden {
     display: none;
   }
+  .mobile-sm-show {
+    display: block;
+  }
   .casedetails-btn.left {
     height: 24px;
     width: auto;
@@ -2848,37 +3076,8 @@ select:focus .uibtn__select-icon {
   }
 }
 
-.uibtn__icon.AI-icon {
-  height: 18px;
-  width: 18px;
-  bottom: 8px;
-}
-
-.uibtn__icon.Save-icon {
-  height: 14px;
-  width: 14px;
-  bottom: 8px;
-}
-
-.case-details-page-title {
-  font-size: 18px;
-}
-
-.uibtn__icon.search-icon {
-  height: 14px;
-  width: 14px;
-}
-
-.uibtn__icon.clear-icon {
-  width: 14px;
-  height: 14px;
-}
-
 @media (max-width: 420px) {
   .FindPage-item-text-title {
     font-size: 12px;
-  }
-  .law-search-block {
-    padding-left: 15vw;
   }
 }

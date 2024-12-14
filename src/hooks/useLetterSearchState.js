@@ -1,22 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useStore } from "./useStore";
 
 export const useLetterSearchState = (letter) => {
   const { state, dispatch } = useStore();
-  const data = state.keywordsData[letter];
+
+  const [data, setData] = useState(state.keywordsData[letter]);
+
+  useEffect(() => {
+    setData(state.keywordsData[letter]);
+  }, [letter, state.keywordsData]);
 
   const [searchValue, setSearchValue] = useState();
 
-  const [filteredData, setFilteredData] = useState(data);
-
   const onSearch = (e) => {
     setSearchValue(e.target.value);
-    let newData = [...data];
-    newData = newData.filter((x) =>
-      x.toLowerCase().includes(e.target.value.toLowerCase())
-    );
-    setFilteredData(newData);
   };
+
+  const filterData = (data) => {
+    if (data && searchValue) {
+      let newData = [...data];
+      newData = newData.filter((x) =>
+        x.toLowerCase().includes(searchValue.toLowerCase())
+      );
+
+      return newData;
+    }
+    return data;
+  };
+
+  const filteredData = filterData(data);
 
   return {
     data: filteredData,

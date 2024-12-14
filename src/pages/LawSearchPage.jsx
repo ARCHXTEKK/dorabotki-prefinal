@@ -4,7 +4,6 @@ import Footer from "../components/Footer/Footer";
 import { Icon28SearchOutline } from "@vkontakte/icons";
 import { useLawSearchState } from "../hooks/useLawSearchState";
 
-import displayicon from "../assets/displayicon.png";
 import downicon from "../assets/downicon.png";
 import sorticon from "../assets/sorticon.png";
 import popupicon1 from "../assets/popupicon1.png";
@@ -47,7 +46,7 @@ export default function LawSearchPage() {
   return (
     <div className="app-wrapper" onClick={onClickOutside}>
       <Header />
-      <main className="page-content">
+      <main className="page-content page-content--flex">
         <div className="row mobile-column mobile-center">
           <h2 className="page-title">Поиск по норме права</h2>
 
@@ -71,7 +70,8 @@ export default function LawSearchPage() {
               >
                 <ShowIcon className="uibtn__icon left show-icon " />
 
-                <div className="uibtn__text">Отображение</div>
+                <div className="mobile-sm-hidden">Отображение</div>
+                <div className="mobile-sm-show">Фильтр</div>
                 <img
                   src={downicon}
                   alt="downicon"
@@ -193,37 +193,21 @@ export default function LawSearchPage() {
                       src={constitution}
                       alt="Конституция"
                       className="law-search-block__img"
-                      style={{
-                        height: "16px",
-                        width: "16px",
-                        marginBottom: "auto",
-                        marginTop: "auto",
-                      }}
                     />
                   ) : law.icon === "book" ? (
                     <img
                       src={bookicon}
                       alt="book"
                       className="law-search-block__img"
-                      style={{
-                        height: "16px",
-                        marginBottom: "auto",
-                        marginTop: "auto",
-                      }}
                     />
                   ) : (
                     <img
                       src={fileicon}
                       alt="file"
                       className="law-search-block__img"
-                      style={{
-                        height: "16px",
-                        marginBottom: "auto",
-                        marginTop: "auto",
-                      }}
                     />
                   )}
-                  {law.title}
+                  <div className="law-text">{law.title}</div>
                 </button>
               ))}
             </div>

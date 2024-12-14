@@ -11,15 +11,16 @@ export default function AImodal({ show, onClose, text }) {
   };
 
   return (
-    show && (
-      <div className="modal-wrapper" onClick={handleClose}>
-        <div className="modal-content">
-          <button className="uibtn modal-close" onClick={onClose}>
-            <ClearIcon className="close-btn" />
-          </button>
-          <p className="modal-text">{text && parse(text)}</p>
-        </div>
+    <div
+      className={"modal-wrapper " + (show ? "active" : "")}
+      onClick={handleClose}
+    >
+      <div className={"modal-content " + (show ? "active" : "")}>
+        <button className="uibtn modal-close" onClick={onClose}>
+          <ClearIcon className="close-btn" />
+        </button>
+        <p className="modal-text">{text && parse(text)}</p>
       </div>
-    )
+    </div>
   );
 }

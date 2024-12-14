@@ -59,11 +59,13 @@ export default function LawDetailsPage() {
     setExpandedSections(newExpandedSections);
   };
 
+  console.log(selectedLaw);
+
   return (
     <div className="app-wrapper" onClick={onClickOutside}>
       <Header forceActiveTab={2} />
       <main className="page-content">
-        <div className="row">
+        <div className="row mobile-center mobile-column">
           <h2 className="page-title">Поиск по норме права</h2>
 
           <div className="law-search-input-wrapper">
@@ -80,20 +82,23 @@ export default function LawDetailsPage() {
         <div className="law-detail">
           <div className="law-search-controls">
             <div className="law-search-buttons">
-              <div
+              <button
                 className="uibtn uibtn--icon left lawdetails-btn"
                 onClick={() => handleBack()}
               >
                 <Backtosearchicon className="uibtn__icon left" />
                 Вернуться к поиску
-              </div>
+              </button>
               <div className="display-button-details">
                 <button
                   onClick={onDisplayOptionsClick}
                   className="uibtn uibtn--icon uibtn--outline uibtn--select"
                 >
                   <ShowIcon className="uibtn__icon left show-icon " />
-                  Отображение
+
+                  <div className="mobile-sm-hidden">Отображение</div>
+                  <div className="mobile-sm-show">Фильтр</div>
+
                   <img
                     src={downicon}
                     alt="downicon"
@@ -178,8 +183,8 @@ export default function LawDetailsPage() {
                         (expandedSections.includes(index) ? "active " : "")
                       }
                     >
-                      {section.child_list
-                        .filter((chapter) =>
+                      {section?.child_list
+                        ?.filter((chapter) =>
                           filterPoint(chapter, searchContent)
                         )
                         .map((chapter, chapterIndex) => (

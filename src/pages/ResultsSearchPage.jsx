@@ -43,6 +43,8 @@ export default function ResultsSearchPage() {
     });
   };
 
+  console.log(currentItems);
+
   return (
     <div className="app-wrapper" onClick={onClickOutside}>
       <Header forceActiveTab={0} />
@@ -56,13 +58,14 @@ export default function ResultsSearchPage() {
             onPageChange={onPageChange}
           />
           <div className="law-search-buttons results-page-buttons">
-            <div
-              className="uibtn uibtn--icon left casedetails-btn"
+            <button
+              className="uibtn uibtn--icon left"
               onClick={() => handleBack()}
             >
               <Backtosearchicon className="uibtn__icon left" />
-              Вернуться к списку
-            </div>
+              <div className="mobile-sm-hidden">Вернуться к поиску</div>
+              <div className="mobile-sm-show">Назад</div>
+            </button>
 
             <div className="display-button-details">
               <button
@@ -70,7 +73,8 @@ export default function ResultsSearchPage() {
                 className="uibtn uibtn--icon uibtn--outline uibtn--select"
               >
                 <ShowIcon className="uibtn__icon left show-icon " />
-                Отображение
+                <div className="mobile-sm-hidden">Отображение</div>
+                <div className="mobile-sm-show">Фильтр</div>
                 <img
                   src={downicon}
                   alt="downicon"
@@ -96,7 +100,7 @@ export default function ResultsSearchPage() {
                         onChange={() => onDisplayOptionToggle(0)}
                       />
                       <span className="switch" />
-                      <span style={{ width: "95px" }}>Конституция</span>
+                      <span style={{ width: "95px" }}>Решения</span>
                     </label>
                   </li>
                   <li>
@@ -107,7 +111,7 @@ export default function ResultsSearchPage() {
                         onChange={() => onDisplayOptionToggle(1)}
                       />
                       <span className="switch" />
-                      <span style={{ width: "95px" }}>Кодексы</span>
+                      <span style={{ width: "95px" }}>Приговоры</span>
                     </label>
                   </li>
                   <li>
@@ -118,7 +122,7 @@ export default function ResultsSearchPage() {
                         onChange={() => onDisplayOptionToggle(2)}
                       />
                       <span className="switch" />
-                      <span style={{ width: "95px" }}>Законы</span>
+                      <span style={{ width: "95px" }}>Постановления</span>
                     </label>
                   </li>
                 </ul>
@@ -129,7 +133,6 @@ export default function ResultsSearchPage() {
 
         <div className="FindPage-results">
           <div className="FindPage-sort-buttons">
-            <div className="empty-div"></div>
             <div className="sort-button-left">
               <button className="sort-button-sud-act">Судебный акт</button>
             </div>
@@ -167,7 +170,7 @@ export default function ResultsSearchPage() {
               ))}
             </List>
           ) : (
-            <div className="center" style={{ marginBottom: "100px" }}>
+            <div className="center">
               <PreLoader />
             </div>
           )}

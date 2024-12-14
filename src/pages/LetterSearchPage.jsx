@@ -21,6 +21,7 @@ export default function LetterSearchPage() {
   };
 
   const alph = groupedAlphabet.join().replaceAll(",", "");
+
   const handleNextLetter = () => {
     routeNavigator.replace("/keywordsearch/:letter", {
       letter: alph[alph.indexOf(letter) + 1],
@@ -32,7 +33,13 @@ export default function LetterSearchPage() {
     });
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = (word) => {
+    routeNavigator.push("/searchresults", {
+      state: {
+        caseText: word,
+      },
+    });
+  };
 
   return (
     <div className="app-wrapper">
@@ -64,20 +71,26 @@ export default function LetterSearchPage() {
                 <Backtosearchicon className="uibtn__icon left" />
                 Вернуться к алфавиту
               </button>
-              <button
-                className="letter-search__letter"
-                onClick={handlePrevLetter}
-                disabled={letter === "А"}
-              >
-                {triangleIcon("reversed")} Предыдущая буква
-              </button>
-              <button
-                className="letter-search__letter"
-                onClick={handleNextLetter}
-                disabled={letter === "Я"}
-              >
-                Следующая буква {triangleIcon("")}
-              </button>
+
+              {letter !== "А" && (
+                <button
+                  className="letter-search__letter"
+                  onClick={handlePrevLetter}
+                >
+                  {triangleIcon("reversed")} Слова на букву{" "}
+                  {alph[alph.indexOf(letter) - 1]}
+                </button>
+              )}
+
+              {letter !== "Я" && (
+                <button
+                  className="letter-search__letter"
+                  onClick={handleNextLetter}
+                >
+                  Слова на букву {alph[alph.indexOf(letter) + 1]}
+                  {triangleIcon("")}
+                </button>
+              )}
             </div>
           </div>
           <List className="lettersearch-list" gap={""}>
@@ -90,7 +103,11 @@ export default function LetterSearchPage() {
                 >
                   {word}
                 </button>
-                <button text=">" className="btn-2">
+                <button
+                  text=">"
+                  className="btn-2"
+                  onClick={() => handleSubmit(word)}
+                >
                   {">"}
                 </button>
               </div>

@@ -41,17 +41,17 @@ export const useLawSearchState = () => {
   const filteredContent = (cont, searchQuery) => {
     if (cont?.length > 0 && searchQuery?.length > 0) {
       let newContent = [...cont];
-      newContent = newContent.filter((x) =>
-        x.child_list.some(
-          (y) =>
-            y.title.includes(searchQuery) ||
-            y?.child_list?.some((z) => z.title.includes(searchQuery))
-        )
+      newContent = newContent.filter(
+        (x) =>
+          x.child_list.some(
+            (y) =>
+              y.title.includes(searchQuery) ||
+              y?.child_list?.some((z) => z.title.includes(searchQuery))
+          ) || x.title.includes(searchQuery)
       );
 
       return newContent;
     } else {
-      console.log(cont);
       return cont;
     }
   };

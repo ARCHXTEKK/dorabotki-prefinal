@@ -1,7 +1,11 @@
 import axios from "axios";
 import { useEffect, useReducer, useState } from "react";
 
+const caseTypes = ["решение", "приговор", "апелляционное постановление"];
+
 export const useSearchResultsState = (filters) => {
+  const [data, setData] = useState([]);
+
   const [currentItems, setCurrentItems] = useState([[], []]);
 
   const [currentPage, setCurrentPage] = useState(0);
@@ -19,7 +23,11 @@ export const useSearchResultsState = (filters) => {
   const onDisplayOptionToggle = (num) => {
     let newOptions = displayOptionsState;
     newOptions[num] = !newOptions[num];
+
+    filterData(newOptions);
+
     setDisplayOptionsState(newOptions);
+
     forceUpdate(0);
   };
 
@@ -60,6 +68,8 @@ export const useSearchResultsState = (filters) => {
         })
         .then((r) => {
           setTotalPages(Math.ceil(r.data.length / 4));
+          setData(r.data);
+
           setCurrentItems([r.data, slicedContent(r.data, currentPage)]);
         })
         .catch((e) => {
@@ -70,6 +80,20 @@ export const useSearchResultsState = (filters) => {
         });
     }
   }, [filters]);
+
+  const filterData = (options) => {
+    const filteredCaseTypes = caseTypes.filter((x, i) => options[i]);
+
+    const newItems = data.filter((x) =>
+      filteredCaseTypes.includes(x.case_type.toLowerCase())
+    );
+
+    const newTotalPages = Math.ceil(newItems.length / 4);
+
+    setCurrentPage(0);
+    setTotalPages(newTotalPages);
+    setCurrentItems([newItems, slicedContent(newItems, 0)]);
+  };
 
   return {
     currentItems: currentItems[1],

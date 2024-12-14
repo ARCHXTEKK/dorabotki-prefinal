@@ -57,13 +57,14 @@ export default function CaseDetailsPage() {
           <div className="LawPanel">
             <div className="LawPanel-buttons">
               <div className="LawPanel-buttons-left">
-                <div
+                <button
                   className="uibtn uibtn--icon left casedetails-btn"
                   onClick={() => handleBack()}
                 >
                   <Backtosearchicon className="uibtn__icon left" />
-                  <div>Вернуться к поиску</div>
-                </div>
+                  <div className="mobile-sm-hidden">Вернуться к поиску</div>
+                  <div className="mobile-sm-show">Назад</div>
+                </button>
               </div>
               <div className="LawPanel-buttons-right">
                 <button
