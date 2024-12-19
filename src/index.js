@@ -1,8 +1,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import bridge from "@vkontakte/vk-bridge";
-import App from "./App";
-import "./styles.css";
+
 import {
   AdaptivityProvider,
   AppRoot,
@@ -14,9 +13,13 @@ import {
   createHashParamRouter,
   RouterProvider,
 } from "@vkontakte/vk-mini-apps-router";
-import { StoreProvider } from "./hooks/useStore";
 import { useInsets } from "@vkontakte/vk-bridge-react";
-import PassContextProvider from "./passContext";
+
+import App from "./App";
+import PassContextProvider from "./lib/other/passContext";
+import { StoreProvider } from "./lib/store/useStore";
+
+import "./styles.css";
 
 // Инициализация VK Bridge
 bridge.send("VKWebAppInit");

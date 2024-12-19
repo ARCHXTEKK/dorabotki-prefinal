@@ -1,18 +1,12 @@
+import React, { useEffect } from "react";
+
 import {
   useActiveVkuiLocation,
   useGetPanelForView,
-  useRouteNavigator,
 } from "@vkontakte/vk-mini-apps-router";
-import {
-  ModalCard,
-  ModalRoot,
-  Panel,
-  Root,
-  SplitLayout,
-  View,
-} from "@vkontakte/vkui";
-import React, { useEffect } from "react";
-import "./styles.css";
+
+import { Panel, Root, View } from "@vkontakte/vkui";
+
 import WelcomePage from "./pages/WelcomePage";
 import RubricatorPage from "./pages/RubricatorPage";
 import KeywordSearchPage from "./pages/KeywordSearchPage";
@@ -23,8 +17,10 @@ import CaseDetailsPage from "./pages/CaseDetailsPage";
 import LawDetailsPage from "./pages/LawDetailsPage";
 import axios from "axios";
 
-import { useStore } from "./hooks/useStore";
+import { useStore } from "./lib/store/useStore";
 import LetterSearchPage from "./pages/LetterSearchPage";
+
+import "./styles.css";
 
 export default function App() {
   const { dispatch } = useStore();
@@ -33,11 +29,12 @@ export default function App() {
   const { view: activeView } = useActiveVkuiLocation();
 
   useEffect(() => {
-    try {
-      axios.get("https://lawrs.ru:8000/api/categories/?page=1").then((r) => {
+    axios
+      .get("https://lawrs.ru:8000/api/categories/?page=1")
+      .then((r) => {
         dispatch({ type: "categories-set", payload: r.data.results });
-      });
-    } catch {}
+      })
+      .catch((e) => console.error(e));
   }, []);
 
   return (
