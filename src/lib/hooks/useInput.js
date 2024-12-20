@@ -8,5 +8,5 @@ export default function useInput({ onChange }) {
     onChange(e.target.value);
   };
 
-  return { value, handleValueChange };
+  return [value, handleValueChange];
 }

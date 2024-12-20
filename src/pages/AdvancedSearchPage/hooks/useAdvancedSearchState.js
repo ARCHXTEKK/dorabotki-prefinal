@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useStore } from "../../lib/store/useStore";
+import { useStore } from "../../../lib/store/useStore";
 
 const filters = ["date-range", "exact-date", "earlier-than", "later-than"];
 const roles = ["", "Истец", "Ответчик"];
@@ -41,7 +41,6 @@ export const useAdvancedSearchState = () => {
 
   const onProductionTypeChange = (e) => {
     setProductionType(e.target.value);
-    console.log(e.target.value);
   };
 
   const onCaseNumberChange = (e) => {
