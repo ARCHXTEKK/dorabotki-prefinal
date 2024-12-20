@@ -1799,6 +1799,14 @@ h3:hover {
   font-family: "Open Sans", serif;
 }
 
+.advanced-select + .uibtn__select-icon {
+  transform: rotateZ(-90deg);
+}
+
+.advanced-select:focus + .uibtn__select-icon {
+  transform: rotateZ(0deg);
+}
+
 .advanced-search-container input,
 select {
   padding: 4px 12px !important;

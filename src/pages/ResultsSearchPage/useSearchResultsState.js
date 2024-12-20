@@ -61,7 +61,12 @@ export const useSearchResultsState = (filters) => {
       console.log("idk");
       axios
         .post("https://lawrs.ru:8000/api/count_cases_add/search", {
-          document_text: filters.caseText ? filters.caseText : "",
+          document_text: filters?.caseText,
+          case_number: filters?.caseNumber,
+          court: filters?.court,
+          judge: filters?.judge,
+          case_type: filters?.productionType,
+
           // court: filters.court ? filters.court : "",
           // judge: filters.judge ? filters.judge : "",
           // production_type: filters.production_type ? filters.judge : "",

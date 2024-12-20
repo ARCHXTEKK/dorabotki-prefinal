@@ -9,64 +9,25 @@ export const useAdvancedSearchState = () => {
   const { state, dispatch } = useStore();
 
   const [selectedFilter, setSelectedFilter] = useState(filters[0]);
-  const [caseText, setCaseText] = useState("");
   const [productionTypes, setProductionTypes] = useState([""]);
-  const [productionType, setProductionType] = useState(productionTypes[0]);
-
-  const [caseNumber, setCaseNumber] = useState();
-  const [uid, setUid] = useState();
 
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
-
   const [singleDate, setSingleDate] = useState();
 
   const [courts, setCourts] = useState([""]);
-  const [court, setCourt] = useState(courts[0]);
+
   const [judges, setJudges] = useState([""]);
-  const [judge, setJudge] = useState(judges[0]);
-
-  const [disputant, setDisputant] = useState("");
-
-  const [selectedRole, setSelectedRole] = useState(roles[0]);
-
-  const [selectState, setSelectState] = useState(false);
-  const [selectState2, setSelectState2] = useState(false);
-  const [selectState3, setSelectState3] = useState(false);
-  const [selectState4, setSelectState4] = useState(false);
-
-  const onCaseTextChange = (e) => {
-    setCaseText(e.target.value);
-  };
-
-  const onProductionTypeChange = (e) => {
-    setProductionType(e.target.value);
-  };
-
-  const onCaseNumberChange = (e) => {
-    setCaseNumber(e.target.value);
-  };
-
-  const onUidChange = (e) => {
-    setUid(e.target.value);
-  };
 
   const handleFilterChange = (e) => {
     setSelectedFilter(e.target.value);
   };
 
   const handleClear = () => {
-    setCourt(courts[0]);
-    setJudge(judges[0]);
-    setDisputant("");
     setSingleDate("");
     setStartDate("");
     setEndDate("");
     setSelectedFilter(filters[0]);
-    setCaseNumber("");
-    setCaseText("");
-    setProductionType(productionTypes[0]);
-    setUid("");
   };
 
   // const [selectState, setSelectState] = useState([false, false, false, false]);
@@ -80,12 +41,18 @@ export const useAdvancedSearchState = () => {
   // };
 
   // Фетч данных
+  const timeout = 5000;
+
   useEffect(() => {
     if (state.judges.length === 0) {
       axios
-        .post("https://lawrs.ru:8000/api/count_cases_add/search", {
-          list_judge: true,
-        })
+        .post(
+          "https://lawrs.ru:8000/api/count_cases_add/search",
+          {
+            list_judge: true,
+          },
+          { timeout }
+        )
         .then((r) => {
           dispatch({
             type: "judges-set",
@@ -99,12 +66,16 @@ export const useAdvancedSearchState = () => {
     } else {
       setJudges(state.judges);
     }
-
     if (state.courts.length === 0) {
       axios
-        .post("https://lawrs.ru:8000/api/count_cases_add/search", {
-          list_court: true,
-        })
+        .post(
+          "https://lawrs.ru:8000/api/count_cases_add/search",
+          {
+            list_court: true,
+          },
+
+          { timeout }
+        )
         .then((r) => {
           dispatch({
             type: "courts-set",
@@ -118,13 +89,11 @@ export const useAdvancedSearchState = () => {
     } else {
       setCourts(state.courts);
     }
-
     if (productionTypes.length < 2) {
       axios
-        .get(`https://lawrs.ru:8000/api/categories/?page=1`)
+        .get(`https://lawrs.ru:8000/api/categories/?page=1`, { timeout })
         .then((response) => {
           let res = [];
-
           response.data.results.forEach((el) => {
             res.push(el.name);
             el.subcategories.forEach((el_2) => {
@@ -143,24 +112,8 @@ export const useAdvancedSearchState = () => {
   }, []);
 
   return {
-    selectState,
-    setSelectState,
-    selectState2,
-    setSelectState2,
-    selectState3,
-    setSelectState3,
-    selectState4,
-    setSelectState4,
     selectedFilter,
-    caseText,
-    onCaseTextChange,
-    productionType,
-    onProductionTypeChange,
     productionTypes,
-    caseNumber,
-    onCaseNumberChange,
-    uid,
-    onUidChange,
     handleFilterChange,
     filters,
     startDate,
@@ -169,17 +122,9 @@ export const useAdvancedSearchState = () => {
     setEndDate,
     singleDate,
     setSingleDate,
-    court,
-    setCourt,
-    judge,
-    setJudge,
     courts,
     judges,
-    disputant,
-    setDisputant,
     handleClear,
-    selectedRole,
-    setSelectedRole,
     roles,
   };
 };
