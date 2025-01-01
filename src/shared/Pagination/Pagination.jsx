@@ -22,8 +22,8 @@ export default function Pagination({
     let buttons = [];
 
     if (totalPages > 6) {
-      if (currentPage === 0 || currentPage === 1 || currentPage === 2) {
-        for (let i = 0; i <= 2; i++) {
+      if (currentPage <= 4) {
+        for (let i = 0; i <= 5; i++) {
           const index = i;
           buttons.push(
             <button
@@ -39,28 +39,24 @@ export default function Pagination({
           );
         }
         buttons.push(<span key="gap-start0">...</span>);
-        for (let i = totalPages - 3; i < totalPages; i++) {
-          const index = i;
+        {
+          const index = totalPages;
           buttons.push(
             <button
               key={index}
               className={`pagination_page-button ${
                 currentPage === index ? "active" : ""
               }`}
-              onClick={() => handlePageClick(index)}
+              onClick={() => handlePageClick(index - 1)}
               aria-current={currentPage === index ? "page" : undefined}
             >
-              {index + 1}
+              {index}
             </button>
           );
         }
-      } else if (
-        currentPage === totalPages ||
-        currentPage === totalPages - 1 ||
-        currentPage === totalPages - 2
-      ) {
-        for (let i = 0; i <= 2; i++) {
-          const index = i;
+      } else if (currentPage >= totalPages - 5) {
+        {
+          const index = 0;
           buttons.push(
             <button
               key={index}
@@ -75,7 +71,7 @@ export default function Pagination({
           );
         }
         buttons.push(<span key="gap-start1">...</span>);
-        for (let i = totalPages - 3; i < totalPages; i++) {
+        for (let i = totalPages - 6; i < totalPages; i++) {
           const index = i;
           buttons.push(
             <button
@@ -104,7 +100,7 @@ export default function Pagination({
           </button>
         );
         buttons.push(<span key="gap-start2">...</span>);
-        for (let i = -1; i <= 1; i++) {
+        for (let i = -2; i <= 2; i++) {
           let index = currentPage + i;
           buttons.push(
             <button
@@ -126,7 +122,7 @@ export default function Pagination({
             className={`pagination_page-button ${
               currentPage === totalPages ? "active" : ""
             }`}
-            onClick={() => handlePageClick(totalPages)}
+            onClick={() => handlePageClick(totalPages - 1)}
             aria-current={currentPage === totalPages ? "page" : undefined}
           >
             {totalPages}

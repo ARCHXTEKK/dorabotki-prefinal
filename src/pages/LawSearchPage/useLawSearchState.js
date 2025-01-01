@@ -152,7 +152,10 @@ export const useLawSearchState = () => {
 
   // ----------------------------- Пагинация ---------------------
 
-  const totalPages = Math.ceil(content.length / 33);
+  const [totalPages, setTotalPages] = useState(
+    Math.ceil(content.length / 33 + 1)
+  );
+
   const onPageChange = (page) => {
     setContent([content[0], slicedContent(content[0], page)]);
     setCurrentPage(page);
@@ -169,8 +172,9 @@ export const useLawSearchState = () => {
           .post("https://lawrs.ru:8000/api/count_cases_add/document_list")
           .then((r) => {
             setContent([r.data, slicedContent(r.data, currentPage)]);
+            setTotalPages(Math.ceil(r.data.length / 33));
             dispatch({ type: "laws-set", payload: r.data });
-            console.log(r.data);
+            console.log(Math.ceil(r.data.length / 33));
           });
       } catch (e) {
         console.error("Ошибка при получении данных useLawSearchState ", e);

@@ -1,7 +1,7 @@
 import React from "react";
 import { SidePanel } from "./SidePanel";
 import { CasesPanel } from "./CasesPanel";
-import { useRubricatorState } from "./useRubricatorState";
+import { useRubricatorState } from "./hooks/useRubricatorState";
 import { useRouteNavigator } from "@vkontakte/vk-mini-apps-router";
 import Pagination from "../../shared/Pagination";
 import Page from "../../shared/Page/Page";

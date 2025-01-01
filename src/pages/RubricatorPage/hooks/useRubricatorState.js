@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useStore } from "../../lib/store/useStore";
+import { useStore } from "../../../lib/store/useStore";
+
+// -----------------------------------------------------------
+// -----------------------------------------------------------
+// --------- костыльный компонент, нужно переписать ----------
+// -----------------------------------------------------------
+// -----------------------------------------------------------
 
 export const useRubricatorState = () => {
   const [searchContent, setSearchContent] = useState("");

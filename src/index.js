@@ -83,8 +83,8 @@ const Root = () => {
       <AdaptivityProvider>
         <AppRoot mode="full" safeAreaInsets={vkBridgeInsets}>
           <RouterProvider router={router}>
-            <StoreProvider>
-              <PassContextProvider>
+            <StoreProvider key="storeProvider">
+              <PassContextProvider key="passProvider">
                 <App />
               </PassContextProvider>
             </StoreProvider>

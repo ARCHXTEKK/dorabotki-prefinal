@@ -53,6 +53,7 @@ export const useKeywordSearchState = () => {
             word: true,
           })
           .then((response) => {
+            console.log(response);
             setDataByLetter(response.data);
             dispatch({ type: "keywords-set", payload: response.data });
           });

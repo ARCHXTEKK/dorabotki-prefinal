@@ -413,6 +413,7 @@ export default function AdvancedForm({ handleSubmit }) {
                     color: "#5c5f6d",
                     width: "25%",
                     minWidth: "120px",
+                    background: "transparent",
                   }}
                   // onFocus={() => setSelectState4(true)}
                   // onBlur={() => setSelectState4(false)}

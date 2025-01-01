@@ -207,7 +207,7 @@ html {
   color: #5c5f6d;
   display: flex;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 4px;
   border: 1px solid #eaeff2;
   justify-content: start;
   gap: 12px;
@@ -483,7 +483,7 @@ Button {
   font-family: "Open Sans", serif;
   height: max-content;
   margin-top: auto;
-  margin-bottom: 4px;
+  /* margin-bottom: 4px; */
   width: 100%;
   text-decoration: none;
   color: #5c5f6d;
@@ -542,7 +542,9 @@ a {
   font-size: 13px;
   justify-content: center;
   display: flex;
-  padding: 3px 8px;
+  padding: 3px 4px;
+  min-width: 24px;
+  max-width: 50px;
 }
 .case-description {
   word-break: break-word;
@@ -914,7 +916,7 @@ a {
 }
 .advanced-search-container {
   margin-top: 8px;
-  padding: 4px 10px 16px;
+  padding: 4px 10px 12px;
   background-color: #fff;
   border-radius: 10px;
   min-height: 375px;
@@ -924,8 +926,8 @@ a {
 }
 .advanced-search-buttons {
   display: flex;
-  gap: 19px;
-  margin-block: 16px 32px;
+  gap: 12px;
+  margin-block: 12px 0;
 }
 .advanced-search-container select {
   -webkit-appearance: none;
@@ -2927,9 +2929,6 @@ select:focus .uibtn__select-icon {
     width: 98%;
   }
 
-  .FindPage-item-text-desc {
-    display: none;
-  }
   .FindPage-item-container {
     padding: 8px 4px;
   }
@@ -3088,5 +3087,9 @@ select:focus .uibtn__select-icon {
 @media (max-width: 420px) {
   .FindPage-item-text-title {
     font-size: 12px;
+  }
+
+  .FindPage-item-text-desc {
+    display: none;
   }
 }

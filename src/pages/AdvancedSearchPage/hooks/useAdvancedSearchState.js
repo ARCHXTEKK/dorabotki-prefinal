@@ -41,7 +41,7 @@ export const useAdvancedSearchState = () => {
   // };
 
   // Фетч данных
-  const timeout = 5000;
+  const timeout = 1000;
 
   useEffect(() => {
     if (state.judges.length === 0) {
@@ -49,16 +49,18 @@ export const useAdvancedSearchState = () => {
         .post(
           "https://lawrs.ru:8000/api/count_cases_add/search",
           {
-            list_judge: true,
+            params: {
+              list_judge: true,
+            },
           },
           { timeout }
         )
         .then((r) => {
           dispatch({
             type: "judges-set",
-            payload: ["", ...r.data.map((x) => x.judge)],
+            payload: ["", ...r.data.data.map((x) => x.judge)],
           });
-          setJudges(["", ...r.data.map((x) => x.judge)]);
+          setJudges(["", ...r.data.data.map((x) => x.judge)]);
         })
         .catch((e) => {
           console.log("Ошибка при получении данных useAdvancedSearchState ", e);
@@ -71,17 +73,18 @@ export const useAdvancedSearchState = () => {
         .post(
           "https://lawrs.ru:8000/api/count_cases_add/search",
           {
-            list_court: true,
+            params: {
+              list_court: true,
+            },
           },
-
           { timeout }
         )
         .then((r) => {
           dispatch({
             type: "courts-set",
-            payload: ["", ...r.data.map((x) => x.court)],
+            payload: ["", ...r.data.data.map((x) => x.court)],
           });
-          setCourts(["", ...r.data.map((x) => x.court)]);
+          setCourts(["", ...r.data.data.map((x) => x.court)]);
         })
         .catch((e) => {
           console.log("Ошибка при получении данных useAdvancedSearchState ", e);
@@ -91,17 +94,34 @@ export const useAdvancedSearchState = () => {
     }
     if (productionTypes.length < 2) {
       axios
-        .get(`https://lawrs.ru:8000/api/categories/?page=1`, { timeout })
-        .then((response) => {
-          let res = [];
-          response.data.results.forEach((el) => {
-            res.push(el.name);
-            el.subcategories.forEach((el_2) => {
-              res.push(el_2.name);
-            });
-          });
-          dispatch({ type: "production-types-set", payload: ["", ...res] });
-          setProductionTypes(["", ...res]);
+        .post(
+          "https://lawrs.ru:8000/api/count_cases_add/search",
+          {
+            params: {
+              list_caseTypes: true,
+            },
+          },
+          { timeout }
+        )
+        .then((r) => {
+          const res = [...r.data.data];
+          let types = [];
+          // res.forEach((el) => {
+          //   types.push(el.case_type);
+          //   el.subcategories.forEach((el_2) => {
+          //     types.push(el_2.case_type);
+          //   });
+          // });
+          for (let x of res) {
+            console.log(x);
+            types.push(x.case_type);
+            // for (let y of x.subcategories) {
+            //   types.push(y.case_type);
+            // }
+          }
+
+          dispatch({ type: "production-types-set", payload: ["", ...types] });
+          setProductionTypes(["", ...types]);
         })
         .catch((e) => {
           console.log("Ошибка при получении данных useAdvancedSearchState ", e);
