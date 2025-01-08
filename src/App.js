@@ -21,6 +21,7 @@ import { useStore } from "./lib/store/useStore";
 import LetterSearchPage from "./pages/LetterSearchPage";
 
 import "./styles.css";
+import { setupCache } from "axios-cache-adapter";
 
 export default function App() {
   const { dispatch } = useStore();
@@ -28,9 +29,13 @@ export default function App() {
   const activePanel = useGetPanelForView("default_view");
   const { view: activeView } = useActiveVkuiLocation();
 
+  const cache = setupCache({
+    maxAge: 2 * 60 * 60 * 1000
+  })
+
   useEffect(() => {
     axios
-      .get("https://lawrs.ru:8000/api/categories/?page=1")
+      .get("https://lawrs.ru:8000/api/categories/?page=1", { adapter: cache.adapter })
       .then((r) => {
         dispatch({ type: "categories-set", payload: r.data.results });
       })

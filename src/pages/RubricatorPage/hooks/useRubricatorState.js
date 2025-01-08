@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useStore } from "../../../lib/store/useStore";
+import { setupCache } from "axios-cache-adapter";
 
 // -----------------------------------------------------------
 // -----------------------------------------------------------
@@ -147,13 +148,22 @@ export const useRubricatorState = () => {
       setCases([]);
       setSlicedContent([]);
       setSelectedCategory(categoryName);
-      axios
-        .get("https://lawrs.ru:8000/api/court-cases/", {
-          params: {
-            category: categoryName,
-          },
-        })
-        .then((r) => {
+
+      const cache = setupCache({ maxAge: 2 * 60 * 60 * 1000 })
+
+      const api = axios.create({
+        adapter: cache.adapter
+      })
+
+      // axios
+      //   .get("https://lawrs.ru:8000/api/court-cases/", {
+      //     adapter: cache.adapter,
+      //     category: categoryName,
+      //   })
+      api.get("https://lawrs.ru:8000/api/court-cases/", {
+        category: categoryName,
+      })
+        .then(async (r) => {
           const newCases = r.data.results;
 
           const filteredCases = newCases.filter((x) =>

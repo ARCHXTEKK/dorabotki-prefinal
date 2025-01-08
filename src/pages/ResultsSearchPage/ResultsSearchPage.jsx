@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useMetaParams } from "@vkontakte/vk-mini-apps-router";
 import { List } from "@vkontakte/vkui";
 import { useSearchResultsState } from "./useSearchResultsState";

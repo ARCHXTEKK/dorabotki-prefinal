@@ -27,7 +27,7 @@ export default function KeywordSearchPage() {
   const routeNavigator = useRouteNavigator();
 
   const handleSubmit = (word) => {
-    routeNavigator.push("/searchresults", {
+    routeNavigator.replace("/searchresults", {
       state: {
         caseText: word,
       },

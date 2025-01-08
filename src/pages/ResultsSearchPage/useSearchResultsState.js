@@ -1,9 +1,15 @@
 import axios from "axios";
 import { useEffect, useReducer, useState } from "react";
+import useDeepCompareEffect from "../../lib/hooks/useDeepCompareEffect";
 
 const caseTypes = ["решение", "приговор", "апелляционное постановление"];
 
 export const useSearchResultsState = (initFilters) => {
+
+  if (!initFilters) {
+    initFilters = {}
+  }
+
   const [data, setData] = useState([]);
 
   const [filters, setFilters] = useState(initFilters);
@@ -61,20 +67,28 @@ export const useSearchResultsState = (initFilters) => {
     if (currentItems[0][page] && !forceNew) {
       setCurrentItems([currentItems[0], currentItems[0][page]]);
     } else {
+      let params = {}
+      if (filters.caseText) {
+        params.document_text = filters.caseText.charAt(0).toUpperCase() + filters.caseText.slice(1)
+      }
+      if (filters.caseNumber) {
+        params.case_number = filters.caseNumber
+      }
+      if (filters.court) {
+        params.court = filters.court
+      }
+      if (filters.judge) {
+        params.judge = filters.judge
+      }
+      if (filters.productionType) {
+        params.case_type = filters.productionType
+      }
+
+
       axios
         .post(
           `https://lawrs.ru:8000/api/count_cases_add/search?page=${page}&size=4`,
-          {
-            params: {
-              document_text: filters.caseText ? filters.caseText : "",
-              case_number: filters.caseNumber ? filters.caseNumber : "",
-              court: filters.court ? filters.court : "",
-              judge: filters.judge ? filters.judge : "",
-              case_type: filters.productionType
-                ? filters.productionType
-                : productionTypes,
-            },
-          }
+          params
         )
         .then((r) => {
           console.log(r.data.data);
@@ -86,10 +100,9 @@ export const useSearchResultsState = (initFilters) => {
     // setCurrentItems([currentItems[0], slicedContent(currentItems[0], page)]);
   };
 
-  // const slicedContent = (content, page) => {
+  /* const slicedContent = (content, page) => {
   //   return content.slice(4 * page, 4 * (page + 1));
   // };
-
   // useEffect(() => {
   //   setTotalPages(0);
   //   setCurrentPage(0);
@@ -125,33 +138,53 @@ export const useSearchResultsState = (initFilters) => {
   //         );
   //       });
   //   }
-  // }, [filters]);
+  // }, [filters]);*/
 
-  useEffect(() => {
+  /**
+   * deepCompare для того чтобы избежать лишнего вызова эффекта из за изменения ссылки на объект в зависимостях.
+  */
+  useDeepCompareEffect(() => {
+
     setTotalPages(1);
     setCurrentPage(1);
 
-    if (initFilters) {
+    setCurrentItems([currentItems[0], []])
+
+
+    if (Object.keys(initFilters).length !== 0) {
+
+      let params = {}
+      if (filters.caseText) {
+        params.document_text = filters.caseText.charAt(0).toUpperCase() + filters.caseText.slice(1)
+      }
+      if (filters.caseNumber) {
+        params.case_number = filters.caseNumber
+      }
+      if (filters.court) {
+        params.court = filters.court
+      }
+      if (filters.judge) {
+        params.judge = filters.judge
+      }
+      if (filters.productionType) {
+        params.case_type = filters.productionType.charAt(0).toUpperCase() + filters.productionType.slice(1)
+      }
+
       axios
         .post(
-          "https://lawrs.ru:8000/api/count_cases_add/search?page=1&size=1",
-          {
-            params: {
-              document_text: filters?.caseText ? filters.caseText : "",
-              case_type: productionTypes,
-            },
-            // case_number: filters?.caseNumber ? filters.caseNumber : "",
-            // court: filters?.court ? filters.court : "",
-            // judge: filters?.judge ? filters.judge : "",
-            // case_type: filters?.productionType ? filters.productionType : "",
-          }
+          "https://lawrs.ru:8000/api/count_cases_add/search?page=1&size=4",
+          params
+
         )
         .then((r) => {
           setTotalPages(Math.ceil(r.data.count / 4));
-          onPageChange(0, true);
+          let newCached = currentItems[0] ? [...currentItems[0]] : [];
+          newCached[1] = r.data.data;
+          setCurrentItems([newCached, r.data.data]);
         });
     }
-  }, [filters, initFilters, displayOptionsState]);
+
+  }, [initFilters, displayOptionsState]);
 
   const filterData = (options) => {
     setFilters((prev) => {
