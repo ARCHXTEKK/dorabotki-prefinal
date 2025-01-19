@@ -64,6 +64,9 @@ export const useSearchResultsState = (initFilters) => {
     page += 1;
     setCurrentPage(page);
 
+    setCurrentItems([currentItems[0], []])
+
+
     if (currentItems[0][page] && !forceNew) {
       setCurrentItems([currentItems[0], currentItems[0][page]]);
     } else {
@@ -91,7 +94,6 @@ export const useSearchResultsState = (initFilters) => {
           params
         )
         .then((r) => {
-          console.log(r.data.data);
           let newCached = currentItems[0] ? [...currentItems[0]] : [];
           newCached[page] = r.data.data;
           setCurrentItems([newCached, r.data.data]);
@@ -149,6 +151,7 @@ export const useSearchResultsState = (initFilters) => {
     setCurrentPage(1);
 
     setCurrentItems([currentItems[0], []])
+
 
 
     if (Object.keys(initFilters).length !== 0) {

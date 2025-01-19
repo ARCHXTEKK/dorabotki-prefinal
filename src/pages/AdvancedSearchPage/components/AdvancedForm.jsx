@@ -175,8 +175,8 @@ export default function AdvancedForm({ handleSubmit }) {
                       height: "33px",
                     }}
                     name="productionType"
-                    // onFocus={() => setSelectState(true)}
-                    // onBlur={() => setSelectState(false)}
+                  // onFocus={() => setSelectState(true)}
+                  // onBlur={() => setSelectState(false)}
                   >
                     {productionTypes.map((item, index) => (
                       <option key={index} value={index}>
@@ -316,8 +316,8 @@ export default function AdvancedForm({ handleSubmit }) {
                     color: "#5c5f6d",
                   }}
                   name="court"
-                  // onFocus={() => setSelectState2(true)}
-                  // onBlur={() => setSelectState2(false)}
+                // onFocus={() => setSelectState2(true)}
+                // onBlur={() => setSelectState2(false)}
                 >
                   {courts.map((item, index) => (
                     <option key={index} value={item}>
@@ -350,8 +350,8 @@ export default function AdvancedForm({ handleSubmit }) {
                     color: "#5c5f6d",
                   }}
                   name="judge"
-                  // onFocus={() => setSelectState3(true)}
-                  // onBlur={() => setSelectState3(false)}
+                // onFocus={() => setSelectState3(true)}
+                // onBlur={() => setSelectState3(false)}
                 >
                   {judges.map((item, index) => (
                     <option key={index} value={item}>
@@ -378,7 +378,7 @@ export default function AdvancedForm({ handleSubmit }) {
               style={{
                 display: "flex",
                 alignItems: "center",
-                height: "38px",
+                height: "35px",
               }}
             >
               <input
@@ -415,8 +415,8 @@ export default function AdvancedForm({ handleSubmit }) {
                     minWidth: "120px",
                     background: "transparent",
                   }}
-                  // onFocus={() => setSelectState4(true)}
-                  // onBlur={() => setSelectState4(false)}
+                // onFocus={() => setSelectState4(true)}
+                // onBlur={() => setSelectState4(false)}
                 >
                   {roles.map((option) => (
                     <option key={option} value={option}>

@@ -41,7 +41,7 @@ export const useAdvancedSearchState = () => {
   // };
 
   // Фетч данных
-  const timeout = 1000;
+  const timeout = 5000;
 
   useEffect(() => {
     if (state.judges.length === 0) {

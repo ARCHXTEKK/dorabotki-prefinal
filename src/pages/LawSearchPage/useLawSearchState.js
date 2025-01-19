@@ -20,7 +20,7 @@ export const useLawSearchState = () => {
   const [currentPage, setCurrentPage] = useState(0);
 
   const slicedContent = (cont, page) => {
-    return cont.slice(33 * page, 33 * (page + 1)).filter((x) => {
+    return cont.filter((x) => {
       if (
         displayOptionsState[0] &&
         displayOptionsState[1] & displayOptionsState[2]
@@ -35,8 +35,8 @@ export const useLawSearchState = () => {
       } else {
         return false;
       }
-    });
-  };
+    }).slice(21 * page, 21 * (page + 1))
+  }
 
   const filteredContent = (cont, searchQuery) => {
     if (cont?.length > 0 && searchQuery?.length > 0) {
@@ -153,7 +153,7 @@ export const useLawSearchState = () => {
   // ----------------------------- Пагинация ---------------------
 
   const [totalPages, setTotalPages] = useState(
-    Math.ceil(content.length / 33 + 1)
+    Math.ceil(content.length / 21 + 1)
   );
 
   const onPageChange = (page) => {
@@ -172,9 +172,9 @@ export const useLawSearchState = () => {
           .post("https://lawrs.ru:8000/api/count_cases_add/document_list")
           .then((r) => {
             setContent([r.data, slicedContent(r.data, currentPage)]);
-            setTotalPages(Math.ceil(r.data.length / 33));
+            setTotalPages(Math.ceil(r.data.length / 21));
             dispatch({ type: "laws-set", payload: r.data });
-            console.log(Math.ceil(r.data.length / 33));
+            console.log(Math.ceil(r.data.length / 21));
           });
       } catch (e) {
         console.error("Ошибка при получении данных useLawSearchState ", e);
