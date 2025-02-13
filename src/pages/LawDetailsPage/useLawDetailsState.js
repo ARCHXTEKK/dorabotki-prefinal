@@ -48,7 +48,7 @@ export const useLawDetailsState = (id) => {
     // if (id) {
     //   axios
     //     .post(
-    //       "https://lawrs.ru:8000/api/count_cases_add/get_document_court_list/" +
+    //       "https://lawrs.ru/legal_main/api/count_cases_add/get_document_court_list/" +
     //         id
     //     )
     //     .then((r) => {

@@ -49,7 +49,7 @@ export const useKeywordSearchState = () => {
     if (isKeywordsUnassigned) {
       try {
         axios
-          .post(`https://lawrs.ru:8000/api/count_cases_add/word`, {
+          .post(`https://lawrs.ru/legal_main/api/count_cases_add/word`, {
             word: true,
           })
           .then((response) => {
@@ -57,7 +57,7 @@ export const useKeywordSearchState = () => {
             setDataByLetter(response.data);
             dispatch({ type: "keywords-set", payload: response.data });
           });
-      } catch {}
+      } catch { }
     }
   }, []);
 

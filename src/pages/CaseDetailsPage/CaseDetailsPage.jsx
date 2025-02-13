@@ -27,7 +27,7 @@ export default function CaseDetailsPage() {
   const handleAi = () => {
     setShowModal(true);
     axios
-      .post(`https://lawrs.ru:8000/api/count_cases_add/text_add/${id}`)
+      .post(`https://lawrs.ru/legal_main/api/count_cases_add/text_add/${id}`)
       .then((r) => {
         setText(r.data.text);
       })

@@ -59,7 +59,7 @@ export const useRubricatorState = () => {
       const delayedRequest = setTimeout(() => {
         axios
           .post(
-            "https://lawrs.ru:8000/api/count_cases_add/filter_category_sections",
+            "https://lawrs.ru/legal_main/api/count_cases_add/filter_category_sections",
             {
               title: searchContent,
             }
@@ -156,11 +156,11 @@ export const useRubricatorState = () => {
       })
 
       // axios
-      //   .get("https://lawrs.ru:8000/api/court-cases/", {
+      //   .get("https://lawrs.ru/legal_main/api/court-cases/", {
       //     adapter: cache.adapter,
       //     category: categoryName,
       //   })
-      api.get("https://lawrs.ru:8000/api/court-cases/", {
+      api.get("https://lawrs.ru/legal_main/api/court-cases/", {
         category: categoryName,
       })
         .then(async (r) => {
@@ -206,7 +206,7 @@ export const useRubricatorState = () => {
         setSlicedContent([]);
         setSelectedCategory(subcategoryName);
         await axios
-          .get("https://lawrs.ru:8000/api/court-cases/", {
+          .get("https://lawrs.ru/legal_main/api/court-cases/", {
             params: {
               category: subcategoryName,
             },

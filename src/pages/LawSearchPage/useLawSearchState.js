@@ -169,7 +169,7 @@ export const useLawSearchState = () => {
     if (state.lawsData.length === 0) {
       try {
         axios
-          .post("https://lawrs.ru:8000/api/count_cases_add/document_list")
+          .post("https://lawrs.ru/legal_main/api/count_cases_add/document_list")
           .then((r) => {
             setContent([r.data, slicedContent(r.data, currentPage)]);
             setTotalPages(Math.ceil(r.data.length / 21));

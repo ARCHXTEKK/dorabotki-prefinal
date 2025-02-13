@@ -47,7 +47,7 @@ export const useAdvancedSearchState = () => {
     if (state.judges.length === 0) {
       axios
         .post(
-          "https://lawrs.ru:8000/api/count_cases_add/search",
+          "https://lawrs.ru/legal_main/api/count_cases_add/search",
           {
             params: {
               list_judge: true,
@@ -71,7 +71,7 @@ export const useAdvancedSearchState = () => {
     if (state.courts.length === 0) {
       axios
         .post(
-          "https://lawrs.ru:8000/api/count_cases_add/search",
+          "https://lawrs.ru/legal_main/api/count_cases_add/search",
           {
             params: {
               list_court: true,
@@ -95,7 +95,7 @@ export const useAdvancedSearchState = () => {
     if (productionTypes.length < 2) {
       axios
         .post(
-          "https://lawrs.ru:8000/api/count_cases_add/search",
+          "https://lawrs.ru/legal_main/api/count_cases_add/search",
           {
             params: {
               list_caseTypes: true,

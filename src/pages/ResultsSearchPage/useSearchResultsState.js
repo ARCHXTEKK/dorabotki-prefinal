@@ -90,7 +90,7 @@ export const useSearchResultsState = (initFilters) => {
 
       axios
         .post(
-          `https://lawrs.ru:8000/api/count_cases_add/search?page=${page}&size=4`,
+          `https://lawrs.ru/legal_main/api/count_cases_add/search?page=${page}&size=4`,
           params
         )
         .then((r) => {
@@ -113,7 +113,7 @@ export const useSearchResultsState = (initFilters) => {
   //     setCurrentItems([[], []]);
   //     axios
   //       .post(
-  //         "https://lawrs.ru:8000/api/count_cases_add/search?page=1&size=1",
+  //         "https://lawrs.ru/legal_main/api/count_cases_add/search?page=1&size=1",
   //         {
   //           document_text: filters?.caseText,
   //           case_number: filters?.caseNumber,
@@ -175,7 +175,7 @@ export const useSearchResultsState = (initFilters) => {
 
       axios
         .post(
-          "https://lawrs.ru:8000/api/count_cases_add/search?page=1&size=4",
+          "https://lawrs.ru/legal_main/api/count_cases_add/search?page=1&size=4",
           params
 
         )

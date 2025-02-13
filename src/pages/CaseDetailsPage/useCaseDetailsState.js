@@ -7,7 +7,7 @@ export const useCaseDetailsState = (id) => {
   useEffect(() => {
     if (id) {
       try {
-        axios.get(`https://lawrs.ru:8000/api/court-case/${id}`).then((r) => {
+        axios.get(`https://lawrs.ru/legal_main/api/court-case/${id}`).then((r) => {
           setCaseData(r.data);
           console.log(r);
         });

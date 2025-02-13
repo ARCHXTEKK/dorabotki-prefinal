@@ -35,7 +35,7 @@ export default function App() {
 
   useEffect(() => {
     axios
-      .get("https://lawrs.ru:8000/api/categories/?page=1", { adapter: cache.adapter })
+      .get("https://lawrs.ru/legal_main/api/categories/?page=1", { adapter: cache.adapter })
       .then((r) => {
         dispatch({ type: "categories-set", payload: r.data.results });
       })

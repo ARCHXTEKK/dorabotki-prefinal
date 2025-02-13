@@ -67,4 +67,4 @@ export const alphabetCategories = {
   Я: ["Ядерное право", "Ядерный договор", "Ядерный договор"],
 };
 
-export const apiBaseURL = "https://lawrs.ru:8000/api";
+export const apiBaseURL = "https://lawrs.ru/legal_main/api";

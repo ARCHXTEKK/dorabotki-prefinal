@@ -26,7 +26,7 @@ export default function WelcomePage() {
     if (pass) {
       bridge.send("VKWebAppGetLaunchParams").then((r) => {
         axios
-          .post("https://lawrs.ru:8000/api/count_cases_add/donut", {
+          .post("https://lawrs.ru/legal_main/api/count_cases_add/donut", {
             params: {
               user_id: r.vk_user_id,
             },
